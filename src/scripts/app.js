@@ -1,14 +1,12 @@
-'use strict';
-
 require('../styles/app.styl');
 
-var path = require('./path.js');
+const path = require('./path.js');
 
-var getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-var randomEmptyCell = (matrix) => {
-
-  var emptyCells = [];
+const randomEmptyCell = (matrix) => {
+  let emptyCells;
+  emptyCells = [];
 
   // Выбрали всё пустые ячейки
   for (let i = 0; i < matrix.length; i++) {
@@ -22,19 +20,16 @@ var randomEmptyCell = (matrix) => {
   if (!emptyCells[0]) {
     return false;
   }
-
-  let d = getRandomInt( 1, emptyCells.length ) - 1;
+  const d = getRandomInt(1, emptyCells.length) - 1;
 
   return {
     x: emptyCells[d].x,
-    y: emptyCells[d].y
+    y: emptyCells[d].y,
   };
-
 };
 
 class Board {
-
-  constructor (col = 9, row = 9) {
+  constructor(col = 9, row = 9) {
     this.columns = col;
     this.rows = row;
 
@@ -48,15 +43,10 @@ class Board {
       }
     }
   }
-
-  newBall ({x, y} = randomEmptyCell(this.matrix)) {
-
+  newBall( { x, y } = randomEmptyCell(this.matrix)) {
     this.matrix[x][y] = 1;
-
   }
-
-  teleport (oldX, oldY, newX, newY) {
-
+  teleport(oldX, oldY, newX, newY) {
     if (this.matrix[newX][newY] !== 0) {
       return false;
     }
@@ -65,11 +55,10 @@ class Board {
 
     this.matrix[oldX][oldY] = 0;
 
+    return true;
   }
-
-  transition (oldX, oldY, newX, newY) {
-
-    if (this.matrix[oldX][oldY] == 0) {
+  transition(oldX, oldY, newX, newY) {
+    if (this.matrix[oldX][oldY] === 0) {
       return false;
     }
 
@@ -77,7 +66,7 @@ class Board {
       return false;
     }
 
-    var localePath = path(this.matrix, oldX, oldY, newX, newY);
+    const localePath = path(this.matrix, oldX, oldY, newX, newY);
 
     if (!localePath) {
       return false;
@@ -86,21 +75,18 @@ class Board {
     for (let i = 0; i < localePath.length - 1; i++) {
       this.teleport(localePath[i].x, localePath[i].y, localePath[i + 1].x, localePath[i + 1].y);
     }
+
+    return true;
   }
-
-  render () {
-
+  render() {
     console.table(this.matrix);
-
   }
-
-  matrix () {
+  matrix() {
     return this.matrix;
   }
+}
 
-};
-
-var firstBoard = new Board();
+const firstBoard = new Board();
 
 // Просто для удобства
 for (let i = 0; i < 20; i++) {

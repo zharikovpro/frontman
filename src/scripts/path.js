@@ -1,6 +1,4 @@
-'use strict';
-
-var isset = (variables) => typeof variables !== 'undefined';
+const isset = (variables) => typeof variables !== 'undefined';
 
 module.exports = (sourceMatrix, startX, startY, finishX, finishY) => {
   /* Initialize start */
@@ -10,9 +8,8 @@ module.exports = (sourceMatrix, startX, startY, finishX, finishY) => {
   const badCell = -2;
   const goodCell = -3;
   const START_CELL = 0;
-  const finishCell = -1;
 
-  var matrix = new Array(MATRIX_WIDTH); // Новая матрица в которой будут проходить все изменения
+  const matrix = new Array(MATRIX_WIDTH); // Новая матрица в которой будут проходить все изменения
 
   for (let i = 0; i < MATRIX_WIDTH; i++) {
     matrix[i] = new Array(MATRIX_HEIGHT);
@@ -31,35 +28,34 @@ module.exports = (sourceMatrix, startX, startY, finishX, finishY) => {
   /* Initialize end */
   /* Wave propagation start */
 
-  if (matrix[startX][startY] == badCell || matrix[finishX][finishY] == badCell) {
+  if (matrix[startX][startY] === badCell || matrix[finishX][finishY] === badCell) {
     return false;
   }
 
-  var iter = 0;
-  var iterLimit = MATRIX_WIDTH * MATRIX_HEIGHT;
+  let iter = 0;
+  const iterLimit = MATRIX_WIDTH * MATRIX_HEIGHT;
 
   while (iter < iterLimit && matrix[finishX][finishY] !== goodCell) {
-
     for (let i = 0; i < MATRIX_WIDTH; i++) {
       for (let j = 0; j < MATRIX_HEIGHT; j++) {
         if (matrix[i][j] === iter) {
           if (isset(matrix[i + 1])) {
-            if (matrix[i + 1][j] == goodCell) {
+            if (matrix[i + 1][j] === goodCell) {
               matrix[i + 1][j] = iter + 1;
             }
           }
 
           if (isset(matrix[i - 1])) {
-            if (matrix[i - 1][j] == goodCell) {
+            if (matrix[i - 1][j] === goodCell) {
               matrix[i - 1][j] = iter + 1;
             }
           }
 
-          if (matrix[i][j + 1] == goodCell) {
+          if (matrix[i][j + 1] === goodCell) {
             matrix[i][j + 1] = iter + 1;
           }
 
-          if (matrix[i][j - 1] == goodCell) {
+          if (matrix[i][j - 1] === goodCell) {
             matrix[i][j - 1] = iter + 1;
           }
         }
@@ -76,28 +72,27 @@ module.exports = (sourceMatrix, startX, startY, finishX, finishY) => {
     return false;
   }
 
-  var d = matrix[finishX][finishY];
-  var resultPath = [];
-  var activeX = finishX;
-  var activeY = finishY;
+  let d = matrix[finishX][finishY];
+  let resultPath = [];
+  let activeX = finishX;
+  let activeY = finishY;
 
-  while (d == 0) {
-
-    if (isset( matrix[activeX + 1] )) {
+  while (d === 0) {
+    if (isset(matrix[activeX + 1])) {
       if (matrix[activeX + 1][activeY] === d - 1) {
         resultPath.push({
           x: activeX + 1,
-          y: activeY
+          y: activeY,
         });
         activeX++;
       }
     }
 
-    if (isset( matrix[activeX - 1] )) {
+    if (isset(matrix[activeX - 1])) {
       if (matrix[activeX - 1][activeY] === d - 1) {
         resultPath.push({
           x: activeX - 1,
-          y: activeY
+          y: activeY,
         });
         activeX = activeX - 1;
       }
@@ -106,7 +101,7 @@ module.exports = (sourceMatrix, startX, startY, finishX, finishY) => {
     if (matrix[activeX][activeY + 1] === d - 1) {
       resultPath.push({
         x: activeX,
-        y: activeY + 1
+        y: activeY + 1,
       });
       activeY = activeY + 1;
     }
@@ -114,7 +109,7 @@ module.exports = (sourceMatrix, startX, startY, finishX, finishY) => {
     if (matrix[activeX][activeY - 1] === d - 1) {
       resultPath.push({
         x: activeX,
-        y: activeY - 1
+        y: activeY - 1,
       });
       activeY = activeY - 1;
     }
@@ -126,12 +121,12 @@ module.exports = (sourceMatrix, startX, startY, finishX, finishY) => {
 
   resultPath.pop({
     x: startX,
-    y: startY
+    y: startY,
   });
 
   resultPath.push({
     x: finishX,
-    y: finishY
+    y: finishY,
   });
 
   return resultPath;
