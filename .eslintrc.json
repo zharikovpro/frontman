@@ -13,10 +13,5 @@
     "ecmaFeatures": {
       "jsx": true
     }
-  },
-
-  "rules": {
-    "semi": 2,
-    "quotes": ["error", "single"]
   }
 }
