@@ -1,8 +1,8 @@
 = extend('layouts/default');
 
 = content('title', 'append')
-    title Dice
+  title Dice
 
 = content('content', 'append')
-    .b-content
-        Content
+  .b-content
+    | Content
