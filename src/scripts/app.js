@@ -1,152 +1,6 @@
 'use strict';
 
-/*
-Helpers functions start
-*/
-
-var isset = (variables) => typeof variables !== "undefined";
-
-var path = (mainMatrix, startX, startY, finishX, finishY) => {
-  /* Initialize start */
-
-  const W = mainMatrix.length;
-  const H = mainMatrix[0].length;
-  const badCell = -2;
-  const goodCell = -3;
-  const startCell = 0;
-  const finishCell = -1;
-
-  var matrix = new Array(W); // Новая матрица в которой будут проходить все изменения
-
-  for (let i = 0; i < W; i++) {
-    matrix[i] = new Array(H);
-
-    for (let j = 0; j < matrix[i].length; j++) {
-      if (mainMatrix[i][j] === 0) {
-        matrix[i][j] = goodCell;
-      } else {
-        matrix[i][j] = badCell;
-      }
-    }
-  }
-
-  matrix[startX][startY] = startCell;
-
-  /* Initialize end */
-  /* Wave propagation start */
-
-  if (matrix[startX][startY] == -2 || matrix[finishX][finishY] == -2) {
-    return false;
-  }
-
-  var iter = 0;
-  var iterk = W * H;
-
-  while (iter < iterk) {
-
-    if (matrix[finishX][finishY] !== goodCell) {
-      break;
-    }
-
-    for (let i = 0; i < W; i++) {
-      for (let j = 0; j < H; j++) {
-        if (matrix[i][j] === iter) {
-          if (isset(matrix[i + 1])) {
-            if (matrix[i + 1][j] == goodCell) {
-              matrix[i + 1][j] = iter + 1;
-            }
-          }
-
-          if (isset(matrix[i - 1])) {
-            if (matrix[i - 1][j] == goodCell) {
-              matrix[i - 1][j] = iter + 1;
-            }
-          }
-
-          if (matrix[i][j + 1] == goodCell) {
-            matrix[i][j + 1] = iter + 1;
-          }
-
-          if (matrix[i][j - 1] == goodCell) {
-            matrix[i][j - 1] = iter + 1;
-          }
-        }
-      }
-    }
-
-    iter++;
-  }
-
-  /* Wave propagation end */
-  /* Восстановление пути start*/
-
-  if (matrix[finishX][finishY] === goodCell) {
-    return false;
-  }
-
-  var d = matrix[finishX][finishY];
-  var resultPath = [];
-  var activeX = finishX;
-  var activeY = finishY;
-
-  while (true) {
-
-    if (d == 0) {
-      break;
-    }
-
-    if (isset( matrix[activeX + 1] )) {
-      if (matrix[activeX + 1][activeY] === d - 1) {
-        resultPath.push({
-          x: activeX + 1,
-          y: activeY
-        });
-        activeX++;
-      }
-    }
-    if (isset( matrix[activeX - 1] )) {
-      if (matrix[activeX - 1][activeY] === d - 1) {
-        resultPath.push({
-          x: activeX - 1,
-          y: activeY
-        });
-        activeX = activeX - 1;
-      }
-    }
-    if (matrix[activeX][activeY + 1] === d - 1) {
-      resultPath.push({
-        x: activeX,
-        y: activeY + 1
-      });
-      activeY = activeY + 1;
-    }
-    if (matrix[activeX][activeY - 1] === d - 1) {
-      resultPath.push({
-        x: activeX,
-        y: activeY - 1
-      });
-      activeY = activeY - 1;
-    }
-
-    d--;
-  }
-
-  resultPath = resultPath.reverse();
-
-  resultPath.pop({
-    x: startX,
-    y: startY
-  });
-
-  resultPath.push({
-    x: finishX,
-    y: finishY
-  });
-
-  return resultPath.reverse();
-
-  /* Восстановление пути finish*/
-};
+var path = require('./path.js');
 
 var getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -154,12 +8,11 @@ var randomEmptyCell = (matrix) => {
 
   var emptyCells = [];
 
-
   // Выбрали всё пустые ячейки
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
       if (matrix[i][j] === 0) {
-        emptyCells.push({x: i, y: j});
+        emptyCells.push({ x: i, y: j });
       }
     }
   }
@@ -176,10 +29,6 @@ var randomEmptyCell = (matrix) => {
   }
 
 };
-
-/*
-Helpers functions end
-*/
 
 class Board {
 
