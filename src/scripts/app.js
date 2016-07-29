@@ -5,8 +5,7 @@ const path = require('./path.js');
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 const randomEmptyCell = (matrix) => {
-  let emptyCells;
-  emptyCells = [];
+  const emptyCells = [];
 
   // Выбрали всё пустые ячейки
   for (let i = 0; i < matrix.length; i++) {
@@ -43,9 +42,11 @@ class Board {
       }
     }
   }
-  newBall( { x, y } = randomEmptyCell(this.matrix)) {
+
+  newBall({ x, y } = randomEmptyCell(this.matrix)) {
     this.matrix[x][y] = 1;
   }
+
   teleport(oldX, oldY, newX, newY) {
     if (this.matrix[newX][newY] !== 0) {
       return false;
