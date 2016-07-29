@@ -1,8 +1,6 @@
-= extend('layouts/default');
+doctype html
+html
+	head
 
-= content('title', 'append')
-    title Dice
-
-= content('content', 'append')
-    .b-content
-        Content
+	body
+		p Это просто страница заглушка, которая мне нужна, что бы подключить скрипт
