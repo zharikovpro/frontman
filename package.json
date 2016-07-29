@@ -1,24 +1,24 @@
 {
   "name": "FrontMan",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.1.1",
+  "description": "Frontend project seed",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -r build",
-    "dev": "webpack-dev-server",
-    "build": "NODE_ENV=production webpack"
+    "start": "webpack-dev-server",
+    "build": "NODE_ENV=production webpack",
+    "clean": "rm -r build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zharikovpro/csgoroll_v2_markup.git"
+    "url": "git+https://github.com/zharikovpro/frontman.git"
   },
-  "author": "Govorov Nikolay",
-  "license": "ISC",
+  "author": "Andrey Zharikov & Nikolay Govorov",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zharikovpro/csgoroll_v2_markup/issues"
+    "url": "https://github.com/zharikovpro/frontman/issues"
   },
-  "homepage": "https://github.com/zharikovpro/csgoroll_v2_markup#readme",
+  "homepage": "https://github.com/zharikovpro/frontman#readme",
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "babel-core": "^6.10.4",

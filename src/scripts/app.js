@@ -1,5 +1,7 @@
 'use strict';
 
+require('../styles/app.styl');
+
 var path = require('./path.js');
 
 var getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;

@@ -59,6 +59,7 @@ var config = {
       NODE_EMV: JSON.stringify(NODE_ENV)
     }),
 
+    // TODO: iterate through all top-level files inside templates
     new HtmlWebpackPlugin({
       template: 'templates/index.slm',
       filename: 'index.html'

@@ -1,11 +1,4 @@
 .b-top-menu
-
-    img.b-top-menu__logo src="../images/logo.svg"
-
-    ul.b-top-menu-list
-        li.b-top-menu-list__item
-            a.b-link FIRST
-        li.b-top-menu-list__item
-            a.b-link.b-link--selected SECOND
-        li.b-top-menu-list__item
-            a.b-link THIRD
+  .b-logo
+    a href="https://www.zharikov.pro"
+      img src="../images/logo.svg"

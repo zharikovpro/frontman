@@ -1,4 +1,6 @@
 {
+  "extends": "airbnb",
+
   "env": {
     "mocha": true,
     "browser": true,
@@ -11,10 +13,5 @@
     "ecmaFeatures": {
       "jsx": true
     }
-  },
-
-  "rules": {
-    "semi": 2,
-    "quotes": ["error", "single"]
   }
 }

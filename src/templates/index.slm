@@ -1,7 +1,8 @@
-doctype html
-html
-	head
-		meta charset="utf-8"
+= extend('layouts/default');
 
-	body
-		p Это просто страница заглушка, которая мне нужна, что бы подключить скрипт
+= content('title', 'append')
+    title Dice
+
+= content('content', 'append')
+    .b-content
+        Content

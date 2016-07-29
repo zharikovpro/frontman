@@ -1,18 +1,17 @@
 doctype html
 html
-    head
+  head
 
-        = content('title', 'default')
-            title CSGO:Roll
+    title Zharikov's Web Frontend Seed Project
 
-        = partial('../components/head')
+    = partial('../components/head')
 
-    body.b-default-layout
+  body.b-default-layout
 
-        .b-default-layout__menu = partial('../components/menu')
+    .b-default-layout__menu = partial('../components/menu')
 
-        .b-default-layout__content
+    .b-default-layout__content
 
-            .b-default-layout__main
-                = content('content', 'default')
-                    /! This is content!
+      .b-default-layout__main
+        = content('content', 'default')
+          /! This is content!
