@@ -1,0 +1,112 @@
+.b-dice-roller
+    width 100%
+    margin-bottom 68px
+
+    &__nav
+        width 100%
+        margin 0
+        height 50px
+        // background-color #f1f3f4
+        border-bottom 1px solid rgba(38, 47, 56, 0.1)
+        display flex
+        justify-content center
+        align-items center
+
+        .message--error &
+            display none
+
+    &__nav-item
+        font-size 13px
+        margin 0 20px
+
+        > i
+            margin-right 4px
+            font-size 14px
+
+    &__options
+        display block
+        width 688px
+        margin auto
+        margin-top 50px
+        transition all 0.8s
+
+        .mode-spray &
+            margin-top 92px !important
+
+    &__options-row
+        display flex
+        justify-content space-between
+        flex-direction row
+        margin-bottom 20px
+
+        &--center
+            align-items center
+
+            > *
+                margin 0 !important
+
+
+    &__options-col
+        display flex
+        flex-direction column
+
+    &__options-spray
+        position absolute
+        top 50px
+        display flex
+        width 688px
+        justify-content center
+        align-items center
+        overflow hidden
+
+        .b-dice-roller__options-row
+            transition all 0.8s
+            padding 8px 6px 10px 12px
+            border-bottom 1px solid rgb(225, 227, 229)
+            border-left 1px solid rgb(225, 227, 229)
+            border-right 1px solid rgb(225, 227, 229)
+            border-radius 0 0 2px 2px
+            position relative
+            top -50px
+
+
+        .b-label-p
+            margin 0 9px 0 0
+
+        input
+            width 44px
+            height 30px
+            color rgb(99, 113, 125)
+            font-size 16px
+            font-weight 700
+            line-height 22px
+            padding 4px 16px
+
+        .mode-spray & .b-dice-roller__options-row
+            top 0
+
+
+    &__options-strategy
+        display none
+
+        .mode-strategy &
+            display flex
+
+    &__speed-slider
+        width 689px !important
+        height 50px
+        border-radius 2px
+
+        .slider-track
+            width 97% !important
+            margin -5px 3% 0 1%
+
+    &__roll-button
+        width 688px
+        margin 0 auto
+        display flex
+        justify-content space-between
+        align-items center
+        padding 20px
+        border 1px solid rgba(38, 47, 56, 0.2)
+        border-radius 2px

@@ -1,0 +1,58 @@
+.b-link
+    display block
+    opacity 0.3
+    color #262f38
+    font-family $font-main
+    font-size 15px
+    letter-spacing 0.94px
+    line-height 20px
+    text-decoration none
+    font-weight bold
+    cursor pointer
+
+    &:hover
+        text-decoration none
+        opacity 1
+        color #1dd384
+
+    &:focus
+        text-decoration none
+
+    .active &
+    &--selected
+        color #262f38
+        opacity 1
+        font-weight 500
+
+    &--black
+        color #262f38
+        opacity 1 !important
+
+
+.b-link-button
+    display flex
+    float left
+    width 168px
+    height 34px
+    align-items center
+    justify-content center
+    color rgb(38, 47, 56)
+    font-family $font-main
+    font-size 15px
+    font-weight 400
+    letter-spacing 0.94px
+    line-height 20px
+
+    &:last-child()
+        float none
+
+    &--green
+        background-color rgb(29, 211, 132)
+        border 1px solid rgb(26, 196, 123)
+        border-radius 4px
+        box-shadow 0 1px 2px rgba(0, 0, 0, 0.1)
+        color white
+        font-size 14px
+        font-weight 700
+        letter-spacing 0.64px
+        line-height 19px

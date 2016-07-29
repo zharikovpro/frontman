@@ -1,0 +1,85 @@
+{
+  "_args": [
+    [
+      "slm-loader@^0.2.1",
+      "/Users/Jet/Documents/csgoroll/markup_v2"
+    ]
+  ],
+  "_from": "slm-loader@>=0.2.1 <0.3.0",
+  "_id": "slm-loader@0.2.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/slm-loader",
+  "_nodeVersion": "6.2.2",
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/slm-loader-0.2.1.tgz_1468886806966_0.6469068587757647"
+  },
+  "_npmUser": {
+    "email": "chnicola@gmail.com",
+    "name": "chrisnicola"
+  },
+  "_npmVersion": "3.9.5",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "slm-loader",
+    "raw": "slm-loader@^0.2.1",
+    "rawSpec": "^0.2.1",
+    "scope": null,
+    "spec": ">=0.2.1 <0.3.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "https://registry.npmjs.org/slm-loader/-/slm-loader-0.2.1.tgz",
+  "_shasum": "67a9156204da9207370eac1f4f9eaa8f5f964ec9",
+  "_shrinkwrap": null,
+  "_spec": "slm-loader@^0.2.1",
+  "_where": "/Users/Jet/Documents/csgoroll/markup_v2",
+  "author": {
+    "name": "Chris Nicola @chrismnicola"
+  },
+  "bugs": {
+    "url": "https://github.com/wealthbar/slm-loader/issues"
+  },
+  "dependencies": {
+    "loader-utils": "^0.2.15",
+    "slm": "^0.5.1",
+    "slm-markdown": "^1.0.0"
+  },
+  "description": "SLM/SLIM Template Loader for Webpack",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "67a9156204da9207370eac1f4f9eaa8f5f964ec9",
+    "tarball": "https://registry.npmjs.org/slm-loader/-/slm-loader-0.2.1.tgz"
+  },
+  "gitHead": "d0de507aa374c1366ed9262c55f1a3ebc66b865c",
+  "homepage": "https://github.com/wealthbar/slm-loader#readme",
+  "keywords": [
+    "webpack",
+    "slm",
+    "slim",
+    "loader"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "email": "chnicola@gmail.com",
+      "name": "chrisnicola"
+    }
+  ],
+  "name": "slm-loader",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wealthbar/slm-loader.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.2.1"
+}

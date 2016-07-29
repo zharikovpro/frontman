@@ -1,0 +1,46 @@
+.b-col-182px
+    width 182px
+
+// My grid built an LoastGrid
+@lost flexbox flex
+
+rupture.scale = 0 768px 992px 1200px
+rupture.scale-names = xs sm md lg
+rupture.enable-em-breakpoints = true
+
+$grids = 3 12 100
+$gutter = 0px
+
+.l-grid
+    display block
+    width 600px
+    margin 0
+    padding 0
+
+    // rows
+    &__row
+        margin 0
+        padding 0
+        lost-masonry-wrap flex $gutter
+
+    for i in $grids
+        for j in 1..i
+            &__cell--{j}-of-{i}
+                lost-masonry-column j/i $gutter flex
+
+        for j in 1..i
+            +at( lg )
+                &__cell--{j}-of-{i}-when-lg
+                    lost-masonry-column j/i $gutter flex
+
+            +at( md )
+                &__cell--{j}-of-{i}-when-md
+                    lost-masonry-column j/i $gutter flex
+
+            +at( sm )
+                &__cell--{j}-of-{i}-when-sm
+                    lost-masonry-column j/i $gutter flex
+
+            +at( xs )
+                &__cell--{j}-of-{i}-when-xs
+                    lost-masonry-column j/i $gutter flex

@@ -1,0 +1,109 @@
+.b-affiliates
+    padding 60px 20px 20px 20px
+
+    &__head
+        text-align center
+
+        button
+            margin 26px 5px
+            height 50px
+
+        input
+            height 51px
+
+    &__progress
+        width 100%
+        height 24px
+        border-radius 100px
+        margin 5px 0 13px 0
+        background-color #f1f3f4
+        border 1px solid rgba(38, 47, 56, 0.2)
+        box-shadow none
+
+        .progress-bar
+            border none
+            box-shadow none
+            background-image linear-gradient(270deg, rgb(0, 208, 167) 0%, rgb(206, 236, 36) 100%)
+
+    &__body
+        background-color white
+        box-shadow 0 -2px 6px rgba(0, 0, 0, 0.1)
+        width 100%
+        min-height 10px
+
+    &__title
+        text-align center
+        color rgb(38, 47, 56)
+        font-family $font-main
+        font-size 32px
+        font-weight 400
+        line-height 44px
+        margin-top 5px
+        margin-bottom 14px
+
+    &__text
+        color rgb(99, 113, 125)
+        font-family $font-maint
+        font-size 16px
+        font-weight 500
+        line-height 22px
+
+        &--little
+            font-family $font-main
+            font-size 12px
+            font-weight 300
+            line-height 16px
+
+    &__row
+        &--center
+            height 218px
+
+        &--bottom
+            margin-top 10px
+            border-top 1px solid $color-main-late
+
+    &__col
+        display flex
+        flex-direction column
+        justify-content center
+        align-items center
+        padding 19px 14px
+
+        &--top
+
+            min-height 156px
+            text-align center
+            border-left 1px solid $color-main-late
+            border-bottom 1px solid $color-main-late
+
+            &.active
+                border-bottom none
+
+            button
+                margin-top 13px
+                width 100%
+                height 34px
+
+        &--center
+
+            display flex
+            flex-direction column
+            justify-content center
+            align-items center
+            height 100%
+
+        &--bottom
+
+            border-left 1px solid $color-main-late
+            min-height 325px !important
+            justify-content flex-start
+            padding-top 18px
+
+            .b-affiliates__title
+                margin-top 0 !important
+
+            .b-list
+                padding 0 0 0 30px
+
+            .b-list__item
+                margin-bottom 18px

@@ -1,0 +1,8 @@
+= extend('layouts/default');
+
+= content('title', 'append')
+    title Dice
+
+= content('content', 'append')
+    .b-content
+        Content

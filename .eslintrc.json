@@ -1,0 +1,20 @@
+{
+  "env": {
+    "mocha": true,
+    "browser": true,
+    "jquery": true
+  },
+
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+
+  "rules": {
+    "semi": 2,
+    "quotes": ["error", "single"]
+  }
+}

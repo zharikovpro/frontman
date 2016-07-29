@@ -1,0 +1,18 @@
+doctype html
+html
+    head
+
+        = content('title', 'default')
+            title CSGO:Roll
+
+        = partial('../components/head')
+
+    body.b-default-layout
+
+        .b-default-layout__menu = partial('../components/menu')
+
+        .b-default-layout__content
+
+            .b-default-layout__main
+                = content('content', 'default')
+                    /! This is content!
