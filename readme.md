@@ -1,9 +1,21 @@
-Установить зависимости
-    
-    npm i
-    
-Запустить
-        
-    npm run dev
-    
-Результат сборки доступен по [адресу](http://localhost:8080/). Так же работает live-reload.
+Install:
+--------
+
+`npm install`
+
+Develop:
+--------
+
+`npm start`
+
+Visit [http://localhost:8080/](http://localhost:8080/) to view results with live reloading.
+
+Build:
+------
+
+`npm run build`
+
+TODO: Deploy:
+-------------
+
+`npm run deploy`

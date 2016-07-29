@@ -1,7 +1,7 @@
 .b-top-menu
   ul.b-top-menu-list
     li.b-top-menu-list__item
-      img.b-top-menu__logo src="../images/logo.svg"
+      img.b-logo src="../images/logo.svg"
     li.b-top-menu-list__item
       a.b-link.b-link--selected CURRENT
     li.b-top-menu-list__item

@@ -2,8 +2,7 @@ doctype html
 html
   head
 
-    = content('title', 'default')
-      title CSGO:Roll
+    title Zharikov's Web Frontend Seed Project
 
     = partial('../components/head')
 
