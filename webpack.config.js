@@ -60,43 +60,8 @@ var config = {
     }),
 
     new HtmlWebpackPlugin({
-      template: 'templates/dice.slm',
+      template: 'templates/index.slm',
       filename: 'index.html'
-    }),
-
-    new HtmlWebpackPlugin({
-      template: 'templates/booster.slm',
-      filename: 'booster.html'
-    }),
-
-    new HtmlWebpackPlugin({
-      template: 'templates/affiliates.slm',
-      filename: 'affiliates.html'
-    }),
-
-    new HtmlWebpackPlugin({
-      template: 'templates/deposit.slm',
-      filename: 'deposit.html'
-    }),
-
-    new HtmlWebpackPlugin({
-      template: 'templates/error_404.slm',
-      filename: 'error_404.html'
-    }),
-
-    new HtmlWebpackPlugin({
-      template: 'templates/ui_kit.slm',
-      filename: 'ui_kit.html'
-    }),
-
-    new HtmlWebpackPlugin({
-      template: 'templates/under_maintenance.slm',
-      filename: 'under_maintenance.html'
-    }),
-
-    new HtmlWebpackPlugin({
-      template: 'templates/withdraw.slm',
-      filename: 'withdraw.html'
     })
   ],
 

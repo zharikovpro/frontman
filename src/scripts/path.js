@@ -1,6 +1,6 @@
 'use strict';
 
-var isset = (variables) => typeof variables !== "undefined";
+var isset = (variables) => typeof variables !== 'undefined';
 
 module.exports = (sourceMatrix, startX, startY, finishX, finishY) => {
   /* Initialize start */

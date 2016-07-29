@@ -26,7 +26,7 @@ var randomEmptyCell = (matrix) => {
   return {
     x: emptyCells[d].x,
     y: emptyCells[d].y
-  }
+  };
 
 };
 
