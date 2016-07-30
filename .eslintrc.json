@@ -7,6 +7,10 @@
     "jquery": true
   },
 
+  "globals": {
+    "NODE_ENV": true
+  },
+
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
