@@ -4,7 +4,7 @@ const isset = (variables) => typeof variables !== 'undefined';
  * Find the shortest path in the matrix
  *
  * @author Govorov Nikolay
- * 
+ *
  * @param {array} sourceMatrix The original matrix to be given to the search path
  * @param {number} startX The x coordinate of the start of the path
  * @param {number} startY The y coordinate of the start of the path

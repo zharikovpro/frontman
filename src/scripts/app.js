@@ -86,7 +86,9 @@ class Board {
     return this.matrix;
   }
 }
-
-module.exports = {
-  Board, path,
-};
+if (NODE_ENV === 'development') {
+  module.exports = {
+    Board,
+    path,
+  };
+}
