@@ -14,9 +14,8 @@ const randomEmptyCell = (matrix) => {
     }
   }
 
-  if (!emptyCells[0]) {
-    return false;
-  }
+  if (!emptyCells[0]) return false;
+
   const d = getRandomInt(1, emptyCells.length) - 1;
 
   return {
@@ -41,35 +40,30 @@ class Board {
     }
   }
 
-  newBall({ x, y } = randomEmptyCell(this.matrix)) {
+  deleteBall(x, y) {
+    this.matrix[x][y] = 0;
+  }
+
+  createBall({ x, y } = randomEmptyCell(this.matrix)) {
     this.matrix[x][y] = 1;
   }
 
   teleport(oldX, oldY, newX, newY) {
-    if (this.matrix[newX][newY] !== 0) {
-      return false;
-    }
-
     this.matrix[newX][newY] = this.matrix[oldX][oldY];
 
     this.matrix[oldX][oldY] = 0;
 
     return true;
   }
-  transition(oldX, oldY, newX, newY) {
-    if (this.matrix[oldX][oldY] === 0) {
-      return false;
-    }
 
-    if (this.matrix[newX][newY] !== 0) {
-      return false;
-    }
+  transition(oldX, oldY, newX, newY) {
+    if (this.matrix[oldX][oldY] === 0) return false;
+
+    if (this.matrix[newX][newY] !== 0) return false;
 
     const localePath = path(this.matrix, oldX, oldY, newX, newY);
 
-    if (!localePath) {
-      return false;
-    }
+    if (typeof localePath !== 'object') return false;
 
     for (let i = 0; i < localePath.length - 1; i++) {
       this.teleport(localePath[i].x, localePath[i].y, localePath[i + 1].x, localePath[i + 1].y);
@@ -77,11 +71,18 @@ class Board {
 
     return true;
   }
+
   render() {
-    console.table(this.matrix);
-  }
-  matrix() {
-    return this.matrix;
+    let str = '';
+
+    for (let i = 0; i < this.matrix.length; i++) {
+      for (let j = 0; j < this.matrix.length; j++) {
+        str += (this.matrix[i][j] === 0) ? '+ ' : '- ';
+      }
+      str += '\n';
+    }
+
+    console.log(str);
   }
 }
 
