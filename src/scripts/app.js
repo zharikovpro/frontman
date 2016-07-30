@@ -87,11 +87,6 @@ class Board {
   }
 }
 
-const firstBoard = new Board();
-
-// Просто для удобства
-for (let i = 0; i < 20; i++) {
-  firstBoard.newBall();
-}
-
-firstBoard.render();
+module.exports = {
+  Board, path,
+};

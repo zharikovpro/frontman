@@ -1,15 +1,26 @@
-const summ = (x, y) => x + y;
+'use strict';
+
+const assert = require('chai').assert;
 const path = require('../src/scripts/path.js');
 
-var assert = require('chai').assert;
-
 describe('Path', function() {
-  it('don`t path', () => {
+  it('no path', () => {
     assert.equal(path([
       [0, 0, 1, 0, 0],
       [0, 0, 1, 0, 0],
       [0, 0, 1, 0, 0],
       [0, 0, 1, 0, 0]
-    ], 0, 0, 2, 2), false);
+    ], 0, 0, 3, 3), null);
+  });
+  it('there is one path', () => {
+    assert.deepEqual(path([
+      [0, 0, 0, 0, 0],
+      [1, 1, 1, 1, 0],
+      [0, 0, 0, 1, 0],
+      [0, 0, 0, 1, 0]
+    ], 0, 0, 0, 1), [
+      {x: 0, y: 0},
+      {x: 0, y: 1}
+    ]);
   });
 });

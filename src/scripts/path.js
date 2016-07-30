@@ -1,20 +1,41 @@
 const isset = (variables) => typeof variables !== 'undefined';
 
+/**
+ * Find the shortest path in the matrix
+ *
+ * @author Govorov Nikolay
+ * 
+ * @param {array} sourceMatrix The original matrix to be given to the search path
+ * @param {number} startX The x coordinate of the start of the path
+ * @param {number} startY The y coordinate of the start of the path
+ * @param {number} finishX The x coordinate of the finish of the path
+ * @param {number} finishY The y coordinate of the finish of the path
+ *
+ * @return {null} if no path
+ * @return {array} if there is path
+ * @return {string} if error
+ */
+
 module.exports = (sourceMatrix, startX, startY, finishX, finishY) => {
   /* Initialize start */
 
   const MATRIX_WIDTH = sourceMatrix.length;
   const MATRIX_HEIGHT = sourceMatrix[0].length;
-  const badCell = -2;
-  const goodCell = -3;
+  const PATHLESS_CELL = -2;
+  const PASSABLE_CELL = -3;
   const START_CELL = 0;
+  const FINISH_CELL = -1;
+  const AMOUNT_CELLS = MATRIX_WIDTH * MATRIX_HEIGHT;
 
   const matrix = sourceMatrix.map((row) => {
     const allRows = row.map(cell => {
       let temp;
 
-      if (cell === 0) temp = goodCell;
-      else temp = badCell;
+      if (cell === 0) {
+        temp = PASSABLE_CELL;
+      } else {
+        temp = PATHLESS_CELL;
+      }
 
       return temp;
     });
@@ -22,106 +43,112 @@ module.exports = (sourceMatrix, startX, startY, finishX, finishY) => {
     return allRows;
   });
 
+  if (!isset(matrix[startX][startY])) {
+    console.error('Incorrect coordinates of starting cell');
+    return 'error';
+  }
+
+  if (!isset(matrix[finishX][finishY])) {
+    console.error('Incorrect coordinates of finishing cell');
+    return 'error';
+  }
+
   matrix[startX][startY] = START_CELL;
+  matrix[finishX][finishY] = FINISH_CELL;
 
   /* Initialize end */
   /* Wave propagation start */
 
-  if (matrix[startX][startY] === badCell || matrix[finishX][finishY] === badCell) {
-    return false;
-  }
-
-  let iter = 0;
-  const iterLimit = MATRIX_WIDTH * MATRIX_HEIGHT;
-
-  while (iter < iterLimit && matrix[finishX][finishY] !== goodCell) {
+  for (let iter = 0; iter < AMOUNT_CELLS; iter++) {
     for (let i = 0; i < MATRIX_WIDTH; i++) {
       for (let j = 0; j < MATRIX_HEIGHT; j++) {
         if (matrix[i][j] === iter) {
           if (isset(matrix[i + 1])) {
-            if (matrix[i + 1][j] === goodCell) {
+            if (matrix[i + 1][j] === PASSABLE_CELL) {
               matrix[i + 1][j] = iter + 1;
+            }
+            if (matrix[i + 1][j] === FINISH_CELL) {
+              matrix[i + 1][j] = iter + 1;
+              break;
             }
           }
 
           if (isset(matrix[i - 1])) {
-            if (matrix[i - 1][j] === goodCell) {
+            if (matrix[i - 1][j] === PASSABLE_CELL) {
               matrix[i - 1][j] = iter + 1;
+            }
+            if (matrix[i - 1][j] === FINISH_CELL) {
+              matrix[i - 1][j] = iter + 1;
+              break;
             }
           }
 
-          if (matrix[i][j + 1] === goodCell) {
+          if (matrix[i][j + 1] === PASSABLE_CELL) {
             matrix[i][j + 1] = iter + 1;
           }
+          if (matrix[i][j + 1] === FINISH_CELL) {
+            matrix[i][j + 1] = iter + 1;
+            break;
+          }
 
-          if (matrix[i][j - 1] === goodCell) {
+          if (matrix[i][j - 1] === PASSABLE_CELL) {
             matrix[i][j - 1] = iter + 1;
+          }
+          if (matrix[i][j - 1] === FINISH_CELL) {
+            matrix[i][j - 1] = iter + 1;
+            break;
           }
         }
       }
+      if (matrix[finishX][finishY] !== FINISH_CELL) break;
     }
-
-    iter++;
+    if (matrix[finishX][finishY] !== FINISH_CELL) break;
   }
 
   /* Wave propagation end */
   /* Восстановление пути start*/
 
-  if (matrix[finishX][finishY] === goodCell) {
-    return false;
+  if (matrix[finishX][finishY] === FINISH_CELL) {
+    return null;
   }
 
-  let d = matrix[finishX][finishY];
   let resultPath = [];
   let activeX = finishX;
   let activeY = finishY;
 
-  while (d === 0) {
+  const addStep = (x, y) => {
+    resultPath.push({ x, y });
+  };
+
+  let step = matrix[finishX][finishY];
+  do {
     if (isset(matrix[activeX + 1])) {
-      if (matrix[activeX + 1][activeY] === d - 1) {
-        resultPath.push({
-          x: activeX + 1,
-          y: activeY,
-        });
+      if (matrix[activeX + 1][activeY] === step - 1) {
+        addStep(activeX + 1, activeY);
         activeX++;
       }
     }
 
     if (isset(matrix[activeX - 1])) {
-      if (matrix[activeX - 1][activeY] === d - 1) {
-        resultPath.push({
-          x: activeX - 1,
-          y: activeY,
-        });
+      if (matrix[activeX - 1][activeY] === step - 1) {
+        addStep(activeX - 1, activeY);
         activeX = activeX - 1;
       }
     }
 
-    if (matrix[activeX][activeY + 1] === d - 1) {
-      resultPath.push({
-        x: activeX,
-        y: activeY + 1,
-      });
+    if (matrix[activeX][activeY + 1] === step - 1) {
+      addStep(activeX, activeY + 1);
       activeY = activeY + 1;
     }
 
-    if (matrix[activeX][activeY - 1] === d - 1) {
-      resultPath.push({
-        x: activeX,
-        y: activeY - 1,
-      });
+    if (matrix[activeX][activeY - 1] === step - 1) {
+      addStep(activeX, activeY - 1);
       activeY = activeY - 1;
     }
-
-    d--;
-  }
+    step--;
+  } while (step >= 0);
 
   resultPath = resultPath.reverse();
-
-  resultPath.pop({
-    x: startX,
-    y: startY,
-  });
 
   resultPath.push({
     x: finishX,

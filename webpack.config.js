@@ -85,6 +85,7 @@ var config = {
 // https://webpack.github.io/docs/webpack-dev-server.html#inline-mode-with-node-js-api
 if (NODE_ENV == 'development') {
   config.entry.unshift('webpack-dev-server/client?http://localhost:8080/');
+  config.output.library = 'bundle';
 } else if (NODE_ENV == 'production') {
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
