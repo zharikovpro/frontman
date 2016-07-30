@@ -9,19 +9,18 @@ module.exports = (sourceMatrix, startX, startY, finishX, finishY) => {
   const goodCell = -3;
   const START_CELL = 0;
 
-  const matrix = new Array(MATRIX_WIDTH); // Новая матрица в которой будут проходить все изменения
+  const matrix = sourceMatrix.map((row) => {
+    const allRows = row.map(cell => {
+      let temp;
 
-  for (let i = 0; i < MATRIX_WIDTH; i++) {
-    matrix[i] = new Array(MATRIX_HEIGHT);
+      if (cell === 0) temp = goodCell;
+      else temp = badCell;
 
-    for (let j = 0; j < matrix[i].length; j++) {
-      if (sourceMatrix[i][j] === 0) {
-        matrix[i][j] = goodCell;
-      } else {
-        matrix[i][j] = badCell;
-      }
-    }
-  }
+      return temp;
+    });
+
+    return allRows;
+  });
 
   matrix[startX][startY] = START_CELL;
 
