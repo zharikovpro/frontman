@@ -56,7 +56,7 @@ var config = {
     new webpack.NoErrorsPlugin(),
 
     new webpack.DefinePlugin({
-      NODE_EMV: JSON.stringify(NODE_ENV)
+      NODE_ENV: JSON.stringify(NODE_ENV)
     }),
 
     // TODO: iterate through all top-level files inside templates
