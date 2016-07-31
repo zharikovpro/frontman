@@ -1,7 +1,29 @@
 const assert = require('chai').assert;
 const path = require('../src/scripts/path.js');
 
-const generatePath = (drawing) => {
+describe('Path', () => {
+  it('no path', () => {
+    let temp = generatePath(`
+| A |   | x |   |   |,
+|   |   | x |   |   |,
+|   |   | x |   |   |,
+|   |   | x | B |   |`);
+
+    assert.equal(temp, null);
+  });
+
+  it('there is one path', () => {
+    let p = generatePath(`
+| A |   |   |   |   |,
+| x | x | x | x |   |,
+|   |   |   | x |   |,
+|   |   |   | x | B |`);
+
+    assert.deepEqual(p, [ {x: 0, y: 0}, {x: 0, y: 1}, {x: 0, y: 2}, {x: 0, y: 3}, {x: 0, y: 4}, {x: 1, y: 4}, {x: 2, y: 4}, {x: 3, y: 4} ]);
+  });
+});
+
+function generatePath (drawing) {
   var matrixString = "";
 
   for (let i = 0; i < drawing.length; i++) {
@@ -41,25 +63,3 @@ const generatePath = (drawing) => {
 
   return path(matrix, startX, startY, finishX, finishY);
 };
-
-describe('Path', function() {
-  it('no path', () => {
-    let temp = generatePath(`
-| A |   | x |   |   |,
-|   |   | x |   |   |,
-|   |   | x |   |   |,
-|   |   | x | B |   |`);
-
-    assert.equal(temp, null);
-  });
-
-  it('there is one path', () => {
-    let p = generatePath(`
-| A | B |   |   |   |,
-| x | x | x | x |   |,
-|   |   |   | x |   |,
-|   |   |   | x |   |`);
-
-    assert.deepEqual(p, [ {x: 0, y: 0}, {x: 0, y: 1} ]);
-  });
-});
