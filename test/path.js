@@ -1,26 +1,65 @@
-'use strict';
-
 const assert = require('chai').assert;
 const path = require('../src/scripts/path.js');
 
+const generatePath = (drawing) => {
+  var matrixString = "";
+
+  for (let i = 0; i < drawing.length; i++) {
+    if (drawing[i] !== '\n') {
+      matrixString += drawing[i];
+    }
+  }
+
+  let startX = null;
+  let startY = null;
+  let finishX = null;
+  let finishY = null;
+
+  let matrix = matrixString.split(',').map(row => {
+    return row.substr(1, (row.length - 2)).split('|').map((cell) => {
+      let el = cell.substr(1, 1);
+
+      return (el === 'A') ? 'A' : (el === 'B') ? 'B' : (el === ' ') ? 0 : (el === 'x') ? 1 : null;
+    });
+  });
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      if (matrix[i][j] === 'A') {
+        matrix[i][j] = 0;
+        startX = i;
+        startY = j;
+      } else if (matrix[i][j] === 'B') {
+        matrix[i][j] = 0;
+        finishX = i;
+        finishY = j;
+      }
+      if (startX && startY && finishX && finishY) break;
+    }
+    if (startX && startY && finishX && finishY) break;
+  }
+
+  return path(matrix, startX, startY, finishX, finishY);
+};
+
 describe('Path', function() {
   it('no path', () => {
-    assert.equal(path([
-      [0, 0, 1, 0, 0],
-      [0, 0, 1, 0, 0],
-      [0, 0, 1, 0, 0],
-      [0, 0, 1, 0, 0]
-    ], 0, 0, 3, 3), null);
+    let temp = generatePath(`
+| A |   | x |   |   |,
+|   |   | x |   |   |,
+|   |   | x |   |   |,
+|   |   | x | B |   |`);
+
+    assert.equal(temp, null);
   });
+
   it('there is one path', () => {
-    assert.deepEqual(path([
-      [0, 0, 0, 0, 0],
-      [1, 1, 1, 1, 0],
-      [0, 0, 0, 1, 0],
-      [0, 0, 0, 1, 0]
-    ], 0, 0, 0, 1), [
-      {x: 0, y: 0},
-      {x: 0, y: 1}
-    ]);
+    let p = generatePath(`
+| A | B |   |   |   |,
+| x | x | x | x |   |,
+|   |   |   | x |   |,
+|   |   |   | x |   |`);
+
+    assert.deepEqual(p, [ {x: 0, y: 0}, {x: 0, y: 1} ]);
   });
 });
