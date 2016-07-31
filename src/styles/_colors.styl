@@ -1,0 +1,18 @@
+$color-primary = #00BFFF // Deep Sky Blue
+
+$color-secondary = complement($color-primary)
+
+$color-complementary-light = spin($color-secondary, 30deg)
+$color-complementary-strong = spin($color-secondary, -30deg)
+
+.color-primary
+  color $color-primary
+
+.color-secondary
+  color $color-secondary
+
+.color-complementary-light
+  color $color-complementary-light
+
+.color-complementary-strong
+  color $color-complementary-strong

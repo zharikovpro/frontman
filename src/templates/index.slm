@@ -5,4 +5,10 @@
 
 = content('content', 'append')
   .b-content
-    | Content
+    h1.color-primary Primary
+
+    h1.color-secondary Secondary
+
+    h1.color-complementary-light Complementary Light
+
+    h1.color-complementary-strong Complementary Strong
