@@ -19,3 +19,11 @@ TODO: Deploy:
 -------------
 
 `npm run deploy`
+
+
+Debug in WebStorm
+-----------------
+
+1. Install google chrome [plugin](https://chrome.google.com/webstore/detail/jetbrains-ide-support/hmhgeddbohgjknpmjagkdomcpobmllji?utm_campaign=en&utm_source=en-et-na-us-oc-webstrapp&utm_medium=et)
+2. Start developer mod.
+3. Go to localhost:8080, right-click and select "Inspect in WebStorm" context menu item
