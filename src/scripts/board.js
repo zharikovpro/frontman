@@ -18,10 +18,10 @@ const randomEmptyCell = (matrix) => {
 
   const d = getRandomInt(1, emptyCells.length) - 1;
 
-  return {
-    x: emptyCells[d].x,
-    y: emptyCells[d].y,
-  };
+  return [
+    emptyCells[d].x,
+    emptyCells[d].y,
+  ];
 };
 
 class Board {
@@ -44,7 +44,7 @@ class Board {
     this.matrix[x][y] = 0;
   }
 
-  createBall({ x, y } = randomEmptyCell(this.matrix)) {
+  createBall([x, y] = randomEmptyCell(this.matrix)) {
     this.matrix[x][y] = 1;
   }
 
