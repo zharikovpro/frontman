@@ -13,12 +13,15 @@ var poststylus = require('poststylus');
 var config = {
   context: path.join(__dirname, 'src'),
 
-  entry: ['./scripts/app.js'],
+  entry: {
+    app: ['./scripts/app.js'],
+    mocha: ['mocha!../test/path.js', 'mocha!../test/board.js']
+  },
 
   output: {
     path: path.join(__dirname, 'build/'),
     publicPath: '/',
-    filename: (NODE_ENV == 'development') ? "bundle.js" : "bundle-[hash].js"
+    filename: (NODE_ENV == 'development') ? "[name].js" : "[name]-[hash].js"
   },
 
   devtool: (NODE_ENV == 'development') ? 'inline-source-map' : null,
@@ -35,7 +38,7 @@ var config = {
     loaders: [{
         test: /\.js$/,
         exclude: [__dirname + '/node_modules'],
-        loader: 'babel!eslint'
+        loader: 'babel'
       }, {
         test: /\.styl$/,
         loader: 'style!css!stylus'
@@ -62,7 +65,14 @@ var config = {
     // TODO: iterate through all top-level files inside templates
     new HtmlWebpackPlugin({
       template: 'templates/index.slm',
-      filename: 'index.html'
+      filename: 'index.html',
+      chunks: ['app']
+    }),
+
+    new HtmlWebpackPlugin({
+      template: 'templates/mocha.slm',
+      filename: 'mocha.html',
+      chunks: ['mocha']
     })
   ],
 
@@ -84,7 +94,7 @@ var config = {
 // auto enable webpack-dev-server inline mode
 // https://webpack.github.io/docs/webpack-dev-server.html#inline-mode-with-node-js-api
 if (NODE_ENV == 'development') {
-  config.entry.unshift('webpack-dev-server/client?http://localhost:8080/');
+  config.entry.app.unshift('webpack-dev-server/client?http://localhost:8080/');
   config.output.library = 'bundle';
 } else if (NODE_ENV == 'production') {
   config.plugins.push(
