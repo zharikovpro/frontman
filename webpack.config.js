@@ -15,7 +15,7 @@ var config = {
 
   entry: {
     app: ['./scripts/app.js'],
-    mocha: (() => require('fs').readdirSync(__dirname + '/src/scripts/tests').map((file) => 'mocha!./scripts/tests/' + file))()
+    mocha: (() => require('fs').readdirSync(__dirname + '/src/tests').map((file) => 'mocha!./tests/' + file))()
   },
 
   output: {

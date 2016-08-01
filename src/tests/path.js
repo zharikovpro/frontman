@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const Path = require('../path.js');
+const Path = require('../scripts/path.js');
 
 const generatePath = (drawing) => {
   let matrixString = '';
