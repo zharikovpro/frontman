@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const Path = require('../src/scripts/path.js');
+const Path = require('../path.js');
 
 describe('Short path', () => {
   it('no path', () => {

@@ -10,12 +10,26 @@ var nib = require('nib');
 var rupture = require('rupture');
 var poststylus = require('poststylus');
 
+function getFiles (dir, files_){
+  files_ = files_ || [];
+  var files = fs.readdirSync(dir);
+  for (var i in files){
+    var name = dir + '/' + files[i];
+    if (fs.statSync(name).isDirectory()){
+      getFiles(name, files_);
+    } else {
+      files_.push(name);
+    }
+  }
+  return files_;
+}
+
 var config = {
   context: path.join(__dirname, 'src'),
 
   entry: {
     app: ['./scripts/app.js'],
-    mocha: ['mocha!../test/path.js', 'mocha!../test/board.js']
+    mocha: (() => require('fs').readdirSync(__dirname + '/src/scripts/tests').map((file) => 'mocha!./scripts/tests/' + file))()
   },
 
   output: {
