@@ -1,7 +1,7 @@
 const assert = require('chai').assert;
 const Path = require('../src/scripts/path.js');
 
-describe('Path', () => {
+describe('Short path', () => {
   it('no path', () => {
     let {matrix, startX, startY, finishX, finishY} = generatePath(`
 | A |   | x |   |   |,

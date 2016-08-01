@@ -26,6 +26,14 @@ const randomEmptyCell = (matrix) => {
 
 class Board {
   constructor(col = 9, row = 9) {
+    if (!col) {
+      throw new Error('Incorrect first argument!');
+    }
+
+    if (!row) {
+      throw new Error('Incorrect two argument!');
+    }
+
     this.columns = col;
     this.rows = row;
 
