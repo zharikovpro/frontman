@@ -10,20 +10,6 @@ var nib = require('nib');
 var rupture = require('rupture');
 var poststylus = require('poststylus');
 
-function getFiles (dir, files_){
-  files_ = files_ || [];
-  var files = fs.readdirSync(dir);
-  for (var i in files){
-    var name = dir + '/' + files[i];
-    if (fs.statSync(name).isDirectory()){
-      getFiles(name, files_);
-    } else {
-      files_.push(name);
-    }
-  }
-  return files_;
-}
-
 var config = {
   context: path.join(__dirname, 'src'),
 
@@ -52,7 +38,7 @@ var config = {
     loaders: [{
         test: /\.js$/,
         exclude: [__dirname + '/node_modules'],
-        loader: 'babel'
+        loader: 'babel!eslint'
       }, {
         test: /\.styl$/,
         loader: 'style!css!stylus'
