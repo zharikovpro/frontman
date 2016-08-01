@@ -61,7 +61,7 @@ class Board {
 
     if (this.matrix[newX][newY] !== 0) return false;
 
-    const path = new Path(this.matrix);
+    const path = new Path(this.matrix.map(row => row.map(cell => (!cell ? 1 : 0))));
 
     const localePath = path.short(oldX, oldY, newX, newY);
 

@@ -23,15 +23,10 @@ const generatePath = (drawing) => {
 
       let res;
 
-      if (el === 'A') {
-        res = 'A';
-      } else if (el === 'B') {
-        res = 'B';
-      } else if (el === ' ') {
-        res = 0;
-      } else if (el === 'x') {
-        res = 1;
-      }
+      if (el === 'A') res = 'A';
+      else if (el === 'B') res = 'B';
+      else if (el === ' ') res = 1;
+      else if (el === 'x') res = 0;
 
       return res;
     });
@@ -55,13 +50,7 @@ const generatePath = (drawing) => {
     if (startX && startY && finishX && finishY) break;
   }
 
-  return {
-    matrix,
-    startX,
-    startY,
-    finishX,
-    finishY,
-  };
+  return { matrix, startX, startY, finishX, finishY };
 };
 
 describe('Short path', () => {

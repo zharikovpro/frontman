@@ -7,24 +7,29 @@ class Path {
    *
    * @author Govorov Nikolay
    *
-   * @param {array} sourceMatrix The original matrix to be given to the search path
+   * @param {array} passabilityMatrix parameter accepts a two-dimensional matrix, bull type,
+   *                where true is the presence of the way, and the false is its absence.
+   *                Example: [ 1, 1, 1 ]
+   *                         [ 0, 0, 1 ]
+   *                         [ 1, 0, 1 ]
+   *
+   * @return the function returns nothing.
    */
 
-  constructor(sourceMatrix) {
-    if (typeof sourceMatrix !== 'object') {
+  constructor(passabilityMatrix) {
+    if (typeof passabilityMatrix !== 'object') {
       throw new Error('Incorrect matrix!');
     }
 
-    this.MATRIX_WIDTH = sourceMatrix.length;
-    this.MATRIX_HEIGHT = sourceMatrix[0].length;
-    this.PATHLESS_CELL = -2;
+    this.UNPASSABLE_CELL = -2;
+
     this.PASSABLE_CELL = -3;
     this.START_CELL = 0;
-    this.FINISH_CELL = -1;
-    this.AMOUNT_CELLS = this.MATRIX_WIDTH * this.MATRIX_HEIGHT;
 
-    this.matrix = sourceMatrix.map((row) => row.map(
-        cell => (cell === 0 ? this.PASSABLE_CELL : this.PATHLESS_CELL)
+    this.FINISH_CELL = -1;
+
+    this.matrix = passabilityMatrix.map(row => row.map(
+      cell => (cell ? this.PASSABLE_CELL : this.UNPASSABLE_CELL)
     ));
   }
 
@@ -40,9 +45,9 @@ class Path {
     this.matrix[startX][startY] = this.START_CELL;
     this.matrix[finishX][finishY] = this.FINISH_CELL;
 
-    for (let iter = 0; iter < this.AMOUNT_CELLS; iter++) {
-      for (let i = 0; i < this.MATRIX_WIDTH; i++) {
-        for (let j = 0; j < this.MATRIX_HEIGHT; j++) {
+    for (let iter = 0; iter < this.matrix.length * this.matrix[0].length; iter++) {
+      for (let i = 0; i < this.matrix.length; i++) {
+        for (let j = 0; j < this.matrix[0].length; j++) {
           if (this.matrix[i][j] === iter) {
             if (isset(this.matrix[i + 1])) {
               if (this.matrix[i + 1][j] === this.PASSABLE_CELL) {
