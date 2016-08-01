@@ -48,20 +48,12 @@ class Board {
     }
   }
 
-  deleteBall(x, y) {
-    this.matrix[x][y] = 0;
-  }
-
   createBall([x, y] = randomEmptyCell(this.matrix)) {
     this.matrix[x][y] = 1;
   }
 
-  teleport(oldX, oldY, newX, newY) {
-    this.matrix[newX][newY] = this.matrix[oldX][oldY];
-
-    this.matrix[oldX][oldY] = 0;
-
-    return true;
+  deleteBall(x, y) {
+    this.matrix[x][y] = 0;
   }
 
   transition(oldX, oldY, newX, newY) {
@@ -76,7 +68,10 @@ class Board {
     if (typeof localePath !== 'object') return false;
 
     for (let i = 0; i < localePath.length - 1; i++) {
-      this.teleport(localePath[i].x, localePath[i].y, localePath[i + 1].x, localePath[i + 1].y);
+      this.matrix[localePath[i + 1].x][localePath[i + 1].y] =
+        this.matrix[localePath[i].x][localePath[i].y];
+
+      this.matrix[localePath[i].x][localePath[i].y] = 0;
     }
 
     return true;
