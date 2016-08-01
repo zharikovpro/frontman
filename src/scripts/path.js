@@ -8,108 +8,85 @@ class Path {
    * @author Govorov Nikolay
    *
    * @param {array} sourceMatrix The original matrix to be given to the search path
-   * @param {number} startX The x coordinate of the start of the path
-   * @param {number} startY The y coordinate of the start of the path
-   * @param {number} finishX The x coordinate of the finish of the path
-   * @param {number} finishY The y coordinate of the finish of the path
-   *
-   * @return {null} if no path
-   * @return {array} if there is path
-   * @return {string} if error
    */
-  constructor(sourceMatrix, startX, startY, finishX, finishY) {
-    /* Initialize start */
 
-    const MATRIX_WIDTH = sourceMatrix.length;
-    const MATRIX_HEIGHT = sourceMatrix[0].length;
-    const PATHLESS_CELL = -2;
-    const PASSABLE_CELL = -3;
-    const START_CELL = 0;
-    const FINISH_CELL = -1;
-    const AMOUNT_CELLS = MATRIX_WIDTH * MATRIX_HEIGHT;
-
-    const matrix = sourceMatrix.map((row) => {
-      const allRows = row.map(cell => {
-        let temp;
-
-        if (cell === 0) {
-          temp = PASSABLE_CELL;
-        } else {
-          temp = PATHLESS_CELL;
-        }
-
-        return temp;
-      });
-
-      return allRows;
-    });
-
-    if (!isset(matrix[startX][startY])) {
-      console.error('Incorrect coordinates of starting cell');
-      return 'error';
+  constructor(sourceMatrix) {
+    if (typeof sourceMatrix !== 'object') {
+      throw new Error('Incorrect matrix!');
     }
 
-    if (!isset(matrix[finishX][finishY])) {
-      console.error('Incorrect coordinates of finishing cell');
-      return 'error';
+    this.MATRIX_WIDTH = sourceMatrix.length;
+    this.MATRIX_HEIGHT = sourceMatrix[0].length;
+    this.PATHLESS_CELL = -2;
+    this.PASSABLE_CELL = -3;
+    this.START_CELL = 0;
+    this.FINISH_CELL = -1;
+    this.AMOUNT_CELLS = this.MATRIX_WIDTH * this.MATRIX_HEIGHT;
+
+    this.matrix = sourceMatrix.map((row) => row.map(
+        cell => (cell === 0 ? this.PASSABLE_CELL : this.PATHLESS_CELL)
+    ));
+  }
+
+  short(startX, startY, finishX, finishY) {
+    if (!isset(this.matrix[startX][startY])) {
+      throw new Error('Incorrect coordinates of starting cell');
     }
 
-    matrix[startX][startY] = START_CELL;
-    matrix[finishX][finishY] = FINISH_CELL;
+    if (!isset(this.matrix[finishX][finishY])) {
+      throw new Error('Incorrect coordinates of finishing cell');
+    }
 
-    /* Initialize end */
-    /* Wave propagation start */
+    this.matrix[startX][startY] = this.START_CELL;
+    this.matrix[finishX][finishY] = this.FINISH_CELL;
 
-    for (let iter = 0; iter < AMOUNT_CELLS; iter++) {
-      for (let i = 0; i < MATRIX_WIDTH; i++) {
-        for (let j = 0; j < MATRIX_HEIGHT; j++) {
-          if (matrix[i][j] === iter) {
-            if (isset(matrix[i + 1])) {
-              if (matrix[i + 1][j] === PASSABLE_CELL) {
-                matrix[i + 1][j] = iter + 1;
+    for (let iter = 0; iter < this.AMOUNT_CELLS; iter++) {
+      for (let i = 0; i < this.MATRIX_WIDTH; i++) {
+        for (let j = 0; j < this.MATRIX_HEIGHT; j++) {
+          if (this.matrix[i][j] === iter) {
+            if (isset(this.matrix[i + 1])) {
+              if (this.matrix[i + 1][j] === this.PASSABLE_CELL) {
+                this.matrix[i + 1][j] = iter + 1;
               }
-              if (matrix[i + 1][j] === FINISH_CELL) {
-                matrix[i + 1][j] = iter + 1;
+              if (this.matrix[i + 1][j] === this.FINISH_CELL) {
+                this.matrix[i + 1][j] = iter + 1;
                 break;
               }
             }
 
-            if (isset(matrix[i - 1])) {
-              if (matrix[i - 1][j] === PASSABLE_CELL) {
-                matrix[i - 1][j] = iter + 1;
+            if (isset(this.matrix[i - 1])) {
+              if (this.matrix[i - 1][j] === this.PASSABLE_CELL) {
+                this.matrix[i - 1][j] = iter + 1;
               }
-              if (matrix[i - 1][j] === FINISH_CELL) {
-                matrix[i - 1][j] = iter + 1;
+              if (this.matrix[i - 1][j] === this.FINISH_CELL) {
+                this.matrix[i - 1][j] = iter + 1;
                 break;
               }
             }
 
-            if (matrix[i][j + 1] === PASSABLE_CELL) {
-              matrix[i][j + 1] = iter + 1;
+            if (this.matrix[i][j + 1] === this.PASSABLE_CELL) {
+              this.matrix[i][j + 1] = iter + 1;
             }
-            if (matrix[i][j + 1] === FINISH_CELL) {
-              matrix[i][j + 1] = iter + 1;
+            if (this.matrix[i][j + 1] === this.FINISH_CELL) {
+              this.matrix[i][j + 1] = iter + 1;
               break;
             }
 
-            if (matrix[i][j - 1] === PASSABLE_CELL) {
-              matrix[i][j - 1] = iter + 1;
+            if (this.matrix[i][j - 1] === this.PASSABLE_CELL) {
+              this.matrix[i][j - 1] = iter + 1;
             }
-            if (matrix[i][j - 1] === FINISH_CELL) {
-              matrix[i][j - 1] = iter + 1;
+            if (this.matrix[i][j - 1] === this.FINISH_CELL) {
+              this.matrix[i][j - 1] = iter + 1;
               break;
             }
           }
         }
-        if (matrix[finishX][finishY] !== FINISH_CELL) break;
+        if (this.matrix[finishX][finishY] !== this.FINISH_CELL) break;
       }
-      if (matrix[finishX][finishY] !== FINISH_CELL) break;
+      if (this.matrix[finishX][finishY] !== this.FINISH_CELL) break;
     }
 
-    /* Wave propagation end */
-    /* Восстановление пути start*/
-
-    if (matrix[finishX][finishY] === FINISH_CELL) {
+    if (this.matrix[finishX][finishY] === this.FINISH_CELL) {
       return null;
     }
 
@@ -121,40 +98,35 @@ class Path {
       resultPath.push({ x, y });
     };
 
-    let step = matrix[finishX][finishY];
-    do {
-      if (isset(matrix[activeX + 1])) {
-        if (matrix[activeX + 1][activeY] === step - 1) {
+    for (let step = this.matrix[finishX][finishY]; step >= 0; step--) {
+      if (isset(this.matrix[activeX + 1])) {
+        if (this.matrix[activeX + 1][activeY] === step - 1) {
           addStep(activeX + 1, activeY);
           activeX++;
         }
       }
 
-      if (isset(matrix[activeX - 1])) {
-        if (matrix[activeX - 1][activeY] === step - 1) {
+      if (isset(this.matrix[activeX - 1])) {
+        if (this.matrix[activeX - 1][activeY] === step - 1) {
           addStep(activeX - 1, activeY);
           activeX = activeX - 1;
         }
       }
 
-      if (matrix[activeX][activeY + 1] === step - 1) {
+      if (this.matrix[activeX][activeY + 1] === step - 1) {
         addStep(activeX, activeY + 1);
         activeY = activeY + 1;
       }
 
-      if (matrix[activeX][activeY - 1] === step - 1) {
+      if (this.matrix[activeX][activeY - 1] === step - 1) {
         addStep(activeX, activeY - 1);
         activeY = activeY - 1;
       }
-      step--;
-    } while (step >= 0);
+    }
 
     resultPath = resultPath.reverse();
 
-    resultPath.push({
-      x: finishX,
-      y: finishY,
-    });
+    addStep(finishX, finishY);
 
     return resultPath;
   }

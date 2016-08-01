@@ -1,4 +1,4 @@
-const path = require('./path.js');
+const Path = require('./path.js');
 
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -61,7 +61,9 @@ class Board {
 
     if (this.matrix[newX][newY] !== 0) return false;
 
-    const localePath = path(this.matrix, oldX, oldY, newX, newY);
+    const path = new Path(this.matrix);
+
+    const localePath = path.short(oldX, oldY, newX, newY);
 
     if (typeof localePath !== 'object') return false;
 
