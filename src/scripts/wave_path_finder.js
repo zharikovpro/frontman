@@ -93,55 +93,57 @@ class WavePathFinder {
             newX = x + 1;
             newY = y;
 
-            if (isset(this.waveMatrix[newX])) {
+            if (isset(this.waveMatrix[newX]) && isset(this.waveMatrix[newX][newY])) {
               if (this.waveMatrix[newX][newY] === this.PASSABLE_CELL) {
                 this.waveMatrix[newX][newY] = iter + 1;
               }
+
               if (this.waveMatrix[newX][newY] === this.FINISH_CELL) {
                 this.waveMatrix[newX][newY] = iter + 1;
-                break;
               }
             }
 
             newX = x - 1;
             newY = y;
 
-            if (isset(this.waveMatrix[newX])) {
+            if (isset(this.waveMatrix[newX]) && isset(this.waveMatrix[newX][newY])) {
               if (this.waveMatrix[newX][newY] === this.PASSABLE_CELL) {
                 this.waveMatrix[newX][newY] = iter + 1;
               }
+
               if (this.waveMatrix[newX][newY] === this.FINISH_CELL) {
                 this.waveMatrix[newX][newY] = iter + 1;
-                break;
               }
             }
 
             newX = x;
             newY = y + 1;
 
-            if (this.waveMatrix[newX][newY] === this.PASSABLE_CELL) {
-              this.waveMatrix[newX][newY] = iter + 1;
-            }
-            if (this.waveMatrix[newX][newY] === this.FINISH_CELL) {
-              this.waveMatrix[newX][newY] = iter + 1;
-              break;
+            if (isset(this.waveMatrix[newX]) && isset(this.waveMatrix[newX][newY])) {
+              if (this.waveMatrix[newX][newY] === this.PASSABLE_CELL) {
+                this.waveMatrix[newX][newY] = iter + 1;
+              }
+
+              if (this.waveMatrix[newX][newY] === this.FINISH_CELL) {
+                this.waveMatrix[newX][newY] = iter + 1;
+              }
             }
 
             newX = x;
             newY = y - 1;
 
-            if (this.waveMatrix[newX][newY] === this.PASSABLE_CELL) {
-              this.waveMatrix[newX][newY] = iter + 1;
-            }
-            if (this.waveMatrix[newX][newY] === this.FINISH_CELL) {
-              this.waveMatrix[newX][newY] = iter + 1;
-              break;
+            if (isset(this.waveMatrix[newX]) && isset(this.waveMatrix[newX][newY])) {
+              if (this.waveMatrix[newX][newY] === this.PASSABLE_CELL) {
+                this.waveMatrix[newX][newY] = iter + 1;
+              }
+
+              if (this.waveMatrix[newX][newY] === this.FINISH_CELL) {
+                this.waveMatrix[newX][newY] = iter + 1;
+              }
             }
           }
         }
-        if (this.waveMatrix[finishX][finishY] !== this.FINISH_CELL) break;
       }
-      if (this.waveMatrix[finishX][finishY] !== this.FINISH_CELL) break;
     }
   }
 
