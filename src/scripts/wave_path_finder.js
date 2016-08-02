@@ -10,8 +10,8 @@ class WavePathFinder {
   /**
    * Constructor requires passability matrix
    *
-   * @param {array} passabilityMatrix parameter accepts a two-dimensional boolean matrix
-   *                where true is passable cell, false is non-passable
+   * @param {array} passabilityMatrix - two-dimensional boolean array
+   *                true: passable cell, false: non-passable
    *                Example: [ 1, 1, 1 ]
    *                         [ 0, 0, 1 ]
    *                         [ 1, 0, 1 ]
