@@ -81,7 +81,7 @@ class WavePathFinder {
 
     this.resultPath = [];
 
-    this._initializeWaveMatrix(startX, startY, finishX, finishY);
+    this.initializeWaveMatrix(startX, startY, finishX, finishY);
 
     for (let iter = 0; iter < this.waveMatrix.length * this.waveMatrix[0].length; iter++) {
       for (let x = 0; x < this.waveMatrix.length; x++) {
@@ -193,7 +193,7 @@ class WavePathFinder {
     return this.resultPath;
   }
 
-  _initializeWaveMatrix(startX, startY, finishX, finishY) {
+  initializeWaveMatrix(startX, startY, finishX, finishY) {
     this.waveMatrix = this.passabilityMatrix.map(row => row.map(
       cell => (cell ? this.PASSABLE_CELL : this.UNPASSABLE_CELL)
     ));
