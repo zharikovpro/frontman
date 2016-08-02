@@ -2,7 +2,8 @@ const assert = require('chai').assert;
 const WavePathFinder = require('../scripts/wave_path_finder.js');
 
 const generateOptions = (drawing) => {
-  const extremePoints = {};
+  let start = {};
+  let finish = {};
 
   const resultPath = [];
 
@@ -23,13 +24,13 @@ const generateOptions = (drawing) => {
     for (let y = 0; y < matrix[x].length; y++) {
       switch (matrix[x][y]) {
         case 'A': {
-          extremePoints.start = { x, y };
+          start = { x, y };
 
           matrix[x][y] = 1;
           break;
         }
         case 'B': {
-          extremePoints.finish = { x, y };
+          finish = { x, y };
 
           matrix[x][y] = 1;
           break;
@@ -52,23 +53,23 @@ const generateOptions = (drawing) => {
 
   return {
     matrix,
-    startX: extremePoints.start.x,
-    startY: extremePoints.start.y,
-    finishX: extremePoints.finish.x,
-    finishY: extremePoints.finish.y,
+    startX: start.x,
+    startY: start.y,
+    finishX: finish.x,
+    finishY: finish.y,
     resultPath: (() => {
       if (Object.keys(resultPath).length === 0) return null;
 
       const result = [];
 
       resultPath[0] = {
-        x: extremePoints.start.x,
-        y: extremePoints.start.y,
+        x: start.x,
+        y: start.y,
       };
 
       resultPath[resultPath.length] = {
-        x: extremePoints.finish.x,
-        y: extremePoints.finish.y,
+        x: finish.x,
+        y: finish.y,
       };
 
       resultPath.forEach(el => {
