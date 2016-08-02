@@ -68,14 +68,6 @@ class WavePathFinder {
    */
 
   propagateWave(startX, startY, finishX, finishY) {
-    if (!isset(this.passabilityMatrix[startX][startY])) {
-      throw new Error('Incorrect coordinates of starting cell');
-    }
-
-    if (!isset(this.passabilityMatrix[finishX][finishY])) {
-      throw new Error('Incorrect coordinates of finishing cell');
-    }
-
     this.resultPath = [];
 
     this.waveMatrix = this.passabilityMatrix.map(row => row.slice().fill(this.UNVISITED_CELL));
