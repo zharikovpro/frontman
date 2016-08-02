@@ -29,10 +29,8 @@ class WavePathFinder {
       this.passabilityMatrix = passabilityMatrix.map(row => row.slice());
     }
 
-    this.UNPASSABLE_CELL = -2;
-    this.PASSABLE_CELL = -3;
-
     this.START_CELL = 0;
+    this.UNVISITED_CELL = -1;
   }
 
   /**
@@ -80,11 +78,12 @@ class WavePathFinder {
 
     this.resultPath = [];
 
-    this.initializeWaveMatrix(startX, startY);
+    this.waveMatrix = this.passabilityMatrix.map(row => row.slice().fill(this.UNVISITED_CELL));
+    this.waveMatrix[startX][startY] = this.START_CELL;
 
     const propagateWave = (newX, newY, step) => {
-      if (isset(this.waveMatrix[newX]) && isset(this.waveMatrix[newX][newY])) {
-        if (this.waveMatrix[newX][newY] === this.PASSABLE_CELL) {
+      if (this.passabilityMatrix[newX] && this.passabilityMatrix[newX][newY]) {
+        if (this.waveMatrix[newX][newY] === this.UNVISITED_CELL) {
           this.waveMatrix[newX][newY] = step + 1;
         }
       }
@@ -120,7 +119,7 @@ class WavePathFinder {
    */
 
   restorePath(finishX, finishY) {
-    if (this.waveMatrix[finishX][finishY] === this.PASSABLE_CELL) {
+    if (this.waveMatrix[finishX][finishY] === this.UNVISITED_CELL) {
       this.resultPath = null;
       return null;
     }
@@ -134,11 +133,16 @@ class WavePathFinder {
       this.resultPath.push({ x, y });
     };
 
+    addStep(finishX, finishY);
+
     for (let step = this.waveMatrix[finishX][finishY]; step >= 0; step--) {
       if (isset(this.waveMatrix[currentX + 1])) {
         if (this.waveMatrix[currentX + 1][currentY] === step - 1) {
           addStep(currentX + 1, currentY);
           currentX++;
+          if (step === 1) {
+            break;
+          }
         }
       }
 
@@ -146,33 +150,30 @@ class WavePathFinder {
         if (this.waveMatrix[currentX - 1][currentY] === step - 1) {
           addStep(currentX - 1, currentY);
           currentX = currentX - 1;
+          if (step === 1) {
+            break;
+          }
         }
       }
 
       if (this.waveMatrix[currentX][currentY + 1] === step - 1) {
         addStep(currentX, currentY + 1);
         currentY = currentY + 1;
+        if (step === 1) {
+          break;
+        }
       }
 
       if (this.waveMatrix[currentX][currentY - 1] === step - 1) {
         addStep(currentX, currentY - 1);
         currentY = currentY - 1;
+        if (step === 1) {
+          break;
+        }
       }
     }
 
-    this.resultPath = this.resultPath.reverse();
-
-    addStep(finishX, finishY);
-
-    return this.resultPath;
-  }
-
-  initializeWaveMatrix(startX, startY) {
-    this.waveMatrix = this.passabilityMatrix.map(row => row.map(
-      cell => (cell ? this.PASSABLE_CELL : this.UNPASSABLE_CELL)
-    ));
-
-    this.waveMatrix[startX][startY] = this.START_CELL;
+    return this.resultPath.reverse();
   }
 }
 
