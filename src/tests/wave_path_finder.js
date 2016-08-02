@@ -99,10 +99,10 @@ describe('WavePathFinder', () => {
 
       const path = new WavePathFinder(matrix);
 
-      assert.deepEqual(path.matrix, [[-3, -3, -2, -3, -3],
-                                     [-3, -3, -2, -3, -3],
-                                     [-3, -3, -2, -3, -3],
-                                     [-3, -3, -2, -3, -3]]);
+      assert.deepEqual(path.passabilityMatrix, [[1, 1, 0, 1, 1],
+                                                [1, 1, 0, 1, 1],
+                                                [1, 1, 0, 1, 1],
+                                                [1, 1, 0, 1, 1]]);
     });
   });
 
