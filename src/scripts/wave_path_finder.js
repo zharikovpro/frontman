@@ -1,11 +1,17 @@
 const isset = (variables) => typeof variables !== 'undefined';
 
+  /**
+   * This class is an implementation of the wave algorithm
+   * Wiki: (https://ru.wikipedia.org/wiki/Алгоритм_Ли)
+   *
+   * @author Andrey Zharikov & Nikolay Govorov
+   *
+   * */
+
 class WavePathFinder {
 
   /**
    * Find the shortest path in the matrix
-   *
-   * @author Govorov Nikolay
    *
    * @param {array} passabilityMatrix parameter accepts a two-dimensional boolean matrix
    *                where true is passable cell, false is unpassable
@@ -32,6 +38,21 @@ class WavePathFinder {
     ));
   }
 
+  /**
+   * The function is a wrapper over functions spreadWave and restorationPath.
+   *
+   * @param {number} startX
+   * @param {number} startY
+   * @param {number} finishX
+   * @param {number} finishY
+   *
+   * @return {array} If there is a way the function will return an array of objects with two fields (x and y),
+   *                 including the start and end points.
+   *                 Example: [ { x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 0, y: 3 },
+   *                            { x: 0, y: 4 }, { x: 1, y: 4 }, { x: 2, y: 4 }, { x: 3, y: 4 } ]
+   *                 If there is no way it will return null.
+   */
+
   findPath(startX, startY, finishX, finishY) {
     this.spreadWave(startX, startY, finishX, finishY);
 
@@ -39,6 +60,17 @@ class WavePathFinder {
 
     return this.resultPath;
   }
+
+  /**
+   * The function will start the wave. This is the second stage of the wave algorithm.
+   *
+   * @param {number} startX
+   * @param {number} startY
+   * @param {number} finishX
+   * @param {number} finishY
+   *
+   * @return {undefined}
+   */
 
   spreadWave(startX, startY, finishX, finishY) { // Распространение волны
     this.resultPath = [];
@@ -104,6 +136,20 @@ class WavePathFinder {
       if (this.matrix[finishX][finishY] !== this.FINISH_CELL) break;
     }
   }
+
+  /**
+   * This method will restore the path on the basis of waves from a point which came to zero.
+   * To execute this method after method spreadWave. This is the third step of the wave algorithm.
+   *
+   * @param {number} finishX
+   * @param {number} finishY
+   *
+   * @return {array} If there is a way the function will return an array of objects with two fields (x and y),
+   *                 including the start and end points.
+   *                 Example: [ { x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 0, y: 3 },
+   *                            { x: 0, y: 4 }, { x: 1, y: 4 }, { x: 2, y: 4 }, { x: 3, y: 4 } ]
+   *                 If there is no way it will return null.
+   */
 
   restorationPath(finishX, finishY) {
     if (this.matrix[finishX][finishY] === this.FINISH_CELL) {
