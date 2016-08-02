@@ -7,13 +7,13 @@ class Path {
    *
    * @author Govorov Nikolay
    *
-   * @param {array} passabilityMatrix parameter accepts a two-dimensional matrix, bull type,
-   *                where true is the presence of the way, and the false is its absence.
+   * @param {array} passabilityMatrix parameter accepts a two-dimensional boolean matrix
+   *                where true is passable cell, false is unpassable
    *                Example: [ 1, 1, 1 ]
    *                         [ 0, 0, 1 ]
    *                         [ 1, 0, 1 ]
    *
-   * @return the function returns nothing.
+   * @return {undefined}
    */
 
   constructor(passabilityMatrix) {
@@ -22,10 +22,9 @@ class Path {
     }
 
     this.UNPASSABLE_CELL = -2;
-
     this.PASSABLE_CELL = -3;
-    this.START_CELL = 0;
 
+    this.START_CELL = 0;
     this.FINISH_CELL = -1;
 
     this.matrix = passabilityMatrix.map(row => row.map(

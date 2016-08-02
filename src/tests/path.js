@@ -1,110 +1,119 @@
 const assert = require('chai').assert;
 const Path = require('../scripts/path.js');
 
-const generatePath = (drawing) => {
-  let matrixString = '';
+const generateOptions = (drawing) => {
+  const extremePoints = {};
+
+  const resultPath = [];
+
+  let tempStr;
+  tempStr = '';
 
   for (let i = 0; i < drawing.length; i++) {
-    if (drawing[i] !== '\n') {
-      matrixString += drawing[i];
+    if (drawing[i] !== ' ') {
+      tempStr += drawing[i];
     }
   }
 
-  let startX = null;
-  let startY = null;
-  let finishX = null;
-  let finishY = null;
+  const matrix = tempStr.split('\n');
 
-  const matrix = matrixString.split(',').map((row) => {
-    let rows = row.substr(1, (row.length - 2)).split('|');
+  for (let x = 0; x < matrix.length; x++) {
+    matrix[x] = matrix[x].substr(1, (matrix[x].length - 2)).split('|');
 
-    rows = rows.map((cell) => {
-      const el = cell.substr(1, 1);
+    for (let y = 0; y < matrix[x].length; y++) {
+      switch (matrix[x][y]) {
+        case 'A': {
+          extremePoints.start = { x, y };
 
-      let res;
+          matrix[x][y] = 1;
+          break;
+        }
+        case 'B': {
+          extremePoints.finish = { x, y };
 
-      if (el === 'A') res = 'A';
-      else if (el === 'B') res = 'B';
-      else if (el === ' ') res = 1;
-      else if (el === 'x') res = 0;
+          matrix[x][y] = 1;
+          break;
+        }
+        case '': matrix[x][y] = 1; break;
+        case 'x': matrix[x][y] = 0; break;
 
-      return res;
-    });
+        default: {
+          if (typeof +matrix[x][y] === 'number') {
+            const num = +matrix[x][y];
 
-    return rows;
-  });
+            resultPath[num] = { x, y };
 
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix[i].length; j++) {
-      if (matrix[i][j] === 'A') {
-        matrix[i][j] = 0;
-        startX = i;
-        startY = j;
-      } else if (matrix[i][j] === 'B') {
-        matrix[i][j] = 0;
-        finishX = i;
-        finishY = j;
+            matrix[x][y] = 1;
+          }
+        }
       }
-      if (startX && startY && finishX && finishY) break;
     }
-    if (startX && startY && finishX && finishY) break;
   }
 
-  return { matrix, startX, startY, finishX, finishY };
+  return {
+    matrix,
+    startX: extremePoints.start.x,
+    startY: extremePoints.start.y,
+    finishX: extremePoints.finish.x,
+    finishY: extremePoints.finish.y,
+    resultPath: (() => {
+      if (Object.keys(resultPath).length === 0) return null;
+
+      const result = [];
+
+      resultPath[0] = {
+        x: extremePoints.start.x,
+        y: extremePoints.start.y,
+      };
+
+      resultPath[resultPath.length] = {
+        x: extremePoints.finish.x,
+        y: extremePoints.finish.y,
+      };
+
+      resultPath.forEach(el => {
+        result.push({ x: el.x, y: el.y });
+      });
+
+      return result;
+    })(),
+  };
 };
 
 describe('Short path', () => {
   it('no path', () => {
-    const { matrix, startX, startY, finishX, finishY } = generatePath(`
-| A |   | x |   |   |,
-|   |   | x |   |   |,
-|   |   | x |   |   |,
-|   |   | x | B |   |`);
+    const { matrix, resultPath, startX, startY, finishX, finishY } =
+      generateOptions(`| A |   | x |   |   |
+                       |   |   | x |   |   |
+                       |   |   | x |   |   |
+                       |   |   | x | B |   |`);
 
     const path = new Path(matrix);
 
-    assert.equal(path.short(startX, startY, finishX, finishY), null);
+    assert.equal(path.short(startX, startY, finishX, finishY), resultPath);
   });
 
   it('there is one path', () => {
-    const { matrix, startX, startY, finishX, finishY } = generatePath(`
-| A |   |   |   |   |,
-| x | x | x | x |   |,
-|   |   |   | x |   |,
-|   |   |   | x | B |`);
+    const { matrix, resultPath, startX, startY, finishX, finishY } =
+      generateOptions(`| A | 1 | 2 | 3 | 4 |
+                       | x | x | x | x | 5 |
+                       | x |   |   | x | 6 |
+                       |   |   |   | x | B |`);
 
     const path = new Path(matrix);
 
-    assert.deepEqual(path.short(startX, startY, finishX, finishY), [
-      { x: 0, y: 0 },
-      { x: 0, y: 1 },
-      { x: 0, y: 2 },
-      { x: 0, y: 3 },
-      { x: 0, y: 4 },
-      { x: 1, y: 4 },
-      { x: 2, y: 4 },
-      { x: 3, y: 4 },
-    ]);
+    assert.deepEqual(path.short(startX, startY, finishX, finishY), resultPath);
   });
 
   it('there is one path', () => {
-    const { matrix, startX, startY, finishX, finishY } = generatePath(`
-| A |   | x |   |   |,
-| x |   |   | x |   |,
-|   | x |   |   | x |,
-|   |   | x |   | B |`);
+    const { matrix, resultPath, startX, startY, finishX, finishY }
+      = generateOptions(`| A | 1 | x |   |   |
+                         | x | 2 | 3 | x |   |
+                         |   | x | 4 | 5 | x |
+                         |   |   | x | 6 | B |`);
 
     const path = new Path(matrix);
 
-    assert.deepEqual(path.short(startX, startY, finishX, finishY), [
-      { x: 0, y: 0 },
-      { x: 0, y: 1 },
-      { x: 1, y: 1 },
-      { x: 1, y: 2 },
-      { x: 2, y: 2 },
-      { x: 2, y: 3 },
-      { x: 3, y: 3 },
-      { x: 3, y: 4 },
-    ]);
+    assert.deepEqual(path.short(startX, startY, finishX, finishY), resultPath);
   });
 });
