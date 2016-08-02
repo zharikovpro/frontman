@@ -99,7 +99,7 @@ describe('WavePathFinder', () => {
 
       const path = new WavePathFinder(matrix);
 
-      assert.deepEqual(path.matrix, [[-3, -3, -2, -3, -3],
+      assert.deepEqual(path.waveMatrix, [[-3, -3, -2, -3, -3],
                                      [-3, -3, -2, -3, -3],
                                      [-3, -3, -2, -3, -3],
                                      [-3, -3, -2, -3, -3]]);

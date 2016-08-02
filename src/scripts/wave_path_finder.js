@@ -33,7 +33,7 @@ class WavePathFinder {
     this.START_CELL = 0;
     this.FINISH_CELL = -1;
 
-    this.matrix = passabilityMatrix.map(row => row.map(
+    this.waveMatrix = passabilityMatrix.map(row => row.map(
       cell => (cell ? this.PASSABLE_CELL : this.UNPASSABLE_CELL)
     ));
   }
@@ -75,65 +75,65 @@ class WavePathFinder {
   propagateWave(startX, startY, finishX, finishY) {
     this.resultPath = [];
 
-    if (!isset(this.matrix[startX][startY])) {
+    if (!isset(this.waveMatrix[startX][startY])) {
       throw new Error('Incorrect coordinates of starting cell');
     }
 
-    if (!isset(this.matrix[finishX][finishY])) {
+    if (!isset(this.waveMatrix[finishX][finishY])) {
       throw new Error('Incorrect coordinates of finishing cell');
     }
 
-    this.matrix = this.matrix.map(row => row.map(
+    this.waveMatrix = this.waveMatrix.map(row => row.map(
       cell => ((cell === this.UNPASSABLE_CELL) ? this.UNPASSABLE_CELL : this.PASSABLE_CELL)
     ));
 
-    this.matrix[startX][startY] = this.START_CELL;
-    this.matrix[finishX][finishY] = this.FINISH_CELL;
+    this.waveMatrix[startX][startY] = this.START_CELL;
+    this.waveMatrix[finishX][finishY] = this.FINISH_CELL;
 
-    for (let iter = 0; iter < this.matrix.length * this.matrix[0].length; iter++) {
-      for (let x = 0; x < this.matrix.length; x++) {
-        for (let y = 0; y < this.matrix[0].length; y++) {
-          if (this.matrix[x][y] === iter) {
-            if (isset(this.matrix[x + 1])) {
-              if (this.matrix[x + 1][y] === this.PASSABLE_CELL) {
-                this.matrix[x + 1][y] = iter + 1;
+    for (let iter = 0; iter < this.waveMatrix.length * this.waveMatrix[0].length; iter++) {
+      for (let x = 0; x < this.waveMatrix.length; x++) {
+        for (let y = 0; y < this.waveMatrix[0].length; y++) {
+          if (this.waveMatrix[x][y] === iter) {
+            if (isset(this.waveMatrix[x + 1])) {
+              if (this.waveMatrix[x + 1][y] === this.PASSABLE_CELL) {
+                this.waveMatrix[x + 1][y] = iter + 1;
               }
-              if (this.matrix[x + 1][y] === this.FINISH_CELL) {
-                this.matrix[x + 1][y] = iter + 1;
+              if (this.waveMatrix[x + 1][y] === this.FINISH_CELL) {
+                this.waveMatrix[x + 1][y] = iter + 1;
                 break;
               }
             }
 
-            if (isset(this.matrix[x - 1])) {
-              if (this.matrix[x - 1][y] === this.PASSABLE_CELL) {
-                this.matrix[x - 1][y] = iter + 1;
+            if (isset(this.waveMatrix[x - 1])) {
+              if (this.waveMatrix[x - 1][y] === this.PASSABLE_CELL) {
+                this.waveMatrix[x - 1][y] = iter + 1;
               }
-              if (this.matrix[x - 1][y] === this.FINISH_CELL) {
-                this.matrix[x - 1][y] = iter + 1;
+              if (this.waveMatrix[x - 1][y] === this.FINISH_CELL) {
+                this.waveMatrix[x - 1][y] = iter + 1;
                 break;
               }
             }
 
-            if (this.matrix[x][y + 1] === this.PASSABLE_CELL) {
-              this.matrix[x][y + 1] = iter + 1;
+            if (this.waveMatrix[x][y + 1] === this.PASSABLE_CELL) {
+              this.waveMatrix[x][y + 1] = iter + 1;
             }
-            if (this.matrix[x][y + 1] === this.FINISH_CELL) {
-              this.matrix[x][y + 1] = iter + 1;
+            if (this.waveMatrix[x][y + 1] === this.FINISH_CELL) {
+              this.waveMatrix[x][y + 1] = iter + 1;
               break;
             }
 
-            if (this.matrix[x][y - 1] === this.PASSABLE_CELL) {
-              this.matrix[x][y - 1] = iter + 1;
+            if (this.waveMatrix[x][y - 1] === this.PASSABLE_CELL) {
+              this.waveMatrix[x][y - 1] = iter + 1;
             }
-            if (this.matrix[x][y - 1] === this.FINISH_CELL) {
-              this.matrix[x][y - 1] = iter + 1;
+            if (this.waveMatrix[x][y - 1] === this.FINISH_CELL) {
+              this.waveMatrix[x][y - 1] = iter + 1;
               break;
             }
           }
         }
-        if (this.matrix[finishX][finishY] !== this.FINISH_CELL) break;
+        if (this.waveMatrix[finishX][finishY] !== this.FINISH_CELL) break;
       }
-      if (this.matrix[finishX][finishY] !== this.FINISH_CELL) break;
+      if (this.waveMatrix[finishX][finishY] !== this.FINISH_CELL) break;
     }
   }
 
@@ -153,7 +153,7 @@ class WavePathFinder {
    */
 
   restorePath(finishX, finishY) {
-    if (this.matrix[finishX][finishY] === this.FINISH_CELL) {
+    if (this.waveMatrix[finishX][finishY] === this.FINISH_CELL) {
       this.resultPath = null;
       return null;
     }
@@ -167,27 +167,27 @@ class WavePathFinder {
       this.resultPath.push({ x, y });
     };
 
-    for (let step = this.matrix[finishX][finishY]; step >= 0; step--) {
-      if (isset(this.matrix[currentX + 1])) {
-        if (this.matrix[currentX + 1][currentY] === step - 1) {
+    for (let step = this.waveMatrix[finishX][finishY]; step >= 0; step--) {
+      if (isset(this.waveMatrix[currentX + 1])) {
+        if (this.waveMatrix[currentX + 1][currentY] === step - 1) {
           addStep(currentX + 1, currentY);
           currentX++;
         }
       }
 
-      if (isset(this.matrix[currentX - 1])) {
-        if (this.matrix[currentX - 1][currentY] === step - 1) {
+      if (isset(this.waveMatrix[currentX - 1])) {
+        if (this.waveMatrix[currentX - 1][currentY] === step - 1) {
           addStep(currentX - 1, currentY);
           currentX = currentX - 1;
         }
       }
 
-      if (this.matrix[currentX][currentY + 1] === step - 1) {
+      if (this.waveMatrix[currentX][currentY + 1] === step - 1) {
         addStep(currentX, currentY + 1);
         currentY = currentY + 1;
       }
 
-      if (this.matrix[currentX][currentY - 1] === step - 1) {
+      if (this.waveMatrix[currentX][currentY - 1] === step - 1) {
         addStep(currentX, currentY - 1);
         currentY = currentY - 1;
       }
