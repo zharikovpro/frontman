@@ -46,8 +46,8 @@ class WavePathFinder {
    * @param {number} finishX
    * @param {number} finishY
    *
-   * @return {array} If there is a way the function will return an array of objects with two fields (x and y),
-   *                 including the start and end points.
+   * @return {array} If there is a way the function will return an array of objects with
+   *                 two fields (x and y), including the start and end points.
    *                 Example: [ { x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 0, y: 3 },
    *                            { x: 0, y: 4 }, { x: 1, y: 4 }, { x: 2, y: 4 }, { x: 3, y: 4 } ]
    *                 If there is no way it will return null.
@@ -144,8 +144,8 @@ class WavePathFinder {
    * @param {number} finishX
    * @param {number} finishY
    *
-   * @return {array} If there is a way the function will return an array of objects with two fields (x and y),
-   *                 including the start and end points.
+   * @return {array} If there is a way the function will return an array of objects with
+   *                 two fields (x and y), including the start and end points.
    *                 Example: [ { x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 0, y: 3 },
    *                            { x: 0, y: 4 }, { x: 1, y: 4 }, { x: 2, y: 4 }, { x: 3, y: 4 } ]
    *                 If there is no way it will return null.

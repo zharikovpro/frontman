@@ -4,6 +4,7 @@
   "description": "Frontend project seed",
   "main": "index.js",
   "scripts": {
+    "lint": "./node_modules/.bin/eslint src/tests/ src/scripts/",
     "test": " ./node_modules/.bin/mocha --compilers js:babel-register --ui bdd --recursive ./src/tests",
     "start": "webpack-dev-server",
     "build": "NODE_ENV=production webpack",

@@ -91,17 +91,17 @@ const newTest = (drawing, method = 'equal') => {
 describe('WavePathFinder', () => {
   describe('constructor', () => {
     it('when an correct matrix', () => {
-      let {matrix} = generateOptions(`| A |   | x |   |   |
+      const { matrix } = generateOptions(`| A |   | x |   |   |
                                       |   |   | x |   |   |
                                       |   |   | x |   |   |
                                       |   |   | x | B |   |`);
 
-      let path = new WavePathFinder(matrix);
+      const path = new WavePathFinder(matrix);
 
-      assert.deepEqual(path.matrix, [ [ -3, -3, -2, -3, -3 ],
-                                      [ -3, -3, -2, -3, -3 ],
-                                      [ -3, -3, -2, -3, -3 ],
-                                      [ -3, -3, -2, -3, -3 ] ]);
+      assert.deepEqual(path.matrix, [[-3, -3, -2, -3, -3],
+                                     [-3, -3, -2, -3, -3],
+                                     [-3, -3, -2, -3, -3],
+                                     [-3, -3, -2, -3, -3]]);
     });
   });
 

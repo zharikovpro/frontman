@@ -17,7 +17,7 @@ var config = {
 
   entry: {
     app: ['./scripts/app.js'],
-    mocha: fs.readdirSync(`${__dirname}/src/tests`).map(file => `mocha!./tests/${file}!`) // Add all files from a folder with tests
+    mocha: fs.readdirSync(`${__dirname}/src/tests`).map(file => `mocha!./tests/${file}`) // Add all files from a folder with tests
   },
 
   output: {
