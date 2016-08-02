@@ -1,17 +1,14 @@
-const isset = (variables) => typeof variables !== 'undefined';
-
-  /**
-   * This class is an implementation of the wave algorithm
-   * Wiki: (https://ru.wikipedia.org/wiki/Алгоритм_Ли)
-   *
-   * @author Andrey Zharikov & Nikolay Govorov
-   *
-   * */
+/**
+ * Classic wave path finding algorithm
+ * Wiki: (https://en.wikipedia.org/wiki/Lee_algorithm)
+ *
+ * @author Andrey Zharikov & Nikolay Govorov
+ *
+ */
 
 class WavePathFinder {
-
   /**
-   * Find the shortest path in the matrix
+   * Constructor requires passability matrix
    *
    * @param {array} passabilityMatrix parameter accepts a two-dimensional boolean matrix
    *                where true is passable cell, false is non-passable
@@ -51,9 +48,7 @@ class WavePathFinder {
   findPath(startX, startY, finishX, finishY) {
     this.propagateWave(startX, startY);
 
-    this.restorePath(finishX, finishY);
-
-    return this.resultPath;
+    return this.restorePath(finishX, finishY);
   }
 
   /**
@@ -61,10 +56,8 @@ class WavePathFinder {
    *
    * @param {number} startX
    * @param {number} startY
-   * @param {number} finishX
-   * @param {number} finishY
    *
-   * @return {undefined}
+   * @return {array} Wave array with minimum possible steps number for each reachable cell
    */
 
   propagateWave(startX, startY) {
@@ -95,6 +88,8 @@ class WavePathFinder {
         }
       }
     }
+
+    return this.waveMatrix;
   }
 
   /**
@@ -130,7 +125,7 @@ class WavePathFinder {
     addStep(finishX, finishY);
 
     for (let step = this.waveMatrix[finishX][finishY]; step >= 0; step--) {
-      if (isset(this.waveMatrix[currentX + 1])) {
+      if (this.waveMatrix[currentX + 1] !== undefined) {
         if (this.waveMatrix[currentX + 1][currentY] === step - 1) {
           addStep(currentX + 1, currentY);
           currentX++;
@@ -140,7 +135,7 @@ class WavePathFinder {
         }
       }
 
-      if (isset(this.waveMatrix[currentX - 1])) {
+      if (this.waveMatrix[currentX - 1] !== undefined) {
         if (this.waveMatrix[currentX - 1][currentY] === step - 1) {
           addStep(currentX - 1, currentY);
           currentX = currentX - 1;
