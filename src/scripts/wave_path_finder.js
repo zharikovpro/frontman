@@ -49,7 +49,7 @@ class WavePathFinder {
    */
 
   findPath(startX, startY, finishX, finishY) {
-    this.propagateWave(startX, startY, finishX, finishY);
+    this.propagateWave(startX, startY);
 
     this.restorePath(finishX, finishY);
 
@@ -67,12 +67,14 @@ class WavePathFinder {
    * @return {undefined}
    */
 
-  propagateWave(startX, startY, finishX, finishY) {
+  propagateWave(startX, startY) {
     this.resultPath = [];
 
+    // first part of the wave algorithm - matrix initialization
     this.waveMatrix = this.passabilityMatrix.map(row => row.slice().fill(this.UNVISITED_CELL));
     this.waveMatrix[startX][startY] = this.START_CELL;
 
+    // second part of the wave algorithm - wave propagation
     const propagateWave = (newX, newY, step) => {
       if (this.passabilityMatrix[newX] && this.passabilityMatrix[newX][newY]) {
         if (this.waveMatrix[newX][newY] === this.UNVISITED_CELL) {
