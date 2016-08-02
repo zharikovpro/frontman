@@ -45,42 +45,42 @@ class Path {
     this.matrix[finishX][finishY] = this.FINISH_CELL;
 
     for (let iter = 0; iter < this.matrix.length * this.matrix[0].length; iter++) {
-      for (let i = 0; i < this.matrix.length; i++) {
-        for (let j = 0; j < this.matrix[0].length; j++) {
-          if (this.matrix[i][j] === iter) {
-            if (isset(this.matrix[i + 1])) {
-              if (this.matrix[i + 1][j] === this.PASSABLE_CELL) {
-                this.matrix[i + 1][j] = iter + 1;
+      for (let x = 0; x < this.matrix.length; x++) {
+        for (let y = 0; y < this.matrix[0].length; y++) {
+          if (this.matrix[x][y] === iter) {
+            if (isset(this.matrix[x + 1])) {
+              if (this.matrix[x + 1][y] === this.PASSABLE_CELL) {
+                this.matrix[x + 1][y] = iter + 1;
               }
-              if (this.matrix[i + 1][j] === this.FINISH_CELL) {
-                this.matrix[i + 1][j] = iter + 1;
+              if (this.matrix[x + 1][y] === this.FINISH_CELL) {
+                this.matrix[x + 1][y] = iter + 1;
                 break;
               }
             }
 
-            if (isset(this.matrix[i - 1])) {
-              if (this.matrix[i - 1][j] === this.PASSABLE_CELL) {
-                this.matrix[i - 1][j] = iter + 1;
+            if (isset(this.matrix[x - 1])) {
+              if (this.matrix[x - 1][y] === this.PASSABLE_CELL) {
+                this.matrix[x - 1][y] = iter + 1;
               }
-              if (this.matrix[i - 1][j] === this.FINISH_CELL) {
-                this.matrix[i - 1][j] = iter + 1;
+              if (this.matrix[x - 1][y] === this.FINISH_CELL) {
+                this.matrix[x - 1][y] = iter + 1;
                 break;
               }
             }
 
-            if (this.matrix[i][j + 1] === this.PASSABLE_CELL) {
-              this.matrix[i][j + 1] = iter + 1;
+            if (this.matrix[x][y + 1] === this.PASSABLE_CELL) {
+              this.matrix[x][y + 1] = iter + 1;
             }
-            if (this.matrix[i][j + 1] === this.FINISH_CELL) {
-              this.matrix[i][j + 1] = iter + 1;
+            if (this.matrix[x][y + 1] === this.FINISH_CELL) {
+              this.matrix[x][y + 1] = iter + 1;
               break;
             }
 
-            if (this.matrix[i][j - 1] === this.PASSABLE_CELL) {
-              this.matrix[i][j - 1] = iter + 1;
+            if (this.matrix[x][y - 1] === this.PASSABLE_CELL) {
+              this.matrix[x][y - 1] = iter + 1;
             }
-            if (this.matrix[i][j - 1] === this.FINISH_CELL) {
-              this.matrix[i][j - 1] = iter + 1;
+            if (this.matrix[x][y - 1] === this.FINISH_CELL) {
+              this.matrix[x][y - 1] = iter + 1;
               break;
             }
           }
