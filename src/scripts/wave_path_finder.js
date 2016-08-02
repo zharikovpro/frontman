@@ -33,7 +33,6 @@ class WavePathFinder {
     this.PASSABLE_CELL = -3;
 
     this.START_CELL = 0;
-    this.FINISH_CELL = -1;
   }
 
   /**
@@ -92,10 +91,6 @@ class WavePathFinder {
                 if (this.waveMatrix[newX][newY] === this.PASSABLE_CELL) {
                   this.waveMatrix[newX][newY] = step + 1;
                 }
-
-                if (this.waveMatrix[newX][newY] === this.FINISH_CELL) {
-                  this.waveMatrix[newX][newY] = step + 1;
-                }
               }
             };
 
@@ -125,7 +120,7 @@ class WavePathFinder {
    */
 
   restorePath(finishX, finishY) {
-    if (this.waveMatrix[finishX][finishY] === this.FINISH_CELL) {
+    if (this.waveMatrix[finishX][finishY] === this.PASSABLE_CELL) {
       this.resultPath = null;
       return null;
     }
@@ -178,7 +173,6 @@ class WavePathFinder {
     ));
 
     this.waveMatrix[startX][startY] = this.START_CELL;
-    this.waveMatrix[finishX][finishY] = this.FINISH_CELL;
   }
 }
 
