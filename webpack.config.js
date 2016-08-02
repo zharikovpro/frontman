@@ -8,16 +8,16 @@ const fs = require('fs');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var nib = require('nib');
-var rupture = require('rupture');
-var poststylus = require('poststylus');
+const nib = require('nib');
+const rupture = require('rupture');
+const poststylus = require('poststylus');
 
 var config = {
   context: path.join(__dirname, 'src'),
 
   entry: {
     app: ['./scripts/app.js'],
-    mocha: fs.readdirSync(__dirname + '/src/tests').map(file => 'mocha!./tests/' + file)
+    mocha: fs.readdirSync(`${__dirname}/src/tests`).map(file => `mocha!./tests/${file}!`) // Add all files from a folder with tests
   },
 
   output: {
@@ -72,12 +72,13 @@ var config = {
     }),
 
     new HtmlWebpackPlugin({
-      template: 'templates/mocha.slm',
+      template: 'templates/_mocha.slm',
       filename: 'mocha.html',
       chunks: ['mocha']
     })
   ],
 
+  // TODO: Add option to run at will
   eslint: {
     configFile: '.eslintrc.json'
   },

@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const Path = require('../scripts/wave_path_finder.js');
+const WavePathFinder = require('../scripts/wave_path_finder.js');
 
 const generateOptions = (drawing) => {
   const extremePoints = {};
@@ -83,30 +83,48 @@ const generateOptions = (drawing) => {
 const newTest = (drawing, method = 'equal') => {
   const { matrix, resultPath, startX, startY, finishX, finishY } = generateOptions(drawing);
 
-  const path = new Path(matrix);
+  const path = new WavePathFinder(matrix);
 
   (assert[method])(path.findPath(startX, startY, finishX, finishY), resultPath);
 };
 
-describe('Short path', () => {
-  it('no path', () => {
-    newTest(`| A |   | x |   |   |
-             |   |   | x |   |   |
-             |   |   | x |   |   |
-             |   |   | x | B |   |`);
+describe('WavePathFinder', () => {
+  describe('constructor', () => {
+    it('when an correct matrix', () => {
+      let {matrix} = generateOptions(`| A |   | x |   |   |
+                                      |   |   | x |   |   |
+                                      |   |   | x |   |   |
+                                      |   |   | x | B |   |`);
+
+      let path = new WavePathFinder(matrix);
+
+      assert.deepEqual(path.matrix, [ [ -3, -3, -2, -3, -3 ],
+                                      [ -3, -3, -2, -3, -3 ],
+                                      [ -3, -3, -2, -3, -3 ],
+                                      [ -3, -3, -2, -3, -3 ] ]);
+    });
   });
 
-  it('there is one path', () => {
-    newTest(`| A | 1 | 2 | 3 | 4 |
-             | x | x | x | x | 5 |
-             | x |   |   | x | 6 |
-             |   |   |   | x | B |`, 'deepEqual');
-  });
+  describe('findPath', () => {
+    it('when there is no path', () => {
+      newTest(`| A |   | x |   |   |
+               |   |   | x |   |   |
+               |   |   | x |   |   |
+               |   |   | x | B |   |`);
+    });
 
-  it('there is one path', () => {
-    newTest(`| B | 6 | x |   |   |
-             | x | 5 | 4 | x |   |
-             |   | x | 3 | 2 | x |
-             |   |   | x | 1 | A |`, 'deepEqual');
+    it('when one path from left to right', () => {
+      newTest(`| A | 1 | 2 | 3 | 4 |
+               | x | x | x | x | 5 |
+               | x |   |   | x | 6 |
+               |   |   |   | x | B |`, 'deepEqual');
+    });
+
+    it('when one path from right to left', () => {
+      newTest(`| B | 6 | x |   |   |
+               | x | 5 | 4 | x |   |
+               |   | x | 3 | 2 | x |
+               |   |   | x | 1 | A |`, 'deepEqual');
+    });
   });
 });
