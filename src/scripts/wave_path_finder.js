@@ -1,6 +1,6 @@
 const isset = (variables) => typeof variables !== 'undefined';
 
-class Path {
+class WavePathFinder {
 
   /**
    * Find the shortest path in the matrix
@@ -32,7 +32,17 @@ class Path {
     ));
   }
 
-  short(startX, startY, finishX, finishY) {
+  findPath(startX, startY, finishX, finishY) {
+    this.spreadWave(startX, startY, finishX, finishY);
+
+    this.restorationPath(finishX, finishY);
+
+    return this.resultPath;
+  }
+
+  spreadWave(startX, startY, finishX, finishY) { // Распространение волны
+    this.resultPath = [];
+
     if (!isset(this.matrix[startX][startY])) {
       throw new Error('Incorrect coordinates of starting cell');
     }
@@ -40,6 +50,10 @@ class Path {
     if (!isset(this.matrix[finishX][finishY])) {
       throw new Error('Incorrect coordinates of finishing cell');
     }
+
+    this.matrix = this.matrix.map(row => row.map(
+      cell => ((cell === this.UNPASSABLE_CELL) ? this.UNPASSABLE_CELL : this.PASSABLE_CELL)
+    ));
 
     this.matrix[startX][startY] = this.START_CELL;
     this.matrix[finishX][finishY] = this.FINISH_CELL;
@@ -89,51 +103,55 @@ class Path {
       }
       if (this.matrix[finishX][finishY] !== this.FINISH_CELL) break;
     }
+  }
 
+  restorationPath(finishX, finishY) {
     if (this.matrix[finishX][finishY] === this.FINISH_CELL) {
+      this.resultPath = null;
       return null;
     }
 
-    let resultPath = [];
-    let activeX = finishX;
-    let activeY = finishY;
+    this.resultPath = [];
+
+    let currentX = finishX;
+    let currentY = finishY;
 
     const addStep = (x, y) => {
-      resultPath.push({ x, y });
+      this.resultPath.push({ x, y });
     };
 
     for (let step = this.matrix[finishX][finishY]; step >= 0; step--) {
-      if (isset(this.matrix[activeX + 1])) {
-        if (this.matrix[activeX + 1][activeY] === step - 1) {
-          addStep(activeX + 1, activeY);
-          activeX++;
+      if (isset(this.matrix[currentX + 1])) {
+        if (this.matrix[currentX + 1][currentY] === step - 1) {
+          addStep(currentX + 1, currentY);
+          currentX++;
         }
       }
 
-      if (isset(this.matrix[activeX - 1])) {
-        if (this.matrix[activeX - 1][activeY] === step - 1) {
-          addStep(activeX - 1, activeY);
-          activeX = activeX - 1;
+      if (isset(this.matrix[currentX - 1])) {
+        if (this.matrix[currentX - 1][currentY] === step - 1) {
+          addStep(currentX - 1, currentY);
+          currentX = currentX - 1;
         }
       }
 
-      if (this.matrix[activeX][activeY + 1] === step - 1) {
-        addStep(activeX, activeY + 1);
-        activeY = activeY + 1;
+      if (this.matrix[currentX][currentY + 1] === step - 1) {
+        addStep(currentX, currentY + 1);
+        currentY = currentY + 1;
       }
 
-      if (this.matrix[activeX][activeY - 1] === step - 1) {
-        addStep(activeX, activeY - 1);
-        activeY = activeY - 1;
+      if (this.matrix[currentX][currentY - 1] === step - 1) {
+        addStep(currentX, currentY - 1);
+        currentY = currentY - 1;
       }
     }
 
-    resultPath = resultPath.reverse();
+    this.resultPath = this.resultPath.reverse();
 
     addStep(finishX, finishY);
 
-    return resultPath;
+    return this.resultPath;
   }
 }
 
-module.exports = Path;
+module.exports = WavePathFinder;

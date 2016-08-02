@@ -1,11 +1,10 @@
-const Path = require('./path.js');
+const PathFinder = require('./wave_path_finder.js');
 
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 const randomEmptyCell = (matrix) => {
   const emptyCells = [];
 
-  // Выбрали всё пустые ячейки
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
       if (matrix[i][j] === 0) {
@@ -61,9 +60,15 @@ class Board {
 
     if (this.matrix[newX][newY] !== 0) return false;
 
-    const path = new Path(this.matrix.map(row => row.map(cell => (!cell ? 1 : 0))));
+    const path = new PathFinder(
+      this.matrix.map(
+        row => row.map(
+          cell => (!cell ? 1 : 0)
+        )
+      )
+    );
 
-    const localePath = path.short(oldX, oldY, newX, newY);
+    const localePath = path.findPath(oldX, oldY, newX, newY);
 
     if (typeof localePath !== 'object') return false;
 

@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const Path = require('../scripts/path.js');
+const Path = require('../scripts/wave_path_finder.js');
 
 const generateOptions = (drawing) => {
   const extremePoints = {};
@@ -80,40 +80,33 @@ const generateOptions = (drawing) => {
   };
 };
 
+const newTest = (drawing, method = 'equal') => {
+  const { matrix, resultPath, startX, startY, finishX, finishY } = generateOptions(drawing);
+
+  const path = new Path(matrix);
+
+  (assert[method])(path.findPath(startX, startY, finishX, finishY), resultPath);
+};
+
 describe('Short path', () => {
   it('no path', () => {
-    const { matrix, resultPath, startX, startY, finishX, finishY } =
-      generateOptions(`| A |   | x |   |   |
-                       |   |   | x |   |   |
-                       |   |   | x |   |   |
-                       |   |   | x | B |   |`);
-
-    const path = new Path(matrix);
-
-    assert.equal(path.short(startX, startY, finishX, finishY), resultPath);
+    newTest(`| A |   | x |   |   |
+             |   |   | x |   |   |
+             |   |   | x |   |   |
+             |   |   | x | B |   |`);
   });
 
   it('there is one path', () => {
-    const { matrix, resultPath, startX, startY, finishX, finishY } =
-      generateOptions(`| A | 1 | 2 | 3 | 4 |
-                       | x | x | x | x | 5 |
-                       | x |   |   | x | 6 |
-                       |   |   |   | x | B |`);
-
-    const path = new Path(matrix);
-
-    assert.deepEqual(path.short(startX, startY, finishX, finishY), resultPath);
+    newTest(`| A | 1 | 2 | 3 | 4 |
+             | x | x | x | x | 5 |
+             | x |   |   | x | 6 |
+             |   |   |   | x | B |`, 'deepEqual');
   });
 
   it('there is one path', () => {
-    const { matrix, resultPath, startX, startY, finishX, finishY }
-      = generateOptions(`| A | 1 | x |   |   |
-                         | x | 2 | 3 | x |   |
-                         |   | x | 4 | 5 | x |
-                         |   |   | x | 6 | B |`);
-
-    const path = new Path(matrix);
-
-    assert.deepEqual(path.short(startX, startY, finishX, finishY), resultPath);
+    newTest(`| B | 6 | x |   |   |
+             | x | 5 | 4 | x |   |
+             |   | x | 3 | 2 | x |
+             |   |   | x | 1 | A |`, 'deepEqual');
   });
 });
