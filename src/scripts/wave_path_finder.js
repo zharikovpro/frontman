@@ -26,7 +26,7 @@ class WavePathFinder {
     if (typeof passabilityMatrix !== 'object') {
       throw new Error('Incorrect matrix!');
     } else {
-      this.passabilityMatrix = passabilityMatrix.slice();
+      this.passabilityMatrix = passabilityMatrix.map(row => row.slice());
     }
 
     this.UNPASSABLE_CELL = -2;
@@ -71,19 +71,19 @@ class WavePathFinder {
    */
 
   propagateWave(startX, startY, finishX, finishY) {
+    if (!isset(this.passabilityMatrix[startX][startY])) {
+      throw new Error('Incorrect coordinates of starting cell');
+    }
+
+    if (!isset(this.passabilityMatrix[finishX][finishY])) {
+      throw new Error('Incorrect coordinates of finishing cell');
+    }
+
     this.resultPath = [];
 
     this.waveMatrix = this.passabilityMatrix.map(row => row.map(
       cell => (cell ? this.PASSABLE_CELL : this.UNPASSABLE_CELL)
     ));
-
-    if (!isset(this.waveMatrix[startX][startY])) {
-      throw new Error('Incorrect coordinates of starting cell');
-    }
-
-    if (!isset(this.waveMatrix[finishX][finishY])) {
-      throw new Error('Incorrect coordinates of finishing cell');
-    }
 
     this.waveMatrix[startX][startY] = this.START_CELL;
     this.waveMatrix[finishX][finishY] = this.FINISH_CELL;
