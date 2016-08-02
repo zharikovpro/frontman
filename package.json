@@ -44,7 +44,7 @@
     "raw-loader": "^0.5.1",
     "rupture": "^0.6.1",
     "slm": "^0.5.1",
-    "slm-loader": "zharikovpro/slm-loader",
+    "slm-loader": "^0.2.3",
     "slm-markdown": "^1.0.0",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
