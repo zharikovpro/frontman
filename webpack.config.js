@@ -3,6 +3,8 @@
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const path = require('path');
+const fs = require('fs');
+
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -15,7 +17,7 @@ var config = {
 
   entry: {
     app: ['./scripts/app.js'],
-    mocha: (() => require('fs').readdirSync(__dirname + '/src/tests').map((file) => 'mocha!./tests/' + file))()
+    mocha: fs.readdirSync(__dirname + '/src/tests').map(file => 'mocha!./tests/' + file)
   },
 
   output: {
