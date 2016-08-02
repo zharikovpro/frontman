@@ -83,18 +83,18 @@ class WavePathFinder {
 
     this.initializeWaveMatrix(startX, startY, finishX, finishY);
 
-    for (let iter = 0; iter < this.waveMatrix.length * this.waveMatrix[0].length; iter++) {
+    for (let step = 0; step < this.waveMatrix.length * this.waveMatrix[0].length; step++) {
       for (let x = 0; x < this.waveMatrix.length; x++) {
         for (let y = 0; y < this.waveMatrix[0].length; y++) {
-          if (this.waveMatrix[x][y] === iter) {
+          if (this.waveMatrix[x][y] === step) {
             const propagateWave = (newX, newY) => {
               if (isset(this.waveMatrix[newX]) && isset(this.waveMatrix[newX][newY])) {
                 if (this.waveMatrix[newX][newY] === this.PASSABLE_CELL) {
-                  this.waveMatrix[newX][newY] = iter + 1;
+                  this.waveMatrix[newX][newY] = step + 1;
                 }
 
                 if (this.waveMatrix[newX][newY] === this.FINISH_CELL) {
-                  this.waveMatrix[newX][newY] = iter + 1;
+                  this.waveMatrix[newX][newY] = step + 1;
                 }
               }
             };
