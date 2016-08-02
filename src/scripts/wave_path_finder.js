@@ -14,7 +14,7 @@ class WavePathFinder {
    * Find the shortest path in the matrix
    *
    * @param {array} passabilityMatrix parameter accepts a two-dimensional boolean matrix
-   *                where true is passable cell, false is unpassable
+   *                where true is passable cell, false is non-passable
    *                Example: [ 1, 1, 1 ]
    *                         [ 0, 0, 1 ]
    *                         [ 1, 0, 1 ]
@@ -39,7 +39,7 @@ class WavePathFinder {
   }
 
   /**
-   * The function is a wrapper over functions spreadWave and restorationPath.
+   * The function is a wrapper over functions propagateWave and restorePath.
    *
    * @param {number} startX
    * @param {number} startY
@@ -54,15 +54,15 @@ class WavePathFinder {
    */
 
   findPath(startX, startY, finishX, finishY) {
-    this.spreadWave(startX, startY, finishX, finishY);
+    this.propagateWave(startX, startY, finishX, finishY);
 
-    this.restorationPath(finishX, finishY);
+    this.restorePath(finishX, finishY);
 
     return this.resultPath;
   }
 
   /**
-   * The function will start the wave. This is the second stage of the wave algorithm.
+   * The function will propagate the wave. This is the second stage of the wave algorithm.
    *
    * @param {number} startX
    * @param {number} startY
@@ -72,7 +72,7 @@ class WavePathFinder {
    * @return {undefined}
    */
 
-  spreadWave(startX, startY, finishX, finishY) { // Распространение волны
+  propagateWave(startX, startY, finishX, finishY) {
     this.resultPath = [];
 
     if (!isset(this.matrix[startX][startY])) {
@@ -139,19 +139,20 @@ class WavePathFinder {
 
   /**
    * This method will restore the path on the basis of waves from a point which came to zero.
-   * To execute this method after method spreadWave. This is the third step of the wave algorithm.
+   * Execute this method after method propagateWave. This is the third step of the wave algorithm.
    *
    * @param {number} finishX
    * @param {number} finishY
    *
-   * @return {array} If there is a way the function will return an array of objects with
-   *                 two fields (x and y), including the start and end points.
+   * @return {array} If path was found, function will return path
+   *                 as an array of objects with cell coordinates,
+   *                 including the start and end points.
    *                 Example: [ { x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }, { x: 0, y: 3 },
    *                            { x: 0, y: 4 }, { x: 1, y: 4 }, { x: 2, y: 4 }, { x: 3, y: 4 } ]
-   *                 If there is no way it will return null.
+   *                 Returns null if there is no path.
    */
 
-  restorationPath(finishX, finishY) {
+  restorePath(finishX, finishY) {
     if (this.matrix[finishX][finishY] === this.FINISH_CELL) {
       this.resultPath = null;
       return null;
