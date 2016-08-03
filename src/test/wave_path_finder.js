@@ -1,7 +1,7 @@
 const assert = require('chai').assert;
 const WavePathFinder = require('../scripts/wave_path_finder.js');
 
-const generateOptions = (drawing) => {
+const mapOptions = (drawing) => {
   let start = {};
   let finish = {};
   let steps = [];
@@ -43,21 +43,13 @@ const generateOptions = (drawing) => {
   };
 };
 
-const newTest = (drawing) => {
-  const { matrix, resultPath, startX, startY, finishX, finishY } = generateOptions(drawing);
-
-  const path = WavePathFinder.findPath(matrix, startX, startY, finishX, finishY);
-
-  assert.deepEqual(path, resultPath);
-};
-
 describe('WavePathFinder', () => {
   describe('constructor', () => {
     it('when an correct matrix', () => {
-      const { matrix } = generateOptions(`|A| |x| | |
-                                          | | |x| | |
-                                          | | |x| | |
-                                          | | |x|B| |`);
+      const { matrix } = mapOptions(`|A| |x| | |
+                                     | | |x| | |
+                                     | | |x| | |
+                                     | | |x|B| |`);
 
       const path = new WavePathFinder(matrix);
 
@@ -70,29 +62,33 @@ describe('WavePathFinder', () => {
 
   describe('findPath', () => {
     const tests = [{
-      name: 'when there is no path',
-      drawing: `|A| |x| | |
-                | | |x| | |
-                | | |x| | |
-                | | |x|B| |`
+      name: 'returns null where is no path',
+      map: `|A| |x| | |
+            | | |x| | |
+            | | |x| | |
+            | | |x|B| |`,
     }, {
-      name: 'when one path from left to right',
-      drawing: `|A|1|2|3|4|
-                |x|x|x|x|5|
-                |x| | |x|6|
-                | | | |x|B|`
+      name: 'from left to right',
+      map: `|A|1|2|3|4|
+            |x|x|x|x|5|
+            |x| | |x|6|
+            | | | |x|B|`,
     }, {
-      name: 'when one path from right to left',
-      drawing: `|B|6|x| | |
-                |x|5|4|x| |
-                | |x|3|2|x|
-                | | |x|1|A|`
+      name: 'from right to left',
+      map: `|B|6|x| | |
+            |x|5|4|x| |
+            | |x|3|2|x|
+            | | |x|1|A|`,
     }];
 
     tests.forEach((test) => {
       it(test.name, () => {
-        newTest(test.drawing);
-      }); // forEach
-    });
+        const { matrix, resultPath, startX, startY, finishX, finishY } = mapOptions(test.map);
+
+        const path = WavePathFinder.findPath(matrix, startX, startY, finishX, finishY);
+
+        assert.deepEqual(path, resultPath);
+      });
+    }); // forEach
   }); // decribe - findPath
 }); // decribe - WavePathFinder
