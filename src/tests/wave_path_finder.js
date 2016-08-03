@@ -30,11 +30,7 @@ const generateOptions = (drawing) => {
   } else {
     steps.push({ x: start.x, y: start.y, step: 0 });
     steps.push({ x: finish.x, y: finish.y, step: steps.length });
-
-    steps = steps.sort((a, b) => a.step - b.step);
-    for (const s of steps) {
-      delete s.step;
-    }
+    steps = steps.sort((a, b) => a.step - b.step).map(step => ({ x: step.x, y: step.y }));
   }
 
   return {
