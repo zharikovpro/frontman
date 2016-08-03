@@ -43,12 +43,13 @@ const generateOptions = (drawing) => {
   };
 };
 
-const newTest = (drawing, method = 'equal') => {
+const newTest = (drawing) => {
   const { matrix, resultPath, startX, startY, finishX, finishY } = generateOptions(drawing);
 
-  const path = new WavePathFinder(matrix);
+  const finder = new WavePathFinder(matrix);
+  const path = finder.findPath(startX, startY, finishX, finishY);
 
-  (assert[method])(path.findPath(startX, startY, finishX, finishY), resultPath);
+  assert.deepEqual(path, resultPath);
 };
 
 describe('WavePathFinder', () => {
@@ -80,14 +81,14 @@ describe('WavePathFinder', () => {
       newTest(`| A | 1 | 2 | 3 | 4 |
                | x | x | x | x | 5 |
                | x |   |   | x | 6 |
-               |   |   |   | x | B |`, 'deepEqual');
+               |   |   |   | x | B |`);
     });
 
     it('when one path from right to left', () => {
       newTest(`| B | 6 | x |   |   |
                | x | 5 | 4 | x |   |
                |   | x | 3 | 2 | x |
-               |   |   | x | 1 | A |`, 'deepEqual');
+               |   |   | x | 1 | A |`);
     });
   });
 });
