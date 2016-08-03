@@ -69,25 +69,30 @@ describe('WavePathFinder', () => {
   });
 
   describe('findPath', () => {
-    it('when there is no path', () => {
-      newTest(`|A| |x| | |
-               | | |x| | |
-               | | |x| | |
-               | | |x|B| |`);
-    });
+    const tests = [{
+      name: 'when there is no path',
+      drawing: `|A| |x| | |
+                | | |x| | |
+                | | |x| | |
+                | | |x|B| |`
+    }, {
+      name: 'when one path from left to right',
+      drawing: `|A|1|2|3|4|
+                |x|x|x|x|5|
+                |x| | |x|6|
+                | | | |x|B|`
+    }, {
+      name: 'when one path from right to left',
+      drawing: `|B|6|x| | |
+                |x|5|4|x| |
+                | |x|3|2|x|
+                | | |x|1|A|`
+    }];
 
-    it('when one path from left to right', () => {
-      newTest(`|A|1|2|3|4|
-               |x|x|x|x|5|
-               |x| | |x|6|
-               | | | |x|B|`);
+    tests.forEach((test) => {
+      it(test.name, () => {
+        newTest(test.drawing);
+      }); // forEach
     });
-
-    it('when one path from right to left', () => {
-      newTest(`|B|6|x| | |
-               |x|5|4|x| |
-               | |x|3|2|x|
-               | | |x|1|A|`);
-    });
-  });
-});
+  }); // decribe - findPath
+}); // decribe - WavePathFinder
