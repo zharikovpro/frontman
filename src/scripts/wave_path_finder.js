@@ -12,6 +12,7 @@ class WavePathFinder {
    *
    * @param {array} passabilityMatrix - two-dimensional boolean array
    *                true: passable cell, false: non-passable
+   *                other truthy and falsy values can be used as well:
    *                Example: [ 1, 1, 1 ]
    *                         [ 0, 0, 1 ]
    *                         [ 1, 0, 1 ]

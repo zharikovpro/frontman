@@ -73,9 +73,9 @@ describe('WavePathFinder', () => {
   describe('constructor', () => {
     it('when an correct matrix', () => {
       const { matrix } = generateOptions(`| A |   | x |   |   |
-                                      |   |   | x |   |   |
-                                      |   |   | x |   |   |
-                                      |   |   | x | B |   |`);
+                                          |   |   | x |   |   |
+                                          |   |   | x |   |   |
+                                          |   |   | x | B |   |`);
 
       const path = new WavePathFinder(matrix);
 
