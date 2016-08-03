@@ -139,30 +139,21 @@ class WavePathFinder {
       this.resultPath.push({ x, y });
     };
 
+    const progateWave = (step, newX, newY) => {
+      if (isset(this.waveMatrix[newX])) {
+        if (this.waveMatrix[newX][newY] === step - 1) {
+          addStep(newX, newY);
+          currentX = newX;
+          currentY = newY;
+        }
+      }
+    };
+
     for (let step = this.waveMatrix[finishX][finishY]; step >= 0; step--) {
-      if (isset(this.waveMatrix[currentX + 1])) {
-        if (this.waveMatrix[currentX + 1][currentY] === step - 1) {
-          addStep(currentX + 1, currentY);
-          currentX++;
-        }
-      }
-
-      if (isset(this.waveMatrix[currentX - 1])) {
-        if (this.waveMatrix[currentX - 1][currentY] === step - 1) {
-          addStep(currentX - 1, currentY);
-          currentX = currentX - 1;
-        }
-      }
-
-      if (this.waveMatrix[currentX][currentY + 1] === step - 1) {
-        addStep(currentX, currentY + 1);
-        currentY = currentY + 1;
-      }
-
-      if (this.waveMatrix[currentX][currentY - 1] === step - 1) {
-        addStep(currentX, currentY - 1);
-        currentY = currentY - 1;
-      }
+      progateWave(step, currentX + 1, currentY);
+      progateWave(step, currentX - 1, currentY);
+      progateWave(step, currentX, currentY + 1);
+      progateWave(step, currentX, currentY - 1);
     }
 
     this.resultPath = this.resultPath.reverse();
