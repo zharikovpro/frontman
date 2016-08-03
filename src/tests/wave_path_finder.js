@@ -4,18 +4,17 @@ const WavePathFinder = require('../scripts/wave_path_finder.js');
 const generateOptions = (drawing) => {
   let start = {};
   let finish = {};
-
-  let resultPath = [];
+  let steps = [];
 
   let matrix = drawing.replace(/ /g, '').split('\n');
   matrix = matrix.map(line => line.substr(1, (line.length - 2)).split('|'));
 
   for (let x = 0; x < matrix.length; x++) {
     for (let y = 0; y < matrix[x].length; y++) {
-      const num = parseInt(matrix[x][y], 10);
-      
-      if (!isNaN(num)) {
-        resultPath[num] = { x, y };
+      const step = parseInt(matrix[x][y], 10);
+
+      if (!isNaN(step)) {
+        steps.push({ x, y, step });
       } else if (matrix[x][y] === 'A') {
         start = { x, y };
       } else if (matrix[x][y] === 'B') {
@@ -26,26 +25,16 @@ const generateOptions = (drawing) => {
     }
   }
 
-  if (Object.keys(resultPath).length === 0) {
-    resultPath = null;
+  if (steps.length === 0) {
+    steps = null;
   } else {
-    const result = [];
+    steps.push({ x: start.x, y: start.y, step: 0 });
+    steps.push({ x: finish.x, y: finish.y, step: steps.length });
 
-    resultPath[0] = {
-      x: start.x,
-      y: start.y,
-    };
-
-    resultPath[resultPath.length] = {
-      x: finish.x,
-      y: finish.y,
-    };
-
-    resultPath.forEach(el => {
-      result.push({ x: el.x, y: el.y });
-    });
-
-    resultPath = result;
+    steps = steps.sort((a, b) => a.step - b.step);
+    for (const s of steps) {
+      delete s.step;
+    }
   }
 
   return {
@@ -54,7 +43,7 @@ const generateOptions = (drawing) => {
     startY: start.y,
     finishX: finish.x,
     finishY: finish.y,
-    resultPath,
+    resultPath: steps,
   };
 };
 
