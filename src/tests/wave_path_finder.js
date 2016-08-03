@@ -5,7 +5,7 @@ const generateOptions = (drawing) => {
   let start = {};
   let finish = {};
 
-  const resultPath = [];
+  let resultPath = [];
 
   let tempStr;
   tempStr = '';
@@ -39,33 +39,35 @@ const generateOptions = (drawing) => {
     }
   }
 
+  if (Object.keys(resultPath).length === 0) {
+    resultPath = null;
+  } else {
+    const result = [];
+
+    resultPath[0] = {
+      x: start.x,
+      y: start.y,
+    };
+
+    resultPath[resultPath.length] = {
+      x: finish.x,
+      y: finish.y,
+    };
+
+    resultPath.forEach(el => {
+      result.push({ x: el.x, y: el.y });
+    });
+
+    resultPath = result;
+  }
+
   return {
     matrix,
     startX: start.x,
     startY: start.y,
     finishX: finish.x,
     finishY: finish.y,
-    resultPath: (() => {
-      if (Object.keys(resultPath).length === 0) return null;
-
-      const result = [];
-
-      resultPath[0] = {
-        x: start.x,
-        y: start.y,
-      };
-
-      resultPath[resultPath.length] = {
-        x: finish.x,
-        y: finish.y,
-      };
-
-      resultPath.forEach(el => {
-        result.push({ x: el.x, y: el.y });
-      });
-
-      return result;
-    })(),
+    resultPath,
   };
 };
 
