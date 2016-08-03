@@ -22,23 +22,20 @@ const generateOptions = (drawing) => {
     matrix[x] = matrix[x].substr(1, (matrix[x].length - 2)).split('|');
 
     for (let y = 0; y < matrix[x].length; y++) {
+      const num = parseInt(matrix[x][y], 10);
+      if (!isNaN(num)) {
+        resultPath[num] = { x, y };
+      }
+
       if (matrix[x][y] === 'A') {
         start = { x, y };
-        matrix[x][y] = 1;
-      } else if (matrix[x][y] === 'B') {
-        finish = { x, y };
-        matrix[x][y] = 1;
-      } else if (matrix[x][y] === '') {
-        matrix[x][y] = 1;
-      } else if (matrix[x][y] === 'x') {
-        matrix[x][y] = 0;
-      } else {
-        const num = parseInt(matrix[x][y], 10);
-        matrix[x][y] = 1;
-        if (!isNaN(num)) {
-          resultPath[num] = { x, y };
-        }
       }
+
+      if (matrix[x][y] === 'B') {
+        finish = { x, y };
+      }
+
+      matrix[x][y] = (matrix[x][y] === 'x') ? 0 : 1;
     }
   }
 
