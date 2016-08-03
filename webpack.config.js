@@ -17,7 +17,7 @@ const config = {
 
   entry: {
     app: ['./scripts/app.js'],
-    mocha: fs.readdirSync(`${__dirname}/src/tests`).map(file => `mocha!./tests/${file}`),
+    mocha: fs.readdirSync(`${__dirname}/src/test`).map(file => `mocha!./test/${file}`),
   },
 
   output: {
