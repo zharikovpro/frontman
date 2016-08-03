@@ -64,22 +64,22 @@ class WavePathFinder {
     this.resultPath = [];
 
     // first part of the wave algorithm - matrix initialization
-    this.waveMatrix = this.passabilityMatrix.map(row => row.slice().fill(this.UNVISITED_CELL));
-    this.waveMatrix[startX][startY] = this.START_CELL;
+    this.stepsMatrix = this.passabilityMatrix.map(row => row.slice().fill(this.UNVISITED_CELL));
+    this.stepsMatrix[startX][startY] = this.START_CELL;
 
     // second part of the wave algorithm - wave propagation
     const propagateWave = (newX, newY, step) => {
       if (this.passabilityMatrix[newX] && this.passabilityMatrix[newX][newY]) {
-        if (this.waveMatrix[newX][newY] === this.UNVISITED_CELL) {
-          this.waveMatrix[newX][newY] = step + 1;
+        if (this.stepsMatrix[newX][newY] === this.UNVISITED_CELL) {
+          this.stepsMatrix[newX][newY] = step + 1;
         }
       }
     };
 
-    for (let step = 0; step < this.waveMatrix.length * this.waveMatrix[0].length; step++) {
-      for (let x = 0; x < this.waveMatrix.length; x++) {
-        for (let y = 0; y < this.waveMatrix[0].length; y++) {
-          if (this.waveMatrix[x][y] === step) {
+    for (let step = 0; step < this.stepsMatrix.length * this.stepsMatrix[0].length; step++) {
+      for (let x = 0; x < this.stepsMatrix.length; x++) {
+        for (let y = 0; y < this.stepsMatrix[0].length; y++) {
+          if (this.stepsMatrix[x][y] === step) {
             propagateWave(x, y + 1, step); // up
             propagateWave(x + 1, y, step); // right
             propagateWave(x, y - 1, step); // down
@@ -89,7 +89,7 @@ class WavePathFinder {
       }
     }
 
-    return this.waveMatrix;
+    return this.stepsMatrix;
   }
 
   /**
@@ -108,7 +108,7 @@ class WavePathFinder {
    */
 
   restorePath(finishX, finishY) {
-    if (this.waveMatrix[finishX][finishY] === this.UNVISITED_CELL) {
+    if (this.stepsMatrix[finishX][finishY] === this.UNVISITED_CELL) {
       this.resultPath = null;
       return null;
     }
@@ -124,9 +124,9 @@ class WavePathFinder {
 
     addStep(finishX, finishY);
 
-    for (let step = this.waveMatrix[finishX][finishY]; step >= 0; step--) {
-      if (this.waveMatrix[currentX + 1] !== undefined) {
-        if (this.waveMatrix[currentX + 1][currentY] === step - 1) {
+    for (let step = this.stepsMatrix[finishX][finishY]; step >= 0; step--) {
+      if (this.stepsMatrix[currentX + 1] !== undefined) {
+        if (this.stepsMatrix[currentX + 1][currentY] === step - 1) {
           addStep(currentX + 1, currentY);
           currentX++;
           if (step === 1) {
@@ -135,8 +135,8 @@ class WavePathFinder {
         }
       }
 
-      if (this.waveMatrix[currentX - 1] !== undefined) {
-        if (this.waveMatrix[currentX - 1][currentY] === step - 1) {
+      if (this.stepsMatrix[currentX - 1] !== undefined) {
+        if (this.stepsMatrix[currentX - 1][currentY] === step - 1) {
           addStep(currentX - 1, currentY);
           currentX = currentX - 1;
           if (step === 1) {
@@ -145,7 +145,7 @@ class WavePathFinder {
         }
       }
 
-      if (this.waveMatrix[currentX][currentY + 1] === step - 1) {
+      if (this.stepsMatrix[currentX][currentY + 1] === step - 1) {
         addStep(currentX, currentY + 1);
         currentY = currentY + 1;
         if (step === 1) {
@@ -153,7 +153,7 @@ class WavePathFinder {
         }
       }
 
-      if (this.waveMatrix[currentX][currentY - 1] === step - 1) {
+      if (this.stepsMatrix[currentX][currentY - 1] === step - 1) {
         addStep(currentX, currentY - 1);
         currentY = currentY - 1;
         if (step === 1) {
