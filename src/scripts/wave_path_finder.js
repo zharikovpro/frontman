@@ -8,6 +8,24 @@
 
 class WavePathFinder {
   /**
+   * Static wrapper for findPath
+   *
+   * @param {array} passabilityMatrix
+   * @param {number} startX
+   * @param {number} startY
+   * @param {number} finishX
+   * @param {number} finishY
+   *
+   * @return {array} path
+   */
+
+  static findPath(passabilityMatrix, startX, startY, finishX, finishY) {
+    const finder = new this(passabilityMatrix);
+
+    return finder.findPath(startX, startY, finishX, finishY);
+  }
+
+  /**
    * Constructor requires passability matrix
    *
    * @param {array} passabilityMatrix - two-dimensional boolean array

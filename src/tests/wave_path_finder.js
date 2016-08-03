@@ -46,8 +46,7 @@ const generateOptions = (drawing) => {
 const newTest = (drawing) => {
   const { matrix, resultPath, startX, startY, finishX, finishY } = generateOptions(drawing);
 
-  const finder = new WavePathFinder(matrix);
-  const path = finder.findPath(startX, startY, finishX, finishY);
+  const path = WavePathFinder.findPath(matrix, startX, startY, finishX, finishY);
 
   assert.deepEqual(path, resultPath);
 };
