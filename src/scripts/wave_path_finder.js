@@ -1,20 +1,18 @@
-const isset = (variables) => typeof variables !== 'undefined';
-
-  /**
-   * This class is an implementation of the wave algorithm
-   * Wiki: (https://ru.wikipedia.org/wiki/Алгоритм_Ли)
-   *
-   * @author Andrey Zharikov & Nikolay Govorov
-   *
-   * */
+/**
+ * Classic wave path finding algorithm
+ * Wiki: (https://en.wikipedia.org/wiki/Lee_algorithm)
+ *
+ * @author Andrey Zharikov & Nikolay Govorov
+ *
+ */
 
 class WavePathFinder {
-
   /**
-   * Find the shortest path in the matrix
+   * Constructor requires passability matrix
    *
-   * @param {array} passabilityMatrix parameter accepts a two-dimensional boolean matrix
-   *                where true is passable cell, false is non-passable
+   * @param {array} passabilityMatrix - two-dimensional boolean array
+   *                true: passable cell, false: non-passable
+   *                other truthy and falsy values can be used as well:
    *                Example: [ 1, 1, 1 ]
    *                         [ 0, 0, 1 ]
    *                         [ 1, 0, 1 ]
@@ -29,11 +27,8 @@ class WavePathFinder {
       this.passabilityMatrix = passabilityMatrix.map(row => row.slice());
     }
 
-    this.UNPASSABLE_CELL = -2;
-    this.PASSABLE_CELL = -3;
-
     this.START_CELL = 0;
-    this.FINISH_CELL = -1;
+    this.UNVISITED_CELL = -1;
   }
 
   /**
@@ -52,11 +47,9 @@ class WavePathFinder {
    */
 
   findPath(startX, startY, finishX, finishY) {
-    this.propagateWave(startX, startY, finishX, finishY);
+    this.propagateWave(startX, startY);
 
-    this.restorePath(finishX, finishY);
-
-    return this.resultPath;
+    return this.restorePath(finishX, finishY);
   }
 
   /**
@@ -64,49 +57,40 @@ class WavePathFinder {
    *
    * @param {number} startX
    * @param {number} startY
-   * @param {number} finishX
-   * @param {number} finishY
    *
-   * @return {undefined}
+   * @return {array} Wave array with minimum possible steps number for each reachable cell
    */
 
-  propagateWave(startX, startY, finishX, finishY) {
-    if (!isset(this.passabilityMatrix[startX][startY])) {
-      throw new Error('Incorrect coordinates of starting cell');
-    }
-
-    if (!isset(this.passabilityMatrix[finishX][finishY])) {
-      throw new Error('Incorrect coordinates of finishing cell');
-    }
-
+  propagateWave(startX, startY) {
     this.resultPath = [];
 
-    this.initializeWaveMatrix(startX, startY, finishX, finishY);
+    // first part of the wave algorithm - matrix initialization
+    this.stepsMatrix = this.passabilityMatrix.map(row => row.slice().fill(this.UNVISITED_CELL));
+    this.stepsMatrix[startX][startY] = this.START_CELL;
 
-    for (let iter = 0; iter < this.waveMatrix.length * this.waveMatrix[0].length; iter++) {
-      for (let x = 0; x < this.waveMatrix.length; x++) {
-        for (let y = 0; y < this.waveMatrix[0].length; y++) {
-          if (this.waveMatrix[x][y] === iter) {
-            const propagateWave = (newX, newY) => {
-              if (isset(this.waveMatrix[newX]) && isset(this.waveMatrix[newX][newY])) {
-                if (this.waveMatrix[newX][newY] === this.PASSABLE_CELL) {
-                  this.waveMatrix[newX][newY] = iter + 1;
-                }
+    // second part of the wave algorithm - wave propagation
+    const propagateWave = (newX, newY, step) => {
+      if (this.passabilityMatrix[newX] && this.passabilityMatrix[newX][newY]) {
+        if (this.stepsMatrix[newX][newY] === this.UNVISITED_CELL) {
+          this.stepsMatrix[newX][newY] = step + 1;
+        }
+      }
+    };
 
-                if (this.waveMatrix[newX][newY] === this.FINISH_CELL) {
-                  this.waveMatrix[newX][newY] = iter + 1;
-                }
-              }
-            };
-
-            propagateWave(x, y + 1); // up
-            propagateWave(x + 1, y); // right
-            propagateWave(x, y - 1); // down
-            propagateWave(x - 1, y); // left
+    for (let step = 0; step < this.stepsMatrix.length * this.stepsMatrix[0].length; step++) {
+      for (let x = 0; x < this.stepsMatrix.length; x++) {
+        for (let y = 0; y < this.stepsMatrix[0].length; y++) {
+          if (this.stepsMatrix[x][y] === step) {
+            propagateWave(x, y + 1, step); // up
+            propagateWave(x + 1, y, step); // right
+            propagateWave(x, y - 1, step); // down
+            propagateWave(x - 1, y, step); // left
           }
         }
       }
     }
+
+    return this.stepsMatrix;
   }
 
   /**
@@ -125,7 +109,7 @@ class WavePathFinder {
    */
 
   restorePath(finishX, finishY) {
-    if (this.waveMatrix[finishX][finishY] === this.FINISH_CELL) {
+    if (this.stepsMatrix[finishX][finishY] === this.UNVISITED_CELL) {
       this.resultPath = null;
       return null;
     }
@@ -139,37 +123,47 @@ class WavePathFinder {
       this.resultPath.push({ x, y });
     };
 
-    const propagateWave = (step, newX, newY) => {
-      if (isset(this.waveMatrix[newX])) {
-        if (this.waveMatrix[newX][newY] === step - 1) {
-          addStep(newX, newY);
-          currentX = newX;
-          currentY = newY;
-        }
-      }
-    };
-
-    for (let step = this.waveMatrix[finishX][finishY]; step >= 0; step--) {
-      propagateWave(step, currentX + 1, currentY);
-      propagateWave(step, currentX - 1, currentY);
-      propagateWave(step, currentX, currentY + 1);
-      propagateWave(step, currentX, currentY - 1);
-    }
-
-    this.resultPath = this.resultPath.reverse();
-
     addStep(finishX, finishY);
 
-    return this.resultPath;
-  }
+    for (let step = this.stepsMatrix[finishX][finishY]; step >= 0; step--) {
+      if (this.stepsMatrix[currentX + 1] !== undefined) {
+        if (this.stepsMatrix[currentX + 1][currentY] === step - 1) {
+          addStep(currentX + 1, currentY);
+          currentX++;
+          if (step === 1) {
+            break;
+          }
+        }
+      }
 
-  initializeWaveMatrix(startX, startY, finishX, finishY) {
-    this.waveMatrix = this.passabilityMatrix.map(row => row.map(
-      cell => (cell ? this.PASSABLE_CELL : this.UNPASSABLE_CELL)
-    ));
+      if (this.stepsMatrix[currentX - 1] !== undefined) {
+        if (this.stepsMatrix[currentX - 1][currentY] === step - 1) {
+          addStep(currentX - 1, currentY);
+          currentX = currentX - 1;
+          if (step === 1) {
+            break;
+          }
+        }
+      }
 
-    this.waveMatrix[startX][startY] = this.START_CELL;
-    this.waveMatrix[finishX][finishY] = this.FINISH_CELL;
+      if (this.stepsMatrix[currentX][currentY + 1] === step - 1) {
+        addStep(currentX, currentY + 1);
+        currentY = currentY + 1;
+        if (step === 1) {
+          break;
+        }
+      }
+
+      if (this.stepsMatrix[currentX][currentY - 1] === step - 1) {
+        addStep(currentX, currentY - 1);
+        currentY = currentY - 1;
+        if (step === 1) {
+          break;
+        }
+      }
+    }
+
+    return this.resultPath.reverse();
   }
 }
 
