@@ -13,15 +13,12 @@ const generateOptions = (drawing) => {
   for (let x = 0; x < matrix.length; x++) {
     for (let y = 0; y < matrix[x].length; y++) {
       const num = parseInt(matrix[x][y], 10);
+      
       if (!isNaN(num)) {
         resultPath[num] = { x, y };
-      }
-
-      if (matrix[x][y] === 'A') {
+      } else if (matrix[x][y] === 'A') {
         start = { x, y };
-      }
-
-      if (matrix[x][y] === 'B') {
+      } else if (matrix[x][y] === 'B') {
         finish = { x, y };
       }
 
