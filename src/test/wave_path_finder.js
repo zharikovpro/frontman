@@ -90,5 +90,5 @@ describe('WavePathFinder', () => {
         assert.deepEqual(path, resultPath);
       });
     }); // forEach
-  }); // decribe - findPath
-}); // decribe - WavePathFinder
+  }); // describe - findPath
+}); // describe - WavePathFinder
