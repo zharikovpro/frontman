@@ -71,10 +71,10 @@ describe('WavePathFinder', () => {
 
   describe('findPath', () => {
     it('when there is no path', () => {
-      newTest(`|A| | x | | |
-               | | | x | | |
-               | | | x | | |
-               | | | x |B| |`);
+      newTest(`|A| |x| | |
+               | | |x| | |
+               | | |x| | |
+               | | |x|B| |`);
     });
 
     it('when one path from left to right', () => {
