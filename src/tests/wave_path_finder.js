@@ -55,10 +55,10 @@ const newTest = (drawing) => {
 describe('WavePathFinder', () => {
   describe('constructor', () => {
     it('when an correct matrix', () => {
-      const { matrix } = generateOptions(`| A |   | x |   |   |
-                                          |   |   | x |   |   |
-                                          |   |   | x |   |   |
-                                          |   |   | x | B |   |`);
+      const { matrix } = generateOptions(`|A| |x| | |
+                                          | | |x| | |
+                                          | | |x| | |
+                                          | | |x|B| |`);
 
       const path = new WavePathFinder(matrix);
 
@@ -71,24 +71,24 @@ describe('WavePathFinder', () => {
 
   describe('findPath', () => {
     it('when there is no path', () => {
-      newTest(`| A |   | x |   |   |
-               |   |   | x |   |   |
-               |   |   | x |   |   |
-               |   |   | x | B |   |`);
+      newTest(`|A| | x | | |
+               | | | x | | |
+               | | | x | | |
+               | | | x |B| |`);
     });
 
     it('when one path from left to right', () => {
-      newTest(`| A | 1 | 2 | 3 | 4 |
-               | x | x | x | x | 5 |
-               | x |   |   | x | 6 |
-               |   |   |   | x | B |`);
+      newTest(`|A|1|2|3|4|
+               |x|x|x|x|5|
+               |x| | |x|6|
+               | | | |x|B|`);
     });
 
     it('when one path from right to left', () => {
-      newTest(`| B | 6 | x |   |   |
-               | x | 5 | 4 | x |   |
-               |   | x | 3 | 2 | x |
-               |   |   | x | 1 | A |`);
+      newTest(`|B|6|x| | |
+               |x|5|4|x| |
+               | |x|3|2|x|
+               | | |x|1|A|`);
     });
   });
 });
