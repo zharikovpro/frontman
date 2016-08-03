@@ -139,7 +139,7 @@ class WavePathFinder {
       this.resultPath.push({ x, y });
     };
 
-    const progateWave = (step, newX, newY) => {
+    const propagateWave = (step, newX, newY) => {
       if (isset(this.waveMatrix[newX])) {
         if (this.waveMatrix[newX][newY] === step - 1) {
           addStep(newX, newY);
@@ -150,10 +150,10 @@ class WavePathFinder {
     };
 
     for (let step = this.waveMatrix[finishX][finishY]; step >= 0; step--) {
-      progateWave(step, currentX + 1, currentY);
-      progateWave(step, currentX - 1, currentY);
-      progateWave(step, currentX, currentY + 1);
-      progateWave(step, currentX, currentY - 1);
+      propagateWave(step, currentX + 1, currentY);
+      propagateWave(step, currentX - 1, currentY);
+      propagateWave(step, currentX, currentY + 1);
+      propagateWave(step, currentX, currentY - 1);
     }
 
     this.resultPath = this.resultPath.reverse();
