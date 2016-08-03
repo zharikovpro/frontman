@@ -7,20 +7,10 @@ const generateOptions = (drawing) => {
 
   let resultPath = [];
 
-  let tempStr;
-  tempStr = '';
-
-  for (let i = 0; i < drawing.length; i++) {
-    if (drawing[i] !== ' ') {
-      tempStr += drawing[i];
-    }
-  }
-
-  const matrix = tempStr.split('\n');
+  let matrix = drawing.replace(/ /g, '').split('\n');
+  matrix = matrix.map(line => line.substr(1, (line.length - 2)).split('|'));
 
   for (let x = 0; x < matrix.length; x++) {
-    matrix[x] = matrix[x].substr(1, (matrix[x].length - 2)).split('|');
-
     for (let y = 0; y < matrix[x].length; y++) {
       const num = parseInt(matrix[x][y], 10);
       if (!isNaN(num)) {
