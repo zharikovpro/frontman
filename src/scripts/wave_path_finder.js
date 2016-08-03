@@ -143,42 +143,23 @@ class WavePathFinder {
 
     addStep(finishX, finishY);
 
+    const propagateWave = (newX, newY, step) => {
+      if (this.stepsMatrix[newX] !== undefined) {
+        if (this.stepsMatrix[newX][newY] === step - 1) {
+          addStep(newX, newY);
+          currentX = newX;
+          currentY = newY;
+          if (step === 1) return true;
+        }
+      }
+      return false;
+    };
+
     for (let step = this.stepsMatrix[finishX][finishY]; step >= 0; step--) {
-      if (this.stepsMatrix[currentX + 1] !== undefined) {
-        if (this.stepsMatrix[currentX + 1][currentY] === step - 1) {
-          addStep(currentX + 1, currentY);
-          currentX++;
-          if (step === 1) {
-            break;
-          }
-        }
-      }
-
-      if (this.stepsMatrix[currentX - 1] !== undefined) {
-        if (this.stepsMatrix[currentX - 1][currentY] === step - 1) {
-          addStep(currentX - 1, currentY);
-          currentX = currentX - 1;
-          if (step === 1) {
-            break;
-          }
-        }
-      }
-
-      if (this.stepsMatrix[currentX][currentY + 1] === step - 1) {
-        addStep(currentX, currentY + 1);
-        currentY = currentY + 1;
-        if (step === 1) {
-          break;
-        }
-      }
-
-      if (this.stepsMatrix[currentX][currentY - 1] === step - 1) {
-        addStep(currentX, currentY - 1);
-        currentY = currentY - 1;
-        if (step === 1) {
-          break;
-        }
-      }
+      if (propagateWave(currentX + 1, currentY, step)) break;
+      if (propagateWave(currentX - 1, currentY, step)) break;
+      if (propagateWave(currentX, currentY + 1, step)) break;
+      if (propagateWave(currentX, currentY - 1, step)) break;
     }
 
     return this.resultPath.reverse();
