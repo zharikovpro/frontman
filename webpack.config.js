@@ -5,6 +5,7 @@ const fs = require('fs');
 
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const nib = require('nib');
 const rupture = require('rupture');
@@ -43,10 +44,10 @@ const config = {
       loader: 'babel!eslint',
     }, {
       test: /\.styl$/,
-      loader: 'style!css!stylus',
+      loader: ExtractTextPlugin.extract('style', 'css!stylus'),
     }, {
       test: /\.css$/,
-      loader: 'style!css',
+      loader: ExtractTextPlugin.extract('style', 'css'),
     }, {
       test: /\.(jpg|png|gif|svg|ttf|eot|woff|woff2)$/,
       loader: 'file?name=./static/[name].[ext]',
@@ -61,6 +62,11 @@ const config = {
 
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify(NODE_ENV),
+    }),
+
+    new ExtractTextPlugin('[name]-[hash].css', {
+      allChunks: true,
+      disable: (NODE_ENV === 'development')
     }),
 
     // TODO: iterate through all top-level files inside templates
