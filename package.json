@@ -4,12 +4,12 @@
   "description": "Frontend project seed",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint webpack.config.js src/test/ src/scripts/",
+    "lint": "./node_modules/.bin/eslint webpack.config.js test/ src/scripts/",
     "start": "webpack-dev-server",
     "build": "NODE_ENV=production webpack",
     "clean": "rm -r build",
     "test": "mocha --compilers js:babel-register",
-    "coverage": "istanbul cover _mocha -- --compilers js:babel-register",
+    "coverage": "istanbul cover _mocha -- --compilers js:babel-register"
   },
   "repository": {
     "type": "git",

@@ -18,7 +18,7 @@ const config = {
 
   entry: {
     app: ['./scripts/app.js'],
-    mocha: fs.readdirSync(`${__dirname}/src/test`).map(file => `mocha!./test/${file}`),
+    mocha: fs.readdirSync(`${__dirname}/test`).map(file => `mocha!../test/${file}`),
   },
 
   output: {
@@ -66,7 +66,7 @@ const config = {
 
     new ExtractTextPlugin('[name]-[hash].css', {
       allChunks: true,
-      disable: (NODE_ENV === 'development')
+      disable: (NODE_ENV === 'development'),
     }),
 
     // TODO: iterate through all top-level files inside templates
