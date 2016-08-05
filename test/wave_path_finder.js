@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const WavePathFinder = require('../scripts/wave_path_finder.js');
+const WavePathFinder = require('../src/scripts/wave_path_finder.js');
 
 const mapOptions = (drawing) => {
   let start = {};
