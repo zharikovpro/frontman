@@ -1,5 +1,8 @@
-const assert = require('chai').assert;
+const chai = require('chai');
+const {assert} = chai;
 const WavePathFinder = require('../src/scripts/wave_path_finder.js');
+
+chai.should();
 
 const mapOptions = (drawing) => {
   let start = {};
@@ -45,6 +48,12 @@ const mapOptions = (drawing) => {
 
 describe('WavePathFinder', () => {
   describe('constructor', () => {
+    it('uncorrected matrix - string', () => {
+      (() => {
+        new WavePathFinder('bla-bla-bla');
+      }).should.throw(Error);
+    });
+
     it('when an correct matrix', () => {
       const { matrix } = mapOptions(`|A| |x| | |
                                      | | |x| | |
