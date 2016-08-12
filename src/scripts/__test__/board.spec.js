@@ -1,8 +1,8 @@
 const assert = require('chai').assert;
-const Board = require('../src/scripts/board.js');
+const Board = require('../board.js');
 
 describe('Board', () => {
-  describe('constructor', () => {
+  describe('constructor()', () => {
     it('Default', () => {
       const b = new Board();
 
