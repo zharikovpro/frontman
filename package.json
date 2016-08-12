@@ -4,12 +4,12 @@
   "description": "Frontend project seed",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint webpack.config.js test/ src/scripts/",
+    "lint": "./node_modules/.bin/eslint *.js test/ src/scripts/",
     "start": "webpack-dev-server",
     "build": "NODE_ENV=production webpack",
     "clean": "rm -r build",
-    "test": "mocha --compilers js:babel-register",
-    "coverage": "istanbul cover _mocha -- --compilers js:babel-register"
+    "test:single": "rm -rf tmp/ && karma start karma.conf.js --single-run",
+    "test:watch": "karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,6 @@
     "escope": "^3.4.0",
     "eslint": "^2.9.0",
     "eslint-config-airbnb": "^9.0.1",
-    "eslint-config-rambler": "git://github.com/rambler-digital-solutions/dotfiles.git",
     "eslint-loader": "^1.4.1",
     "eslint-plugin-import": "^1.12.0",
     "eslint-plugin-jsx-a11y": "^1.2.0",
@@ -47,7 +46,6 @@
     "html-webpack-plugin": "^2.21.0",
     "istanbul": "^1.1.0-alpha.1",
     "jasmine-core": "^2.4.1",
-    "json-loader": "^0.5.1",
     "karma": "^0.13.21",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^1.0.1",
@@ -55,10 +53,8 @@
     "karma-jasmine": "^0.3.7",
     "karma-mocha": "^0.2.2",
     "karma-mocha-reporter": "^1.2.2",
-    "karma-phantomjs-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
-    "lodash": "^3.7.0",
     "lost": "^7.0.3",
     "manifest-revision-webpack-plugin": "0.0.2",
     "mocha": "^2.2.5",
@@ -75,7 +71,6 @@
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.1.1",
-    "url-loader": "^0.5.5",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },

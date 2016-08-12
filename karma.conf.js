@@ -3,16 +3,19 @@ const webpackConfig = require('./karma.webpack.config');
 module.exports = config => {
   config.set({
 
-    basePath: __dirname,
+    basePath: '',
 
     coverageReporter: {
       dir: 'tmp/coverage/',
       reporters: [
-        { type: 'html', subdir: 'report-html' },
-        { type: 'lcov', subdir: 'report-lcov' }
+        {
+          type: 'html', subdir: 'report-html' },
+        // { type: 'lcov', subdir: 'report-lcov' }
       ],
       instrumenterOptions: {
-        istanbul: { noCompact: true }
+        istanbul: {
+          noCompact: true
+        }
       }
     },
 
@@ -46,7 +49,7 @@ module.exports = config => {
 
     singleRun: false,
 
-    concurrency: Infinity,
+    // concurrency: Infinity,
 
     webpack: webpackConfig,
 
@@ -59,9 +62,7 @@ module.exports = config => {
       'karma-coverage',
       'karma-mocha-reporter',
       'karma-sourcemap-loader',
-
-      'karma-chrome-launcher',
-      'karma-phantomjs-launcher'
+      'karma-chrome-launcher'
     ],
 
     webpackMiddleware: {
