@@ -8,15 +8,8 @@ module.exports = config => {
     coverageReporter: {
       dir: 'tmp/coverage/',
       reporters: [
-        {
-          type: 'html', subdir: 'report-html' },
-        // { type: 'lcov', subdir: 'report-lcov' }
-      ],
-      instrumenterOptions: {
-        istanbul: {
-          noCompact: true
-        }
-      }
+        {type: 'text', subdir: '/html-report'}
+      ]
     },
 
     frameworks: [
@@ -31,11 +24,10 @@ module.exports = config => {
     exclude: [],
 
     preprocessors: {
-      'src/**/*.spec.js': ['webpack', 'sourcemap']
+      'src/**/*.spec.js': ['webpack']
     },
 
     reporters: ['mocha', 'coverage'],
-    // reporters: ['progress'],
 
     port: 9876,
 
@@ -49,7 +41,7 @@ module.exports = config => {
 
     singleRun: false,
 
-    // concurrency: Infinity,
+    concurrency: Infinity,
 
     webpack: webpackConfig,
 
