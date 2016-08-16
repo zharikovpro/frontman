@@ -1,4 +1,4 @@
-const PathFinder = require('./wave_path_finder.js');
+const PathFinder = require('wave-pathfinder');
 
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
