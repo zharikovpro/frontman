@@ -24,17 +24,18 @@ const randomEmptyCell = (matrix) => {
 };
 
 class Board {
-  constructor(col = 9, row = 9) {
-    if (!col) {
+  constructor(cells = 9, rows = 9) {
+    if (!cells || typeof cells !== 'number') {
       throw new Error('Incorrect first argument!');
     }
 
-    if (!row) {
+    if (!rows || typeof rows !== 'number') {
       throw new Error('Incorrect two argument!');
     }
 
-    this.columns = col;
-    this.rows = row;
+    this.score = 0;
+    this.columns = cells;
+    this.rows = rows;
 
     this.matrix = new Array(this.columns);
 
@@ -55,31 +56,65 @@ class Board {
     this.matrix[x][y] = 0;
   }
 
-  transition(oldX, oldY, newX, newY) {
+  moveBall(oldX, oldY, newX, newY) {
     if (this.matrix[oldX][oldY] === 0) return false;
 
     if (this.matrix[newX][newY] !== 0) return false;
 
-    const path = new PathFinder(
-      this.matrix.map(
-        row => row.map(
-          cell => (!cell ? 1 : 0)
-        )
-      )
-    );
+    const path = new PathFinder(this.matrix.map(row => row.map(cell => (!cell ? 1 : 0))));
 
     const localePath = path.findPath(oldX, oldY, newX, newY);
 
     if (typeof localePath !== 'object') return false;
 
-    for (let i = 0; i < localePath.length - 1; i++) {
-      this.matrix[localePath[i + 1].x][localePath[i + 1].y] =
-        this.matrix[localePath[i].x][localePath[i].y];
-
-      this.matrix[localePath[i].x][localePath[i].y] = 0;
-    }
+    this.matrix[oldX][oldY] = 0;
+    this.matrix[newX][newY] = 1;
 
     return true;
+  }
+
+  deleteBalls() {
+    for (let x = 0; x < this.matrix.length; x++) {
+      let sequenceCount = 0;
+      for (let y = 0; y < this.matrix[x].length; y++) {
+        if (this.matrix[x][y]) {
+          sequenceCount++;
+        }
+
+        if (!this.matrix[x][y] || (y === this.matrix[x].length - 1)) {
+          if (sequenceCount < 5) {
+            sequenceCount = 0;
+          } else {
+            for (let i = 1; i <= sequenceCount; i++) {
+              this.matrix[x][y - i] = 0;
+              this.score++;
+            }
+            sequenceCount = 0;
+          }
+        }
+      }
+    }
+
+    for (let y = 0; y < this.matrix[0].length; y++) {
+      let sequenceCount = 0;
+      for (let x = 0; x < this.matrix.length; x++) {
+        if (this.matrix[x][y]) {
+          sequenceCount++;
+        }
+
+        if (!this.matrix[x][y] || (y === this.matrix[x].length - 1)) {
+          if (sequenceCount < 5) {
+            sequenceCount = 0;
+          } else {
+            for (let i = 1; i <= sequenceCount; i++) {
+              this.matrix[x - i][y] = 0;
+              this.score++;
+            }
+            sequenceCount = 0;
+          }
+        }
+      }
+    }
   }
 
   render() {
