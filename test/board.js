@@ -5,6 +5,16 @@ chai.should();
 
 const Board = require('../src/scripts/board.js');
 
+const renderMatrix = (drawing) => {
+  const matrix = drawing
+    .replace(/ /g, '')
+    .split('\n')
+    .map(line => line.substr(1, (line.length - 2))
+    .split('|'));
+
+  return matrix.map(row => row.map(cell => ((cell === '') ? 0 : 1)));
+};
+
 describe('Board', () => {
   describe('constructor()', () => {
     it('Incorrect all parameters', () => {
@@ -64,16 +74,14 @@ describe('Board', () => {
     it('horizontal line', () => {
       const b = new Board(6, 6);
 
-      b.createBall([0, 0]);
-      b.createBall([0, 1]);
-      b.createBall([0, 2]);
-      b.createBall([0, 3]);
-      b.createBall([0, 4]);
-      b.createBall([2, 2]);
+      b.matrix = renderMatrix(`|+|+|+|+|+| |
+                               | | | | | | |
+                               | | |+| | | |
+                               | | | | | | |
+                               | | | | | | |
+                               | | | | | | |`);
 
       b.deleteBalls();
-
-      console.log(b.score);
 
       assert.equal(b.score, 5);
 
@@ -90,12 +98,15 @@ describe('Board', () => {
     it('vertical line', () => {
       const b = new Board(9, 6);
 
-      b.createBall([2, 0]);
-      b.createBall([3, 0]);
-      b.createBall([4, 0]);
-      b.createBall([5, 0]);
-      b.createBall([6, 0]);
-      b.createBall([7, 0]);
+      b.matrix = renderMatrix(`| | | | | | |
+                               | | | | | | |
+                               |+| | | | | |
+                               |+| | | | | |
+                               |+| | | | | |
+                               |+| | | | | |
+                               |+| | | | | |
+                               |+| | | | | |
+                               | | | | | | |`);
 
       b.deleteBalls();
 
@@ -117,18 +128,15 @@ describe('Board', () => {
     it('mix line', () => {
       const b = new Board(9, 6);
 
-      b.createBall([0, 0]);
-      b.createBall([0, 1]);
-      b.createBall([0, 2]);
-      b.createBall([0, 3]);
-      b.createBall([0, 4]);
-      b.createBall([2, 2]);
-      b.createBall([2, 0]);
-      b.createBall([3, 0]);
-      b.createBall([4, 0]);
-      b.createBall([5, 0]);
-      b.createBall([6, 0]);
-      b.createBall([7, 0]);
+      b.matrix = renderMatrix(`|+|+|+|+|+| |
+                               | | | | | | |
+                               |+| |+| | | |
+                               |+| | | | | |
+                               |+| | | | | |
+                               |+| | | | | |
+                               |+| | | | | |
+                               |+| | | | | |
+                               | | | | | | |`);
 
       b.deleteBalls();
 
