@@ -59,4 +59,92 @@ describe('Board', () => {
       assert.equal(bells, 1);
     });
   });
+
+  describe('deleteBalls()', () => {
+    it('horizontal line', () => {
+      const b = new Board(6, 6);
+
+      b.createBall([0, 0]);
+      b.createBall([0, 1]);
+      b.createBall([0, 2]);
+      b.createBall([0, 3]);
+      b.createBall([0, 4]);
+      b.createBall([2, 2]);
+
+      b.deleteBalls();
+
+      console.log(b.score);
+
+      assert.equal(b.score, 5);
+
+      assert.deepEqual(b.matrix, [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+      ]);
+    });
+
+    it('vertical line', () => {
+      const b = new Board(9, 6);
+
+      b.createBall([2, 0]);
+      b.createBall([3, 0]);
+      b.createBall([4, 0]);
+      b.createBall([5, 0]);
+      b.createBall([6, 0]);
+      b.createBall([7, 0]);
+
+      b.deleteBalls();
+
+      assert.equal(b.score, 6);
+
+      assert.deepEqual(b.matrix, [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+      ]);
+    });
+
+    it('mix line', () => {
+      const b = new Board(9, 6);
+
+      b.createBall([0, 0]);
+      b.createBall([0, 1]);
+      b.createBall([0, 2]);
+      b.createBall([0, 3]);
+      b.createBall([0, 4]);
+      b.createBall([2, 2]);
+      b.createBall([2, 0]);
+      b.createBall([3, 0]);
+      b.createBall([4, 0]);
+      b.createBall([5, 0]);
+      b.createBall([6, 0]);
+      b.createBall([7, 0]);
+
+      b.deleteBalls();
+
+      assert.equal(b.score, 11);
+
+      assert.deepEqual(b.matrix, [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+      ]);
+    });
+  });
 });
