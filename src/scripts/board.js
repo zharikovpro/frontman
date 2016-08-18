@@ -2,12 +2,12 @@ const PathFinder = require('wave-pathfinder');
 
 const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-const randomEmptyCell = (matrix) => {
+const randomEmptyCell = ({ matrix, colors, emptyCell }) => {
   const emptyCells = [];
 
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
-      if (matrix[i][j] === 0) {
+      if (matrix[i][j] === emptyCell) {
         emptyCells.push({ x: i, y: j });
       }
     }
@@ -20,6 +20,7 @@ const randomEmptyCell = (matrix) => {
   return [
     emptyCells[d].x,
     emptyCells[d].y,
+    getRandomInt(0, colors.length - 1),
   ];
 };
 
@@ -41,7 +42,7 @@ class Board {
     for (let i = 0; i < cells; i++) {
       this.matrix[i] = new Array(rows);
 
-      for (let j = 0; j < rows; j++) this.matrix[i][j] = 0;
+      for (let j = 0; j < rows; j++) this.matrix[i][j] = this.emptyCell;
     }
 
     if (busyCells.length) {
@@ -51,30 +52,56 @@ class Board {
     }
   }
 
-  createBall([x, y] = randomEmptyCell(this.matrix)) {
-    this.matrix[x][y] = 1;
+  createBall([x, y, color] = randomEmptyCell(this)) {
+    this.matrix[x][y] = color;
   }
 
   deleteBall(x, y) {
-    this.matrix[x][y] = 0;
+    this.matrix[x][y] = this.emptyCell;
   }
 
   moveBall(oldX, oldY, newX, newY) {
-    if (this.matrix[oldX][oldY] === 0) return false;
+    if (this.matrix[oldX][oldY] === this.emptyCell) return false;
 
-    if (this.matrix[newX][newY] !== 0) return false;
+    if (this.matrix[newX][newY] !== this.emptyCell) return false;
 
-    const path = new PathFinder(this.matrix.map(row => row.map(cell => (!cell ? 1 : 0))));
+    const path = new PathFinder(this.matrix.map(row => row.map(cell => (
+      (cell === this.emptyCell) ? 1 : 0
+    ))));
 
     const localePath = path.findPath(oldX, oldY, newX, newY);
 
     if (typeof localePath !== 'object') return false;
 
-    this.matrix[oldX][oldY] = 0;
-    this.matrix[newX][newY] = 1;
+    this.matrix[newX][newY] = this.matrix[oldX][oldY];
+    this.matrix[oldX][oldY] = this.emptyCell;
 
     return true;
   }
+
+  render() {
+    let str = '';
+
+    for (let i = 0; i < this.matrix.length; i++) {
+      for (let j = 0; j < this.matrix.length; j++) {
+        str += (this.matrix[i][j] !== this.emptyCell) ? `${this.matrix[i][j]} ` : '- ';
+      }
+      if (i !== this.matrix.length - 1) str += '\n';
+    }
+
+    console.log(str);
+  }
+
+  deleteBallsByColors(color) {
+    console.log(color);
+  }
+
+  deleteAllCombinationBalls() {
+    for (let i = 0; i < this.colors.length; i++) {
+      this.deleteBallsByColors(i);
+    }
+  }
+
 
   deleteBalls() {
     for (let x = 0; x < this.matrix.length; x++) {
@@ -118,19 +145,6 @@ class Board {
         }
       }
     }
-  }
-
-  render() {
-    let str = '';
-
-    for (let i = 0; i < this.matrix.length; i++) {
-      for (let j = 0; j < this.matrix.length; j++) {
-        str += (this.matrix[i][j] === 0) ? '+ ' : '- ';
-      }
-      str += '\n';
-    }
-
-    console.log(str);
   }
 }
 
