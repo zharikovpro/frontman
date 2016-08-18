@@ -47,13 +47,15 @@ class Board {
 
     if (busyCells.length) {
       busyCells.forEach(cell => {
-        this.matrix[cell.rRow][cell.rCell] = cell.colorIndex;
+        this.createBall([cell.rRow, cell.rCell, cell.colorIndex]);
       });
     }
   }
 
   createBall([x, y, color] = randomEmptyCell(this)) {
-    this.matrix[x][y] = color;
+    if (this.matrix[x][y] === this.emptyCell) {
+      this.matrix[x][y] = color;
+    }
   }
 
   deleteBall(x, y) {
@@ -93,30 +95,20 @@ class Board {
   }
 
   deleteBallsByColors(color) {
-    console.log(color);
-  }
-
-  deleteAllCombinationBalls() {
-    for (let i = 0; i < this.colors.length; i++) {
-      this.deleteBallsByColors(i);
-    }
-  }
-
-
-  deleteBalls() {
     for (let x = 0; x < this.matrix.length; x++) {
       let sequenceCount = 0;
       for (let y = 0; y < this.matrix[x].length; y++) {
-        if (this.matrix[x][y]) {
+        const c = +this.matrix[x][y];
+        if (c === color) {
           sequenceCount++;
         }
 
-        if (!this.matrix[x][y] || (y === this.matrix[x].length - 1)) {
+        if (c !== color || (y === this.matrix[x].length - 1)) {
           if (sequenceCount < 5) {
             sequenceCount = 0;
           } else {
             for (let i = 1; i <= sequenceCount; i++) {
-              this.matrix[x][y - i] = 0;
+              this.matrix[x][y - i] = this.emptyCell;
               this.score++;
             }
             sequenceCount = 0;
@@ -128,22 +120,29 @@ class Board {
     for (let y = 0; y < this.matrix[0].length; y++) {
       let sequenceCount = 0;
       for (let x = 0; x < this.matrix.length; x++) {
-        if (this.matrix[x][y]) {
+        const c = +this.matrix[x][y];
+        if (c === color) {
           sequenceCount++;
         }
 
-        if (!this.matrix[x][y] || (y === this.matrix[x].length - 1)) {
+        if (c !== color || (y === this.matrix[x].length - 1)) {
           if (sequenceCount < 5) {
             sequenceCount = 0;
           } else {
             for (let i = 1; i <= sequenceCount; i++) {
-              this.matrix[x - i][y] = 0;
+              this.matrix[x - i][y] = this.emptyCell;
               this.score++;
             }
             sequenceCount = 0;
           }
         }
       }
+    }
+  }
+
+  deleteAllCombinationBalls() {
+    for (let i = 0; i < this.colors.length; i++) {
+      this.deleteBallsByColors(i);
     }
   }
 }

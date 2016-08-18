@@ -5,14 +5,21 @@ chai.should();
 
 const Board = require('../src/scripts/board.js');
 
-const renderMatrix = (drawing) => {
-  const matrix = drawing
-    .replace(/ /g, '')
-    .split('\n')
-    .map(line => line.substr(1, (line.length - 2))
-    .split('|'));
+const renderMatrix = {
+  before(drawing) {
+    const matrix = drawing.replace(/ /g, '').split('\n').map(line =>
+      line.substr(1, (line.length - 2)
+    ).split('|'));
 
-  return matrix.map(row => row.map(cell => ((cell === '') ? 0 : 1)));
+    return matrix.map(row => row.map(
+      cell => (
+        (cell === '') ? -1 : +cell)
+      )
+    );
+  },
+  after() {
+
+  },
 };
 
 describe('Board', () => {
@@ -72,88 +79,88 @@ describe('Board', () => {
     });
   });
 
-  describe('deleteBalls()', () => {
+  describe('deleteAllCombinationBalls()', () => {
     it('horizontal line', () => {
       const b = new Board(6, 6);
 
-      b.matrix = renderMatrix(`|+|+|+|+|+| |
-                               | | | | | | |
-                               | | |+| | | |
-                               | | | | | | |
-                               | | | | | | |
-                               | | | | | | |`);
+      b.matrix = renderMatrix.before(`|1|1|1|1|1| |
+                                      | | | | | | |
+                                      | | |1| | | |
+                                      | | | | | | |
+                                      | | | | | | |
+                                      | | | | | | |`);
 
-      b.deleteBalls();
+      b.deleteAllCombinationBalls();
 
       assert.equal(b.score, 5);
 
       assert.deepEqual(b.matrix, [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, 1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
       ]);
     });
 
     it('vertical line', () => {
       const b = new Board(9, 6);
 
-      b.matrix = renderMatrix(`| | | | | | |
-                               | | | | | | |
-                               |+| | | | | |
-                               |+| | | | | |
-                               |+| | | | | |
-                               |+| | | | | |
-                               |+| | | | | |
-                               |+| | | | | |
-                               | | | | | | |`);
+      b.matrix = renderMatrix.before(`| | | | | | |
+                                      | | | | | | |
+                                      |1| | | | | |
+                                      |1| | | | | |
+                                      |1| | | | | |
+                                      |1| | | | | |
+                                      |1| | | | | |
+                                      |1| | | | | |
+                                      | | | | | | |`);
 
-      b.deleteBalls();
+      b.deleteAllCombinationBalls();
 
       assert.equal(b.score, 6);
 
       assert.deepEqual(b.matrix, [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
       ]);
     });
 
     it('mix line', () => {
       const b = new Board(9, 6);
 
-      b.matrix = renderMatrix(`|+|+|+|+|+| |
-                               | | | | | | |
-                               |+| |+| | | |
-                               |+| | | | | |
-                               |+| | | | | |
-                               |+| | | | | |
-                               |+| | | | | |
-                               |+| | | | | |
-                               | | | | | | |`);
+      b.matrix = renderMatrix.before(`|1|1|1|1|1| |
+                                      | | | | | | |
+                                      |2| |4| | | |
+                                      |2| | | | | |
+                                      |2| | | | | |
+                                      |2| | | | | |
+                                      |2| | | | | |
+                                      |2| | | | | |
+                                      | | | | | | |`);
 
-      b.deleteBalls();
+      b.deleteAllCombinationBalls();
 
       assert.equal(b.score, 11);
 
       assert.deepEqual(b.matrix, [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, +4, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
       ]);
     });
   });
