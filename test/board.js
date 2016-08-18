@@ -5,21 +5,16 @@ chai.should();
 
 const Board = require('../src/scripts/board.js');
 
-const renderMatrix = {
-  before(drawing) {
-    const matrix = drawing.replace(/ /g, '').split('\n').map(line =>
-      line.substr(1, (line.length - 2)
-    ).split('|'));
+const renderMatrix = (drawing) => {
+  const matrix = drawing.replace(/ /g, '').split('\n').map(line =>
+    line.substr(1, (line.length - 2)
+  ).split('|'));
 
-    return matrix.map(row => row.map(
-      cell => (
-        (cell === '') ? -1 : +cell)
-      )
-    );
-  },
-  after() {
-
-  },
+  return matrix.map(row => row.map(
+    cell => (
+      (cell === '') ? -1 : +cell)
+    )
+  );
 };
 
 describe('Board', () => {
@@ -83,85 +78,79 @@ describe('Board', () => {
     it('horizontal line', () => {
       const b = new Board(6, 6);
 
-      b.matrix = renderMatrix.before(`|1|1|1|1|1| |
-                                      | | | | | | |
-                                      | | |1| | | |
-                                      | | | | | | |
-                                      | | | | | | |
-                                      | | | | | | |`);
+      b.matrix = renderMatrix(`|1|1|1|1|1| |
+                               | | | | | | |
+                               | | |1| | | |
+                               | | | | | | |
+                               | | | | | | |
+                               | | | | | | |`);
 
       b.deleteAllCombinationBalls();
 
       assert.equal(b.score, 5);
 
-      assert.deepEqual(b.matrix, [
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, 1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-      ]);
+      assert.deepEqual(b.matrix, renderMatrix(`| | | | | | |
+                                               | | | | | | |
+                                               | | |1| | | |
+                                               | | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |`));
     });
 
     it('vertical line', () => {
       const b = new Board(9, 6);
 
-      b.matrix = renderMatrix.before(`| | | | | | |
-                                      | | | | | | |
-                                      |1| | | | | |
-                                      |1| | | | | |
-                                      |1| | | | | |
-                                      |1| | | | | |
-                                      |1| | | | | |
-                                      |1| | | | | |
-                                      | | | | | | |`);
+      b.matrix = renderMatrix(`| | | | | | |
+                               | | | | | | |
+                               |1| | | | | |
+                               |1| | | | | |
+                               |1| | | | | |
+                               |1| | | | | |
+                               |1| | | | | |
+                               |1| | | | | |
+                               | | | | | | |`);
 
       b.deleteAllCombinationBalls();
 
       assert.equal(b.score, 6);
 
-      assert.deepEqual(b.matrix, [
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-      ]);
+      assert.deepEqual(b.matrix, renderMatrix(`| | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |`));
     });
 
     it('mix line', () => {
       const b = new Board(9, 6);
 
-      b.matrix = renderMatrix.before(`|1|1|1|1|1| |
-                                      | | | | | | |
-                                      |2| |4| | | |
-                                      |2| | | | | |
-                                      |2| | | | | |
-                                      |2| | | | | |
-                                      |2| | | | | |
-                                      |2| | | | | |
-                                      | | | | | | |`);
+      b.matrix = renderMatrix(`|1|1|1|1|1| |
+                               | | | | | | |
+                               |2| |4| | | |
+                               |2| | | | | |
+                               |2| | | | | |
+                               |2| | | | | |
+                               |2| | | | | |
+                               |2| | | | | |
+                               | | | | | | |`);
 
       b.deleteAllCombinationBalls();
 
       assert.equal(b.score, 11);
 
-      assert.deepEqual(b.matrix, [
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, +4, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1],
-      ]);
+      assert.deepEqual(b.matrix, renderMatrix(`| | | | | | |
+                                               | | | | | | |
+                                               | | |4| | | |
+                                               | | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |
+                                               | | | | | | |`));
     });
   });
 });
