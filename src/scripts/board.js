@@ -24,7 +24,7 @@ const randomEmptyCell = (matrix) => {
 };
 
 class Board {
-  constructor(cells = 9, rows = 9) {
+  constructor(cells = 9, rows = 9, busyCells = [], colors) {
     if (!cells || typeof cells !== 'number') {
       throw new Error('Incorrect first argument!');
     }
@@ -34,17 +34,20 @@ class Board {
     }
 
     this.score = 0;
-    this.columns = cells;
-    this.rows = rows;
-
+    this.emptyCell = -1;
+    this.colors = colors || ['#000', '#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff', '#fff'];
     this.matrix = new Array(this.columns);
 
-    for (let i = 0; i < this.columns; i++) {
-      this.matrix[i] = new Array(this.rows);
+    for (let i = 0; i < cells; i++) {
+      this.matrix[i] = new Array(rows);
 
-      for (let j = 0; j < this.rows; j++) {
-        this.matrix[i][j] = 0;
-      }
+      for (let j = 0; j < rows; j++) this.matrix[i][j] = 0;
+    }
+
+    if (busyCells.length) {
+      busyCells.forEach(cell => {
+        this.matrix[cell.rRow][cell.rCell] = cell.colorIndex;
+      });
     }
   }
 
