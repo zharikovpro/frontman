@@ -97,13 +97,13 @@ class Board {
   deleteBallsByColors(color) {
     for (let x = 0; x < this.matrix.length; x++) {
       let sequenceCount = 0;
-      for (let y = 0; y < this.matrix[x].length; y++) {
+      for (let y = 0; y <= this.matrix[x].length; y++) {
         const c = +this.matrix[x][y];
         if (c === color) {
           sequenceCount++;
         }
 
-        if (c !== color || (y === this.matrix[x].length - 1)) {
+        if (c !== color || typeof this.matrix[x][y] === undefined) {
           if (sequenceCount < 5) {
             sequenceCount = 0;
           } else {
@@ -119,13 +119,15 @@ class Board {
 
     for (let y = 0; y < this.matrix[0].length; y++) {
       let sequenceCount = 0;
-      for (let x = 0; x < this.matrix.length; x++) {
-        const c = +this.matrix[x][y];
-        if (c === color) {
-          sequenceCount++;
+      for (let x = 0; x <= this.matrix.length; x++) {
+        if (this.matrix[x]) {
+          const c = +this.matrix[x][y];
+          if (c === color) {
+            sequenceCount++;
+          }
         }
 
-        if (c !== color || (y === this.matrix[x].length - 1)) {
+        if (!this.matrix[x] || +this.matrix[x][y] !== color) {
           if (sequenceCount < 5) {
             sequenceCount = 0;
           } else {

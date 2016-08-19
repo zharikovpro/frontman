@@ -34,25 +34,24 @@ describe('Board', () => {
     it('Default', () => {
       const b = new Board();
 
-      assert.deepEqual(b.matrix, [
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1, -1],
-      ]);
+      assert.deepEqual(b.matrix, renderMatrix(`| | | | | | | | | |
+                                               | | | | | | | | | |
+                                               | | | | | | | | | |
+                                               | | | | | | | | | |
+                                               | | | | | | | | | |
+                                               | | | | | | | | | |
+                                               | | | | | | | | | |
+                                               | | | | | | | | | |
+                                               | | | | | | | | | |`));
     });
 
     it('Normal', () => {
       const b = new Board(4, 4);
 
-      assert.deepEqual(b.matrix, [
-        [-1, -1, -1, -1], [-1, -1, -1, -1], [-1, -1, -1, -1], [-1, -1, -1, -1],
-      ]);
+      assert.deepEqual(b.matrix, renderMatrix(`| | | | |
+                                               | | | | |
+                                               | | | | |
+                                               | | | | |`));
     });
   });
 
@@ -75,82 +74,116 @@ describe('Board', () => {
   });
 
   describe('deleteAllCombinationBalls()', () => {
-    it('horizontal line', () => {
-      const b = new Board(6, 6);
+    const tests = [{
+      name: 'horizontal line',
+      r: 6,
+      c: 6,
+      score: 5,
+      drawingBefore: `|1|1|1|1|1| |
+                      | | | | | | |
+                      | | |1| | | |
+                      | | | | | | |
+                      | | | | | | |
+                      | | | | | | |`,
+      drawingAfter: `| | | | | | |
+                     | | | | | | |
+                     | | |1| | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |`,
+    }, {
+      name: 'vertical line',
+      r: 9,
+      c: 6,
+      score: 6,
+      drawingBefore: `| | | | | | |
+                      | | | | | | |
+                      |1| | | | | |
+                      |1| | | | | |
+                      |1| | | | | |
+                      |1| | | | | |
+                      |1| | | | | |
+                      |1| | | | | |
+                      | | | | | | |`,
+      drawingAfter: `| | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |`,
+    }, {
+      name: 'mix line',
+      r: 9,
+      c: 6,
+      score: 11,
+      drawingBefore: `|1|1|1|1|1| |
+                      | | | | | | |
+                      |2| |4| | | |
+                      |2| | | | | |
+                      |2| | | | | |
+                      |2| | | | | |
+                      |2| | | | | |
+                      |2| | | | | |
+                      | | | | | | |`,
+      drawingAfter: `| | | | | | |
+                     | | | | | | |
+                     | | |4| | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |`,
+    }, {
+      name: 'all line horizontal',
+      r: 6,
+      c: 6,
+      score: 6,
+      drawingBefore: `|1|1|1|1|1|1|
+                      | | | | | | |
+                      | | | | | | |
+                      | | | | | | |
+                      | | | | | | |
+                      | | | | | | |`,
+      drawingAfter: `| | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |`,
+    }, {
+      name: 'all line vertical',
+      r: 6,
+      c: 6,
+      score: 6,
+      drawingBefore: `|1| | | | | |
+                      |1| | | | | |
+                      |1| | | | | |
+                      |1| | | | | |
+                      |1| | | | | |
+                      |1| | | | | |`,
+      drawingAfter: `| | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |
+                     | | | | | | |`,
+    }];
 
-      b.matrix = renderMatrix(`|1|1|1|1|1| |
-                               | | | | | | |
-                               | | |1| | | |
-                               | | | | | | |
-                               | | | | | | |
-                               | | | | | | |`);
+    tests.forEach(test => {
+      it(test.name, () => {
+        const b = new Board(test.r, test.c);
 
-      b.deleteAllCombinationBalls();
+        b.matrix = renderMatrix(test.drawingBefore);
 
-      assert.equal(b.score, 5);
+        b.deleteAllCombinationBalls();
 
-      assert.deepEqual(b.matrix, renderMatrix(`| | | | | | |
-                                               | | | | | | |
-                                               | | |1| | | |
-                                               | | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |`));
-    });
-
-    it('vertical line', () => {
-      const b = new Board(9, 6);
-
-      b.matrix = renderMatrix(`| | | | | | |
-                               | | | | | | |
-                               |1| | | | | |
-                               |1| | | | | |
-                               |1| | | | | |
-                               |1| | | | | |
-                               |1| | | | | |
-                               |1| | | | | |
-                               | | | | | | |`);
-
-      b.deleteAllCombinationBalls();
-
-      assert.equal(b.score, 6);
-
-      assert.deepEqual(b.matrix, renderMatrix(`| | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |`));
-    });
-
-    it('mix line', () => {
-      const b = new Board(9, 6);
-
-      b.matrix = renderMatrix(`|1|1|1|1|1| |
-                               | | | | | | |
-                               |2| |4| | | |
-                               |2| | | | | |
-                               |2| | | | | |
-                               |2| | | | | |
-                               |2| | | | | |
-                               |2| | | | | |
-                               | | | | | | |`);
-
-      b.deleteAllCombinationBalls();
-
-      assert.equal(b.score, 11);
-
-      assert.deepEqual(b.matrix, renderMatrix(`| | | | | | |
-                                               | | | | | | |
-                                               | | |4| | | |
-                                               | | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |
-                                               | | | | | | |`));
+        assert.deepEqual(b.score, test.score);
+        assert.deepEqual(b.matrix, renderMatrix(test.drawingAfter));
+      });
     });
   });
 });
