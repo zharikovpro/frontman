@@ -95,47 +95,40 @@ class Board {
   }
 
   deleteBallsByColors(color) {
+    const deleteCombination = (x, y, sequenceCount, type) => {
+      let seq = sequenceCount;
+      if (this.matrix[x] && +this.matrix[x][y] === color) seq++;
+
+      if (!this.matrix[x] || !this.matrix[x][y] || +this.matrix[x][y] !== color) {
+        if (seq < 5) {
+          seq = 0;
+        } else {
+          for (let i = 1; i <= seq; i++) {
+            if (type === 'vertical') {
+              this.matrix[x - i][y] = this.emptyCell;
+            } else if (type === 'horizontal') {
+              this.matrix[x][y - i] = this.emptyCell;
+            }
+            this.score++;
+          }
+          seq = 0;
+        }
+      }
+
+      return seq;
+    };
+
     for (let x = 0; x < this.matrix.length; x++) {
       let sequenceCount = 0;
-      for (let y = 0; y < this.matrix[x].length; y++) {
-        const c = +this.matrix[x][y];
-        if (c === color) {
-          sequenceCount++;
-        }
-
-        if (c !== color || (y === this.matrix[x].length - 1)) {
-          if (sequenceCount < 5) {
-            sequenceCount = 0;
-          } else {
-            for (let i = 1; i <= sequenceCount; i++) {
-              this.matrix[x][y - i] = this.emptyCell;
-              this.score++;
-            }
-            sequenceCount = 0;
-          }
-        }
+      for (let y = 0; y <= this.matrix[x].length; y++) {
+        sequenceCount = deleteCombination(x, y, sequenceCount, 'horizontal');
       }
     }
 
     for (let y = 0; y < this.matrix[0].length; y++) {
       let sequenceCount = 0;
-      for (let x = 0; x < this.matrix.length; x++) {
-        const c = +this.matrix[x][y];
-        if (c === color) {
-          sequenceCount++;
-        }
-
-        if (c !== color || (y === this.matrix[x].length - 1)) {
-          if (sequenceCount < 5) {
-            sequenceCount = 0;
-          } else {
-            for (let i = 1; i <= sequenceCount; i++) {
-              this.matrix[x - i][y] = this.emptyCell;
-              this.score++;
-            }
-            sequenceCount = 0;
-          }
-        }
+      for (let x = 0; x <= this.matrix.length; x++) {
+        sequenceCount = deleteCombination(x, y, sequenceCount, 'vertical');
       }
     }
   }
