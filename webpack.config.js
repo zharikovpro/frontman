@@ -18,6 +18,7 @@ const config = {
 
   entry: {
     app: ['./scripts/app.js'],
+    // mocha bundle will be attached to mocha.html to check test results in browser
     mocha: fs.readdirSync(`${__dirname}/test`).map(file => `mocha!../test/${file}`),
   },
 
@@ -71,13 +72,7 @@ const config = {
       disable: (NODE_ENV === 'development'),
     }),
 
-    // TODO: iterate through all top-level files inside templates
-    new HtmlWebpackPlugin({
-      template: 'templates/index.slm',
-      filename: 'index.html',
-      chunks: ['app'],
-    }),
-
+    // to check test results in browser
     new HtmlWebpackPlugin({
       template: 'templates/_mocha.slm',
       filename: 'mocha.html',
