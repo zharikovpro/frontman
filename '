@@ -3,7 +3,7 @@ const layouts = require('metalsmith-layouts');
 const ignore = require('metalsmith-ignore');
 const webpack = require('metalsmith-webpack');
 
-const webpackConfig = require('./webpack.config.js');
+const webpackConfig = require('webpack.config.js');
 
 // TODO: const assets = require('metalsmith-assets');
 
