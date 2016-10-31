@@ -90,8 +90,6 @@ class Board {
       }
       if (i !== this.matrix.length - 1) str += '\n';
     }
-
-    console.log(str);
   }
 
   deleteBallsByColors(color) {
