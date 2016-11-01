@@ -49,9 +49,6 @@ const config = {
     }, {
       test: /\.(jpg|png|gif|svg|ttf|eot|woff|woff2)$/,
       loader: 'file?name=./static/[name].[ext]',
-    }, {
-      test: /\.(slim|slm)$/,
-      loader: 'html!slm',
     }],
   },
 
@@ -66,14 +63,6 @@ const config = {
       allChunks: true,
       disable: (NODE_ENV === 'development'),
     }),
-
-    // to check test results in browser
-    // TODO: user Karma runner instead
-    // new HtmlWebpackPlugin({
-    //   template: 'templates/_mocha.slm',
-    //   filename: 'mocha.html',
-    //   chunks: ['mocha'],
-    // }),
   ],
 
   // TODO: Add option to run at will
@@ -85,7 +74,6 @@ const config = {
 // auto enable webpack-dev-server inline mode
 // https://webpack.github.io/docs/webpack-dev-server.html#inline-mode-with-node-js-api
 if (NODE_ENV === 'development') {
-  config.entry.app.unshift('webpack-dev-server/client?http://localhost:8080/');
   config.output.library = 'bundle';
 } else if (NODE_ENV === 'production') {
   config.plugins.push(

@@ -4,8 +4,8 @@
   "description": "Frontend project seed",
   "main": "index.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint webpack.config.js test/ src/scripts/",
-    "start": "webpack-dev-server",
+    "lint": "eslint webpack.config.js test/ src/scripts/",
+    "start": "webpack --watch",
     "build": "NODE_ENV=production webpack",
     "metal": "NODE_ENV=production node index.js",
     "clean": "rm -r build",
@@ -40,9 +40,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.3",
-    "html-webpack-plugin": "^2.21.0",
     "istanbul": "^1.1.0-alpha.1",
-    "jstransformer-slm": "^1.0.0",
     "lost": "^7.0.3",
     "metalsmith": "^2.2.2",
     "metalsmith-browser-sync": "^1.1.1",
@@ -60,12 +58,8 @@
     "postcss-loader": "^1.1.0",
     "poststylus": "^0.2.3",
     "raw-loader": "^0.5.1",
-    "slm": "^0.5.1",
-    "slm-loader": "^0.2.3",
-    "slm-markdown": "^1.0.0",
     "style-loader": "^0.13.1",
     "wave-pathfinder": "^0.1.0",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^1.13.1"
   }
 }
