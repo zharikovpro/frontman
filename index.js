@@ -13,16 +13,12 @@ const postcssConfig = require('./postcss.config.js');
 
 // TODO: .clean if NODE_ENV=='production'
 
-// TODO: build js bundle with WebPack
-
-// TODO: build css bundle with PostCSS
-
 const ms = metalsmith(__dirname);
 
 ms.source('./src/html');
 ms.destination('./build');
 ms.metadata({
-	title: 'FrontMan',
+  title: 'FrontMan',
   description: 'Rapid front-end development',
   generator: 'Metalsmith',
 });
@@ -30,12 +26,12 @@ ms.metadata({
 ms.use(webpack(webpackConfig));
 
 ms.use(inject({
-	paths: ['./src/css']
+  paths: ['./src/css'],
 }));
-ms.use(postcss( postcssConfig ));
+ms.use(postcss(postcssConfig));
 
 ms.use(fingerprint({
-	pattern: '*.css'
+  pattern: '*.css',
 }));
 
 ms.use(ignore(['layouts/*', 'partials/*']));
@@ -49,6 +45,5 @@ ms.use(layouts({
 }));
 
 ms.build((err) => {
-	if (err) { throw err; }
+  if (err) { throw err; }
 });
-
