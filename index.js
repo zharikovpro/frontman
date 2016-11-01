@@ -4,8 +4,9 @@ const ignore = require('metalsmith-ignore');
 const inject = require('metalsmith-inject').default;
 const postcss = require('metalsmith-postcss');
 const fingerprint = require('metalsmith-fingerprint-ignore');
-
+const browserSync = require('metalsmith-browser-sync');
 const webpack = require('ms-webpack');
+
 const webpackConfig = require('./webpack.config.js');
 const postcssConfig = require('./postcss.config.js');
 
@@ -42,6 +43,11 @@ ms.use(layouts({
   default: 'default.hbs',
   pattern: '*.hbs',
   rename: true,
+}));
+
+ms.use(browserSync({
+	server : "./build",
+	files  : ["./src/**/*.*"]
 }));
 
 ms.build((err) => {

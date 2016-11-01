@@ -45,6 +45,7 @@
     "jstransformer-slm": "^1.0.0",
     "lost": "^7.0.3",
     "metalsmith": "^2.2.2",
+    "metalsmith-browser-sync": "^1.1.1",
     "metalsmith-fingerprint-ignore": "^1.1.2",
     "metalsmith-ignore": "^0.1.2",
     "metalsmith-in-place": "^1.4.4",
