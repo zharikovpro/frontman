@@ -5,12 +5,6 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const nib = require('nib');
-const rupture = require('rupture');
-const poststylus = require('poststylus');
-const lost = require('lost');
-const autoprefixer = require('autoprefixer');
-
 const config = {
   context: path.join(__dirname, 'src'),
 
@@ -85,18 +79,6 @@ const config = {
   // TODO: Add option to run at will
   eslint: {
     configFile: '.eslintrc.json',
-  },
-
-  stylus: {
-    use: [
-      nib(), rupture(),
-      poststylus([
-        lost,
-        autoprefixer({
-          browser: ['last 2 version'],
-        }),
-      ]),
-    ],
   },
 };
 
