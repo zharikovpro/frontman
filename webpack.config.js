@@ -47,8 +47,11 @@ const config = {
       exclude: [`${__dirname}/src/css`],
       loader: ExtractTextPlugin.extract('style', 'css'),
     }, {
-      test: /\.(jpg|png|gif|svg|ttf|eot|woff|woff2)$/,
-      loader: 'file?name=./static/[name].[ext]',
+      test: /\.(jpg|png|svg|gif)$/,
+      loader: 'file?name=./images/[name].[ext]'
+    }, {
+      test: /\.(ttf|eot|woff|woff2)$/,
+      loader: 'file?name=./static/[fonts].[ext]',
     }],
   },
 
