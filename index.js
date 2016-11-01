@@ -52,8 +52,8 @@ ms.use(layouts({
 }));
 
 ms.use(browserSync({
-	server : "./build",
-	files  : ["./src/**/*.*"]
+  server: './build',
+  files: ['./src/**/*.*'],
 }));
 
 ms.build((err) => {

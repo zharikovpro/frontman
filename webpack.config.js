@@ -48,7 +48,7 @@ const config = {
       loader: ExtractTextPlugin.extract('style', 'css'),
     }, {
       test: /\.(jpg|png|svg|gif)$/,
-      loader: 'file?name=./media/images/[name].[ext]'
+      loader: 'file?name=./media/images/[name].[ext]',
     }, {
       test: /\.(ttf|eot|woff|woff2)$/,
       loader: 'file?name=./media/fonts/[fonts].[ext]',
