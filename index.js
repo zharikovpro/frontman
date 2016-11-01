@@ -3,7 +3,7 @@ const layouts = require('metalsmith-layouts');
 const ignore = require('metalsmith-ignore');
 const inject = require('metalsmith-inject').default;
 const postcss = require('metalsmith-postcss');
-const fingerprint = require('metalsmith-fingerprint');
+const fingerprint = require('metalsmith-fingerprint-ignore');
 
 const webpack = require('ms-webpack');
 const webpackConfig = require('./webpack.config.js');
