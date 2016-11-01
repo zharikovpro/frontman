@@ -11,6 +11,7 @@ const assets = require('metalsmith-assets');
 const webpackConfig = require('./webpack.config.js');
 const postcssConfig = require('./postcss.config.js');
 
+const NODE_ENV = process.env.NODE_ENV || 'development';
 // TODO: const assets = require('metalsmith-assets');
 
 // TODO: .clean if NODE_ENV=='production'
@@ -51,10 +52,12 @@ ms.use(layouts({
   rename: true,
 }));
 
-ms.use(browserSync({
-  server: './build',
-  files: ['./src/**/*.*'],
-}));
+if (NODE_ENV === 'development') {
+  ms.use(browserSync({
+    server: './build',
+    files: ['./src/**/*.*'],
+  }));
+}
 
 ms.build((err) => {
   if (err) { throw err; }
