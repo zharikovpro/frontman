@@ -26,8 +26,8 @@ ms.metadata({
 });
 
 ms.use(assets({
-  source: './src/media',
-  destination: './',
+  source: './src/images/',
+  destination: './media/images/',
 }));
 
 ms.use(webpack(webpackConfig));
