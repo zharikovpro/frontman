@@ -23,7 +23,7 @@ const config = {
 
   output: {
     path: path.join(__dirname, 'build/'),
-    publicPath: '/',
+    publicPath: './',
     hashFunction: 'md5',
     hashDigestLength: 32,
     filename: (NODE_ENV === 'development') ? '[name].js' : '[name]-[hash].js',
@@ -48,8 +48,13 @@ const config = {
       test: /\.styl$/,
       loader: ExtractTextPlugin.extract('style', 'css!stylus'),
     }, {
+			test: /\.css$/,
+			include: [`${__dirname}/src/css`],
+			loader: ExtractTextPlugin.extract('style', 'css!postcss'),
+		}, {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract('style', 'css'),
+      exclude: [`${__dirname}/src/css`],
+			loader: ExtractTextPlugin.extract('style', 'css'),
     }, {
       test: /\.(jpg|png|gif|svg|ttf|eot|woff|woff2)$/,
       loader: 'file?name=./static/[name].[ext]',
