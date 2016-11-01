@@ -1,8 +1,8 @@
 const metalsmith = require('metalsmith');
 const layouts = require('metalsmith-layouts');
 const ignore = require('metalsmith-ignore');
-const webpack = require('metalsmith-webpack');
 
+const webpack = require('ms-webpack');
 const webpackConfig = require('./webpack.config.js');
 
 // TODO: const assets = require('metalsmith-assets');
@@ -19,6 +19,7 @@ metalsmith(__dirname)
     description: 'Rapid front-end development',
     generator: 'Metalsmith',
   })
+  .use(webpack(webpackConfig))
   .source('./src/html')
   .destination('./build')
   .use(ignore(['layouts/*', 'partials/*']))
@@ -30,7 +31,6 @@ metalsmith(__dirname)
     pattern: '*.hbs',
     rename: true,
   }))
-	.use(webpack(webpackConfig))
   .build((err) => {
     if (err) { throw err; }
   });

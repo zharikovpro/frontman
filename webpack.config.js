@@ -19,7 +19,8 @@ const config = {
   entry: {
     app: ['./scripts/app.js'],
     // mocha bundle will be attached to mocha.html to check test results in browser
-    mocha: fs.readdirSync(`${__dirname}/test`).map(file => `mocha!../test/${file}`),
+    // TODO: user Karma runner instead
+    //mocha: fs.readdirSync(`${__dirname}/test`).map(file => `mocha!../test/${file}`),
   },
 
   output: {
@@ -73,11 +74,12 @@ const config = {
     }),
 
     // to check test results in browser
-    new HtmlWebpackPlugin({
-      template: 'templates/_mocha.slm',
-      filename: 'mocha.html',
-      chunks: ['mocha'],
-    }),
+    // TODO: user Karma runner instead
+    // new HtmlWebpackPlugin({
+    //   template: 'templates/_mocha.slm',
+    //   filename: 'mocha.html',
+    //   chunks: ['mocha'],
+    // }),
   ],
 
   // TODO: Add option to run at will

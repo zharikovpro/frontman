@@ -1,0 +1,7 @@
+{{#each webpack.assetsByType.css}}
+  <link rel="stylesheet" href="{{this}}">
+{{/each}}
+
+{{#each webpack.assetsByType.js}}
+  <script src="{{this}}"></script>
+{{/each}}
