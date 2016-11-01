@@ -6,6 +6,7 @@ const postcss = require('metalsmith-postcss');
 const fingerprint = require('metalsmith-fingerprint-ignore');
 const browserSync = require('metalsmith-browser-sync');
 const webpack = require('ms-webpack');
+const assets = require('metalsmith-assets');
 
 const webpackConfig = require('./webpack.config.js');
 const postcssConfig = require('./postcss.config.js');
@@ -23,6 +24,11 @@ ms.metadata({
   description: 'Rapid front-end development',
   generator: 'Metalsmith',
 });
+
+ms.use(assets({
+  source: './src/media',
+  destination: './',
+}));
 
 ms.use(webpack(webpackConfig));
 
