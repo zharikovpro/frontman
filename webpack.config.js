@@ -1,10 +1,8 @@
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const path = require('path');
-const fs = require('fs');
 
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const nib = require('nib');
