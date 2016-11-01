@@ -45,12 +45,10 @@ const config = {
       exclude: [`${__dirname}/node_modules`],
       loader: 'babel!eslint',
     }, {
-			test: /\.css$/,
-			include: [`${__dirname}/src/css`],
-			loader: ExtractTextPlugin.extract('style', 'css!stylus'),
-		}, {
+      test: /\.styl$/,
+      loader: ExtractTextPlugin.extract('style', 'css!stylus'),
+    }, {
       test: /\.css$/,
-			exclude: [`${__dirname}/src/css`],
       loader: ExtractTextPlugin.extract('style', 'css'),
     }, {
       test: /\.(jpg|png|gif|svg|ttf|eot|woff|woff2)$/,

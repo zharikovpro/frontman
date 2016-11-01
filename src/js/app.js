@@ -1,4 +1,4 @@
-require('../css/app.css');
+require('../css/app.styl');
 
 const Board = require('./board.js');
 
