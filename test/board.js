@@ -3,7 +3,7 @@ const { assert } = chai;
 
 chai.should();
 
-const Board = require('../src/scripts/board.js');
+const Board = require('../src/js/board.js');
 
 const renderMatrix = (drawing) => {
   const matrix = drawing.replace(/ /g, '').split('\n').map(line =>

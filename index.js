@@ -9,9 +9,9 @@ const webpackConfig = require('./webpack.config.js');
 
 // TODO: .clean if NODE_ENV=='production'
 
-// TODO: build scripts bundle with WebPack
+// TODO: build js bundle with WebPack
 
-// TODO: build styles bundle with PostCSS
+// TODO: build css bundle with PostCSS
 
 metalsmith(__dirname)
   .metadata({

@@ -15,7 +15,7 @@ const config = {
   context: path.join(__dirname, 'src'),
 
   entry: {
-    app: ['./scripts/app.js'],
+    app: ['./js/app.js'],
     // mocha bundle will be attached to mocha.html to check test results in browser
     // TODO: user Karma runner instead
     //mocha: fs.readdirSync(`${__dirname}/test`).map(file => `mocha!../test/${file}`),
