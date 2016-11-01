@@ -4,10 +4,9 @@
   "description": "Frontend project seed",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint webpack.config.js test/ src/scripts/",
-    "start": "webpack --watch",
-    "build": "NODE_ENV=production webpack",
-    "metal": "NODE_ENV=production node index.js",
+    "start": "NODE_ENV=development node index.js",
+    "build": "NODE_ENV=production node index.js",
+    "lint": "eslint *.js test src/js",
     "clean": "rm -r build",
     "test": "mocha --compilers js:babel-register",
     "coverage": "istanbul cover _mocha -- --compilers js:babel-register"
