@@ -2,6 +2,8 @@
 !.idea/runConfigurations/Test.xml
 !.idea/runConfigurations/WebpackDebug.xml
 
+*.log
+
 /node_modules/
 /bower_components/
 /build/
