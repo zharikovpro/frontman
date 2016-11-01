@@ -3,6 +3,7 @@ const layouts = require('metalsmith-layouts');
 const ignore = require('metalsmith-ignore');
 const inject = require('metalsmith-inject').default;
 const postcss = require('metalsmith-postcss');
+const fingerprint = require('metalsmith-fingerprint');
 
 const webpack = require('ms-webpack');
 const webpackConfig = require('./webpack.config.js');
@@ -33,7 +34,11 @@ ms.use(inject({
 }));
 ms.use(postcss( postcssConfig ));
 
-ms.use(ignore(['layouts/*', 'partials/*']))
+ms.use(fingerprint({
+	pattern: '*.css'
+}));
+
+ms.use(ignore(['layouts/*', 'partials/*']));
 ms.use(layouts({
   engine: 'handlebars',
   directory: './src/html/layouts',
@@ -41,7 +46,7 @@ ms.use(layouts({
   default: 'default.hbs',
   pattern: '*.hbs',
   rename: true,
-}))
+}));
 
 ms.build((err) => {
 	if (err) { throw err; }

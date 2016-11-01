@@ -1,3 +1,7 @@
+{{#each fingerprint}}
+	<link rel="stylesheet" href="{{@key}}">
+{{/each}}
+
 {{#each webpack.assetsByType.css}}
   <link rel="stylesheet" href="{{this}}">
 {{/each}}
