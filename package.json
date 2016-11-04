@@ -7,6 +7,7 @@
     "start": "NODE_ENV=development node index.js",
     "build": "NODE_ENV=production node index.js",
     "lint": "eslint *.js test src/js",
+    "stylelint": "node stylelint.js",
     "clean": "rm -r build",
     "test": "mocha --compilers js:babel-register",
     "coverage": "istanbul cover _mocha -- --compilers js:babel-register"
@@ -55,10 +56,14 @@
     "mocha": "^2.2.5",
     "mocha-loader": "^0.7.1",
     "ms-webpack": "^1.0.2",
+    "postcss": "^5.2.5",
     "postcss-loader": "^1.1.0",
+    "postcss-reporter": "^1.4.1",
     "poststylus": "^0.2.3",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
+    "stylelint": "^7.5.0",
+    "stylelint-config-standard": "^14.0.0",
     "wave-pathfinder": "^0.1.0",
     "webpack": "^1.13.1"
   }
