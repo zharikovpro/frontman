@@ -70,7 +70,6 @@ module.exports = (opts) => {
       
       const promise = processor.process(contents, {
         from: absolutePath,
-        to: absolutePath,
         map: map,
       }).then((result) => {
         files[file].contents = new Buffer(result.css);
