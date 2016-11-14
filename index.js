@@ -7,6 +7,7 @@ const fingerprint = require('metalsmith-fingerprint-ignore');
 const browserSync = require('metalsmith-browser-sync');
 const webpack = require('ms-webpack');
 const assets = require('metalsmith-assets');
+const prefixoid = require('metalsmith-prefixoid');
 
 const webpackConfig = require('./webpack.config.js');
 const postcssConfig = require('./postcss.config.js');
@@ -50,6 +51,10 @@ ms.use(layouts({
   default: 'default.hbs',
   pattern: '*.hbs',
   rename: true,
+}));
+
+ms.use(prefixoid({
+  prefix: '/base_url',
 }));
 
 if (NODE_ENV === 'development') {
