@@ -25,6 +25,9 @@ ms.metadata({
   title: 'FrontMan',
   description: 'Rapid front-end development',
   generator: 'Metalsmith',
+  site: {
+    base_path: (NODE_ENV === 'development') ? 'http://localhost:3000' : './',
+  }
 });
 
 ms.use(assets({
@@ -54,7 +57,9 @@ ms.use(layouts({
 }));
 
 ms.use(prefixoid({
-  prefix: '/base_url',
+  meta: 'site.base_path',
+  pattern: ['**/*.hbs', '**/*.html'],
+  convert_relatives: true
 }));
 
 if (NODE_ENV === 'development') {
