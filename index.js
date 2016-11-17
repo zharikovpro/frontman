@@ -1,4 +1,5 @@
 require('dotenv').config();
+const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const metalsmith = require('metalsmith');
 const layouts = require('metalsmith-layouts');
@@ -12,8 +13,6 @@ const assets = require('metalsmith-assets');
 
 const webpackConfig = require('./webpack.config.js');
 const postcssConfig = require('./postcss.config.js');
-
-const NODE_ENV = process.env.NODE_ENV || 'development';
 
 // TODO: .clean if NODE_ENV=='production'
 
