@@ -60,7 +60,10 @@ ms.use(prefixoid({
   meta: 'site.base_path',
   pattern: ['**/*.hbs', '**/*.html'],
   convert_relatives: true,
-}));
+}, [{
+  selector: 'link',
+  attr: 'href'
+}]));
 
 if (NODE_ENV === 'development') {
   ms.use(browserSync({
