@@ -27,7 +27,7 @@ ms.metadata({
   generator: 'Metalsmith',
   site: {
     base_path: (NODE_ENV === 'development') ? 'http://localhost:3000' : './',
-  }
+  },
 });
 
 ms.use(assets({
@@ -59,7 +59,7 @@ ms.use(layouts({
 ms.use(prefixoid({
   meta: 'site.base_path',
   pattern: ['**/*.hbs', '**/*.html'],
-  convert_relatives: true
+  convert_relatives: true,
 }));
 
 if (NODE_ENV === 'development') {
