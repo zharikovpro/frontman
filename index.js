@@ -62,7 +62,7 @@ ms.use(prefixoid({
   convert_relatives: true,
 }, [{
   selector: 'link',
-  attr: 'href'
+  attr: 'href',
 }]));
 
 if (NODE_ENV === 'development') {
