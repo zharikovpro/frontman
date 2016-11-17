@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const metalsmith = require('metalsmith');
 const layouts = require('metalsmith-layouts');
 const ignore = require('metalsmith-ignore');
@@ -7,9 +9,6 @@ const fingerprint = require('metalsmith-fingerprint-ignore');
 const browserSync = require('metalsmith-browser-sync');
 const webpack = require('ms-webpack');
 const assets = require('metalsmith-assets');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 const webpackConfig = require('./webpack.config.js');
 const postcssConfig = require('./postcss.config.js');
