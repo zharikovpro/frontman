@@ -7,12 +7,14 @@ const fingerprint = require('metalsmith-fingerprint-ignore');
 const browserSync = require('metalsmith-browser-sync');
 const webpack = require('ms-webpack');
 const assets = require('metalsmith-assets');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const webpackConfig = require('./webpack.config.js');
 const postcssConfig = require('./postcss.config.js');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
-// TODO: const assets = require('metalsmith-assets');
 
 // TODO: .clean if NODE_ENV=='production'
 
