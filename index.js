@@ -69,8 +69,11 @@ ms.use(prefixoid(prefixoidOptions));
 
 if (NODE_ENV === 'development') {
   ms.use(browserSync({
-    server: './build',
     files: ['./src/**/*.*'],
+    serveStatic: ['./build'],
+    serveStaticOptions: {
+      extensions: ['html'], // pretty urls
+    }
   }));
 }
 
