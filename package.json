@@ -24,7 +24,8 @@
     "url": "https://github.com/zharikovpro/frontman/issues"
   },
   "homepage": "https://github.com/zharikovpro/frontman#readme",
-  "devDependencies": {
+  "dependencies": {
+    "dotenv": "^2.0.0",
     "autoprefixer": "^6.5.1",
     "babel": "^5.8.19",
     "babel-core": "^6.10.4",
@@ -70,10 +71,6 @@
     "style-loader": "^0.13.1",
     "stylelint": "^7.5.0",
     "stylelint-config-standard": "^14.0.0",
-    "wave-pathfinder": "^0.1.0",
     "webpack": "^1.13.1"
-  },
-  "dependencies": {
-    "dotenv": "^2.0.0"
   }
 }

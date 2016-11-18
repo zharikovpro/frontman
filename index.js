@@ -73,7 +73,7 @@ if (NODE_ENV === 'development') {
     serveStatic: ['./build'],
     serveStaticOptions: {
       extensions: ['html'], // pretty urls
-    }
+    },
   }));
 }
 
