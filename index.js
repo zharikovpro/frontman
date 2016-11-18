@@ -61,7 +61,7 @@ ms.use(layouts({
   directory: './src/html/layouts',
   partials: './src/html/partials',
   default: 'default.hbs',
-  pattern: '*.hbs',
+  pattern: '**/*.hbs',
   rename: true,
 }));
 
