@@ -55,7 +55,7 @@ ms.use(fingerprint({
   pattern: '*.css',
 }));
 
-ms.use(ignore(['layouts/*', 'partials/*']));
+ms.use(ignore(['layouts/*', 'partials/*', 'blocks/*']));
 ms.use(layouts({
   engine: 'handlebars',
   directory: './src/html/layouts',
