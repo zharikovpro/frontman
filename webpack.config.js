@@ -17,7 +17,7 @@ const config = {
 
   output: {
     path: path.join(__dirname, 'build/'),
-    publicPath: './',
+    publicPath: '/',
     hashFunction: 'md5',
     hashDigestLength: 32,
     filename: (NODE_ENV === 'development') ? '[name].js' : '[name]-[hash].js',

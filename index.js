@@ -19,15 +19,24 @@ const postcssConfig = require('./postcss.config.js');
 
 const ms = metalsmith(__dirname);
 
+let prefixoidOptions = [
+  { tag: 'a', attr: 'href' },
+  { tag: 'script', attr: 'src' },
+  { tag: 'link', attr: 'href' },
+  { tag: 'img', attr: 'src' },
+];
+
+prefixoidOptions = prefixoidOptions.map((value) => Object.assign({}, value, {
+  convert_relatives: true,
+  prefix: process.env.BASE_URL,
+}));
+
 ms.source('./src/html');
 ms.destination('./build');
 ms.metadata({
   title: 'FrontMan',
   description: 'Rapid front-end development',
   generator: 'Metalsmith',
-  site: {
-    base_path: (NODE_ENV === 'development') ? 'http://localhost:3000' : './',
-  },
 });
 
 ms.use(assets({
@@ -56,14 +65,7 @@ ms.use(layouts({
   rename: true,
 }));
 
-ms.use(prefixoid({
-  meta: 'site.base_path',
-  pattern: ['**/*.hbs', '**/*.html'],
-  convert_relatives: true,
-}, [{
-  selector: 'link',
-  attr: 'href',
-}]));
+ms.use(prefixoid(prefixoidOptions));
 
 if (NODE_ENV === 'development') {
   ms.use(browserSync({
