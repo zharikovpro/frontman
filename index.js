@@ -25,7 +25,7 @@ let prefixoidOptions = [
 
 prefixoidOptions = prefixoidOptions.map((value) => Object.assign({}, value, {
   convert_relatives: true,
-  prefix: process.env.BASE_URL,
+  prefix: process.env.BASE_URL || './',
 }));
 /*============| Options:end |============*/
 
