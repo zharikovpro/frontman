@@ -10,9 +10,24 @@ const fingerprint = require('metalsmith-fingerprint-ignore');
 const browserSync = require('metalsmith-browser-sync');
 const webpack = require('ms-webpack');
 const assets = require('metalsmith-assets');
+const prefixoid = require('metalsmith-prefixoid');
 
+/*===========| Options:start |===========*/
 const webpackConfig = require('./webpack.config.js');
 const postcssConfig = require('./postcss.config.js');
+
+let prefixoidOptions = [
+  { tag: 'a', attr: 'href' },
+  { tag: 'script', attr: 'src' },
+  { tag: 'link', attr: 'href' },
+  { tag: 'img', attr: 'src' },
+];
+
+prefixoidOptions = prefixoidOptions.map((value) => Object.assign({}, value, {
+  convert_relatives: true,
+  prefix: process.env.BASE_URL || './',
+}));
+/*============| Options:end |============*/
 
 // TODO: .clean if NODE_ENV=='production'
 
@@ -51,6 +66,8 @@ ms.use(layouts({
   pattern: '*.hbs',
   rename: true,
 }));
+
+ms.use(prefixoid(prefixoidOptions));
 
 if (NODE_ENV === 'development') {
   ms.use(browserSync({
