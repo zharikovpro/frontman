@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ silent: true });
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 const metalsmith = require('metalsmith');
@@ -12,33 +12,31 @@ const webpack = require('ms-webpack');
 const assets = require('metalsmith-assets');
 const prefixoid = require('metalsmith-prefixoid');
 
-/*===========| Options:start |===========*/
+/* ===========| Options:start |=========== */
 const webpackConfig = require('./webpack.config.js');
 const postcssConfig = require('./postcss.config.js');
 
-let prefixoidOptions = [
+const prefixoidTags = [
   { tag: 'a', attr: 'href' },
   { tag: 'script', attr: 'src' },
   { tag: 'link', attr: 'href' },
   { tag: 'img', attr: 'src' },
 ];
 
-prefixoidOptions = prefixoidOptions.map((value) => Object.assign({}, value, {
+const prefixoidOptions = prefixoidTags.map((value) => Object.assign({}, value, {
   convert_relatives: true,
   prefix: process.env.BASE_URL || './',
 }));
-/*============| Options:end |============*/
-
-// TODO: .clean if NODE_ENV=='production'
+/* ============| Options:end |============ */
 
 const ms = metalsmith(__dirname);
 
 ms.source('./src/html');
 ms.destination('./build');
+
 ms.metadata({
   title: 'FrontMan',
   description: 'Rapid front-end development',
-  generator: 'Metalsmith',
 });
 
 ms.use(assets({
