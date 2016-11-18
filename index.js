@@ -12,12 +12,9 @@ const webpack = require('ms-webpack');
 const assets = require('metalsmith-assets');
 const prefixoid = require('metalsmith-prefixoid');
 
+/*===========| Options:start |===========*/
 const webpackConfig = require('./webpack.config.js');
 const postcssConfig = require('./postcss.config.js');
-
-// TODO: .clean if NODE_ENV=='production'
-
-const ms = metalsmith(__dirname);
 
 let prefixoidOptions = [
   { tag: 'a', attr: 'href' },
@@ -30,6 +27,11 @@ prefixoidOptions = prefixoidOptions.map((value) => Object.assign({}, value, {
   convert_relatives: true,
   prefix: process.env.BASE_URL,
 }));
+/*============| Options:end |============*/
+
+// TODO: .clean if NODE_ENV=='production'
+
+const ms = metalsmith(__dirname);
 
 ms.source('./src/html');
 ms.destination('./build');
