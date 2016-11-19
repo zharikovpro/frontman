@@ -10,9 +10,6 @@ const config = {
 
   entry: {
     app: ['./js/app.js'],
-    // mocha bundle will be attached to mocha.html to check test results in browser
-    // TODO: user Karma runner instead
-    //mocha: fs.readdirSync(`${__dirname}/test`).map(file => `mocha!../test/${file}`),
   },
 
   output: {
@@ -68,7 +65,6 @@ const config = {
     }),
   ],
 
-  // TODO: Add option to run at will
   eslint: {
     configFile: '.eslintrc.json',
   },

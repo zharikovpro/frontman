@@ -37,4 +37,3 @@ glob('**/*.css', { cwd: pathStyle }, (err, files) => {
 
   Promise.all(allPromises);
 });
-

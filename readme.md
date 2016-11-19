@@ -15,11 +15,10 @@ Build:
 
 `npm run build`
 
-TODO: Deploy:
--------------
+Deploy:
+-------
 
-`npm run deploy`
-
+Automatic deployment to Heroku using integration with GitHub
 
 Debug in WebStorm
 -----------------
