@@ -3,6 +3,13 @@ Install:
 
 `npm install`
 
+Setup:
+------
+
+Optionally make .env based on .env.example.
+
+BASE_URL is used by prefixoid to prefix root-based links (starting with /) inside a, img, link, script tags.
+
 Develop:
 --------
 
