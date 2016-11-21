@@ -4,15 +4,16 @@
   "description": "Frontend project seed",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "postinstall": "npm run build",
     "build": "NODE_ENV=production node index.js",
-    "clean": "rm -rf build coverage",
+    "start": "node index.js",
     "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint *.js test src/js",
     "lint:css": "node stylelint.js",
     "verify": "npm run lint && npm run test && npm run coverage",
     "test": "mocha --compilers js:babel-register",
-    "coverage": "istanbul cover _mocha -- --compilers js:babel-register"
+    "coverage": "istanbul cover _mocha -- --compilers js:babel-register",
+    "clean": "rm -rf build coverage"
   },
   "repository": {
     "type": "git",
