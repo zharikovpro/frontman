@@ -1,5 +1,32 @@
+@import './blocks/temp.css';
+
 body {
   color: blue;
   display: flex;
+}
+
+.b-container {
+  margin: 40px;
+  width: 800px;
+  background-color: #ccc;
+}
+
+.b-grid {
+  lost-utility: clearfix;
+}
+
+.b-grid__cell {
+  margin: 5px 0;
+  padding: 0;
+  background-color: #333;
+  color: #fff;
+}
+
+.b-grid__cell--1-of-2 {
+  lost-column: 1/2;
+}
+
+.b-grid__cell--1-of-3 {
+  lost-column: 1/3;
 }
 
