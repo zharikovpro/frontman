@@ -1,9 +1,5 @@
-{{#each fingerprint}}
-	<link rel="stylesheet" href="/{{this}}">
-{{/each}}
-
 {{#each webpack.assetsByType.css}}
-  <link rel="stylesheet" href="/{{this}}">
+  <link rel="stylesheet" href="{{this}}">
 {{/each}}
 
 {{#each webpack.assetsByType.js}}
