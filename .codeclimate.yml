@@ -1,3 +1,3 @@
-ngines:
+engines:
   csslint:
     enabled: false
