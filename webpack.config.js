@@ -38,10 +38,6 @@ const config = {
       include: [`${__dirname}/src/css`],
       loader: ExtractTextPlugin.extract('style', 'css!postcss'),
     }, {
-      test: /\.css$/,
-      exclude: [`${__dirname}/src/css`],
-      loader: ExtractTextPlugin.extract('style', 'css'),
-    }, {
       test: /\.(jpg|png|svg|gif)$/,
       loader: 'file?name=./media/images/[name].[ext]',
     }, {
