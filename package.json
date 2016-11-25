@@ -2,6 +2,9 @@
   "name": "FrontMan",
   "version": "0.1.1",
   "description": "Frontend project seed",
+  "engines": {
+    "node": ">=6.9.1"
+  },
   "main": "index.js",
   "scripts": {
     "postinstall": "npm run build",
