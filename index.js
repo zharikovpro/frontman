@@ -13,7 +13,7 @@ const prefixoid = require('metalsmith-prefixoid');
 const webpackConfig = require('./webpack.config.js');
 
 const prefixoidTags = [
-  { tag: 'a', attr: 'href' },
+  { tag: 'a', attr: 'href', span_currents: true, spans_class: 'menu__item_current' },
   { tag: 'script', attr: 'src' },
   { tag: 'link', attr: 'href' },
   { tag: 'img', attr: 'src' },
