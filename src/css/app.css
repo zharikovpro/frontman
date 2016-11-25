@@ -1,4 +1,4 @@
-@import './blocks/temp.css';
+@import 'blocks/imported.css';
 
 body {
   color: blue;
