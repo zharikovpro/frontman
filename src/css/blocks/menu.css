@@ -1,3 +1,12 @@
 .menu {
-    border: 1px solid green;
+  border: 1px solid green;
+}
+
+.menu__item {
+  text-decoration: underline;
+}
+
+.menu__item_current {
+  color: gray;
+  text-decoration: none;
 }
