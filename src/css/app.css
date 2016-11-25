@@ -1,9 +1,5 @@
-@import 'blocks/imported.css';
-
-body {
-  color: blue;
-  display: flex;
-}
+@import 'blocks/header.css';
+@import 'blocks/menu.css';
 
 .b-container {
   margin: 40px;
