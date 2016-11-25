@@ -1,3 +1,5 @@
+.env
+
 .idea
 !.idea/runConfigurations/Test.xml
 !.idea/runConfigurations/WebpackDebug.xml
