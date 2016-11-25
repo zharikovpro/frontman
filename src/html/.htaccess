@@ -1,5 +1,7 @@
 RewriteEngine On
 
+RewriteRule ^index$ / [R=301,L]
+
 RewriteCond %{THE_REQUEST} \.html
 RewriteRule ^(.*)\.html$ /$1 [R=301,L]
 
