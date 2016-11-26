@@ -1,9 +1,11 @@
 @import 'blocks/header.css';
 @import 'blocks/menu.css';
 
+$main_width: 800px;
+
 .b-container {
   margin: 40px;
-  width: 800px;
+  width: $main_width;
   background-color: #ccc;
 }
 
@@ -16,6 +18,12 @@
   padding: 0;
   background-color: #333;
   color: #fff;
+}
+
+@for $x from 1 to 12 {
+  .b-grid__cell_$(x)-of-12 {
+    lost-column: $(x)/12
+  }
 }
 
 .b-grid__cell--1-of-2 {
