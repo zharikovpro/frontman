@@ -15,7 +15,7 @@ const webpackConfig = require('./webpack.config.js');
 const prefixoidTags = [
   {
     tag: 'a', attr: 'href',
-    span_currents: true, spans_class: 'menu__item_current',
+    span_currents: false,
     is_current: (currentUrl, url) => {
       const equalUrls = currentUrl === url;
       const root2root = currentUrl === '/index.html' && url === '/';
