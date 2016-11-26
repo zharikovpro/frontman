@@ -15,7 +15,7 @@
     "lint": "npm run lint:js && npm run lint:css",
     "test": "mocha --compilers js:babel-register",
     "coverage": "istanbul cover _mocha -- --compilers js:babel-register",
-    "validate": "html5validator --root build/",
+    "validate": "html5validator --root build/ --ignore '\"href\" not allowed on element \"span\"'",
     "verify": "npm run lint && npm run test && npm run coverage && npm run validate",
     "clean": "rm -rf build coverage"
   },
