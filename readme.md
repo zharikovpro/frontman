@@ -1,3 +1,10 @@
+About:
+------
+
+Modern frontend development toolchain. 
+
+WebPack + ES2015 + PostCSS.
+
 Install:
 --------
 
@@ -17,15 +24,32 @@ Develop:
 
 Visit [http://localhost:3000/](http://localhost:3000/) to view results with live reloading.
 
+Lint:
+-----
+
+`npm run lint`
+
+Test:
+-----
+
+`npm test`
+
+`npm run coverage`
+
 Build:
 ------
 
 `npm run build`
 
+Validate:
+---------
+
+`npm run validate`
+
 Deploy:
 -------
 
-Automatic deployment to Heroku using integration with GitHub
+Automatic deployment to Heroku using integration with GitHub.
 
 Debug in WebStorm
 -----------------
