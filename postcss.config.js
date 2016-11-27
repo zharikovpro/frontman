@@ -3,8 +3,9 @@ module.exports = {
   plugins: {
     stylelint: {},
     'postcss-reporter': { clearMessages: true },
-    'postcss-for': {},
-    'postcss-simple-vars': {},
+    'postcss-smart-import': {},
+    'postcss-custom-properties': {},
+    'postcss-calc': {},
     autoprefixer: {},
     lost: {},
   },
