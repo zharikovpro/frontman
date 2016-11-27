@@ -1,11 +1,13 @@
 @import 'blocks/header.css';
 @import 'blocks/menu.css';
 
-$main_width: 800px;
+:root {
+  --main_width: 800px;
+}
 
 .container {
   margin: 40px;
-  width: $main_width;
+  width: var(--main_width);
   background-color: #ccc;
 }
 
