@@ -22,7 +22,7 @@ $main_width: 800px;
 
 @for $x from 1 to 12 {
   .b-grid__cell_$(x)-of-12 {
-    lost-column: $(x)/12
+    lost-column: $(x)/12;
   }
 }
 
