@@ -68,6 +68,7 @@
     "postcss-calc": "^5.3.1",
     "postcss-custom-properties": "^5.0.1",
     "postcss-loader": "^1.1.0",
+    "postcss-nesting": "^2.3.1",
     "postcss-reporter": "^1.4.1",
     "postcss-smart-import": "^0.6.0",
     "promise": "^7.1.1",

@@ -1,4 +1,4 @@
 @import 'vars.css';
-@import 'grid.css';
+@import 'grid.pcss';
 @import 'blocks/header.css';
 @import 'blocks/menu.css';
