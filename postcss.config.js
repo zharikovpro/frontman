@@ -4,6 +4,7 @@ module.exports = {
     stylelint: {},
     'postcss-reporter': { clearMessages: true },
     'postcss-custom-properties': {},
+    'postcss-calc': {},
     autoprefixer: {},
     lost: {},
   },

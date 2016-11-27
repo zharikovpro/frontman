@@ -7,7 +7,7 @@
 
 .container {
   margin: 40px;
-  width: var(--main_width);
+  width: calc(var(--main_width) / 2);
   background-color: #ccc;
 }
 
