@@ -1,5 +1,5 @@
 .container {
-  margin: 40px;
+  1margin: 40px;
   width: calc(var(--main_width) / 2);
   background-color: #ccc;
 }

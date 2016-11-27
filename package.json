@@ -11,7 +11,7 @@
     "build": "NODE_ENV=production node index.js",
     "start": "node index.js",
     "lint:js": "eslint *.js test src/js",
-    "lint:css": "node stylelint.js",
+    "lint:css": "stylelint \"src/css/**/*.css\"",
     "lint": "npm run lint:js && npm run lint:css",
     "test": "mocha --compilers js:babel-register",
     "coverage": "istanbul cover _mocha -- --compilers js:babel-register",
@@ -73,7 +73,7 @@
     "promise": "^7.1.1",
     "raw-loader": "^0.5.1",
     "style-loader": "^0.13.1",
-    "stylelint": "^7.5.0",
+    "stylelint": "^7.6.0",
     "stylelint-config-standard": "^14.0.0",
     "wave-pathfinder": "^0.1.0",
     "webpack": "^1.13.1"
