@@ -34,7 +34,7 @@ const config = {
       exclude: [`${__dirname}/node_modules`],
       loader: 'babel!eslint',
     }, {
-      test: /\.css$/,
+      test: /\.pcss$/,
       include: [`${__dirname}/src/css`],
       loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss'),
     }, {
