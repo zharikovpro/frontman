@@ -15,7 +15,7 @@
     "lint": "npm run lint:js && npm run lint:css",
     "test": "mocha --compilers js:babel-register",
     "coverage": "istanbul cover _mocha -- --compilers js:babel-register",
-    "validate": "html5validator --root build/ --ignore '\"href\" not allowed on element \"span\"'",
+    "validate": "html5validator --root build/",
     "verify": "npm run lint && npm run test && npm run coverage && npm run validate",
     "clean": "rm -rf build coverage"
   },
@@ -59,7 +59,7 @@
     "metalsmith-layouts": "^1.6.5",
     "metalsmith-markdown": "^0.2.1",
     "metalsmith-permalinks": "^0.5.0",
-    "metalsmith-prefixoid": "^1.0.2",
+    "metalsmith-prefixoid": "^1.0.3",
     "minimatch": "^3.0.3",
     "mocha": "^2.2.5",
     "mocha-loader": "^0.7.1",
