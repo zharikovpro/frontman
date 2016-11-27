@@ -8,7 +8,5 @@ engines:
         javascript:
   eslint:
     enabled: true
-  nodesecurity:
-    enabled: true
   csslint:
     enabled: false
