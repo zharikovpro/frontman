@@ -36,7 +36,7 @@ const config = {
     }, {
       test: /\.css$/,
       include: [`${__dirname}/src/css`],
-      loader: ExtractTextPlugin.extract('style', 'css!postcss'),
+      loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss'),
     }, {
       test: /\.(jpg|png|svg|gif)$/,
       loader: 'file?name=./media/images/[name].[ext]',
