@@ -10,6 +10,8 @@ Install:
 
 `npm install`
 
+Optionally [install html5validator](https://github.com/svenkreiss/html5validator#install) to use `npm run validate`
+
 Setup:
 ------
 
@@ -44,7 +46,16 @@ Build:
 Validate:
 ---------
 
+Will only work with [installed html5validator](https://github.com/svenkreiss/html5validator#install)
+
 `npm run validate`
+
+Verify:
+-------
+
+Run all lint, test, build and validation tasks in order to check there's no errors.
+
+`npm run verify`
 
 Deploy:
 -------
