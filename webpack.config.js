@@ -15,7 +15,7 @@ const config = {
   output: {
     path: path.join(__dirname, 'build/'),
     publicPath: '/',
-    filename: NODE_ENV === 'development' ? '[name].js' : '[name]-[hash].js',
+    filename: (NODE_ENV === 'development') ? '[name].js' : '[name]-[hash].js',
   },
 
   devtool: (NODE_ENV === 'development') ? 'inline-source-map' : null,
